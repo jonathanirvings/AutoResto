@@ -112,11 +112,5 @@
             </div>
             <!-- Main -->
     </div>
-
-	<?php
-        $eventhandler = new EventHandler();
-        $resto = $eventhandler->getListOfRestaurants();
-        // print_r($resto);
-    ?>
 </body>
 </html>
