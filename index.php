@@ -76,17 +76,19 @@
                             <form name="table">
                                 <table>
                                     <tr>
-                                        <th> Name </th>
+                                        <th><a href="?order_by=name"> Name </a></th>
                                         <th> Address </th>
                                         <th> Contact No. </th>
-                                        <th> Cuisine </th>
+                                        <th><a href="?order_by=cuisine"> Cuisine </a></th>
                                         <th> 1 Seater </th>
                                         <th> 2 Seater </th>
                                         <th> 4 Seater </th>
-                                        <th> OPEN </th>
+                                        <th><a href="?order_by=status"> Status </a></th>
+                                        <th> Option </th>
                                     </tr>
                                     <?php
-                                    foreach ($rows as $row){
+                                    for ($i = 0; $i < sizeof($rows); ++$i){
+                                        $row = $rows[$i];
                                     ?>
                                         <tr>
                                             <td> <?= $row[0] ?> </td>
@@ -96,7 +98,8 @@
                                             <td> <?= $row[4] ?> </td>
                                             <td> <?= $row[5] ?> </td>
                                             <td> <?= $row[6] ?> </td>
-                                            <td> <?= $row[7] ?> </td>
+                                            <td> <?= $row[7]?"Open":"Closed" ?> </td>
+                                            <td> <a href="booking_new.php?resto_id=<?php echo $i?>">Book</a></td>
                                         </tr>
                                     <?php
                                     }
