@@ -32,7 +32,7 @@
                             }
                             $values = $values.$value;
                         }
-			$query = "INSERT INTO ".$this->tableName." (".$keys.") VALUES (".$values.")";
+			$query = "INSERT INTO ".$this->tableName." (".$keys.") VALUES (\"".$values."\")";
 			$this->dbHandler->doQuery($query);
 		}
                 
@@ -45,7 +45,7 @@
                         {
                             $conditionCommand = $conditionCommand." AND ";
                         }
-                        $conditionCommand = $conditionCommand.$key." = ".$value;
+                        $conditionCommand = $conditionCommand.$key." = \"".$value."\"";
                     }
                     return $conditionCommand;
                 }
@@ -62,7 +62,7 @@
                     $conditionCommand = commandiseCondition($conditions);
                     foreach ($update as $keyUpdate => $valueUpdate)
                     {
-                        $query = "UPDATE ".$this->tableName." SET ".$keyUpdate." = ".$valueUpdate;
+                        $query = "UPDATE ".$this->tableName." SET ".$keyUpdate." = \"".$valueUpdate."\"";
                         if ($conditionCommand != "")
                         {
                             $query = $query." WHERE ".$conditionCommand;
@@ -96,7 +96,7 @@
                 public function get($conditions)
 		{
                     $conditionCommand = commandiseCondition($conditions);
-                    $query = "SELECT * FROM ".$this->tableName." WHERE ".$key." = ".$value;
+                    $query = "SELECT * FROM ".$this->tableName;
                     if ($conditionCommand != "")
                     {
                         $query = $query.$conditionCommand;
