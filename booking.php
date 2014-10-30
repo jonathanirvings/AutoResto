@@ -2,28 +2,64 @@
 Class Booking
 	{
             private static $dbOperation;
+            private static $dbOperationResto;
         
             public function Booking()
             {
                 self::$dbOperation = new DBOperation("booking");
+                self::$dbOperationResto = new DBOperation("restaurant");
             }
             
             
-            // pre-condition : 
-            //     accessible/available information on Booking Table
-            // process :
-            //     checks all the necessary conditions (e.g. check whether the restaurant is full)
-            //     and decides on the appropriate table/n-seater to allocate
-            // post-cond :
-            //     Restaurant is booked successfully, and stored in the table
-            // param:
-            //     $cust_nric = customer's NRIC (primary key)
-            //     $resto_contact = restaurant's contact number (primary key)
-            //     $date = the date of booking
-            //     $session = meal session, lunch or dinner
-            //     $no_of_pax = number of pax
+            /**
+             * Book Restaurant 
+             * 
+             * Pre-condition:
+             *      $dbOperation has information on booking table
+             *      $dpOperationResto has informatin on restaurant table
+             * Steps:
+             *      checks all the necessary conditions (e.g. check whether the restaurant is full)
+             *      and decides on the appropriate table/n-seater to allocate
+             * 
+             * @param type $cust_nric - customer's NRIC (primary key)
+             * @param type $resto_contact - restaurant's contact number (primary key)
+             * @param type $date - the date of booking
+             * @param type $session = meal session, lunch or dinner
+             * @param type $no_of_pax = number of pax
+             * 
+             * Post-condition:
+             *      if restaurant is booked succesfully, store information in booking table
+             *      else return error message string.
+             */
             public function book($cust_nric,$resto_contact,$date,$session,$no_of_pax)
             {
+                //assuming all table 1,2,and 4 seaters are mobile and can be moved around conveniently 
+                
+                //counts the number of seats taken
+                $condition1 = [];
+                $condition1["restaurant"] = $resto_contact;
+                $condition1["date"] = $date;
+                $condition1["session"] = $session;
+                
+                $rows = self::$dbOperation->get($condition1);
+                $totalSeatTaken = 0;
+                for ($i = 0; $i < sizeof($rows); ++$i){
+                    $row = $rows[$i];
+                    $totalSeatTaken = $row[4] + (2*$row[5]) + (4*$row[6]);
+                }
+                
+                //counts the number of seat capacity
+                $condition2 = [];
+                $condition2["contact_no"] = $resto_contact;
+                $rows2 = self::$dbOperationResto->get($condition2);
+                $row2 = $rows2[0];
+                $totalSeatCapacity = $row2[4] + (2*$row2[5]) + (4*$row2[6]);
+                
+                //checks whether there are enough seats for booking
+                if($totalSeatTaken + $no_of_pax > $totalSeatCapacity){
+                    return "ERROR! Restaurant is fully booked!";
+                }
+                
                 $arrQuery = [];
                 $arrQuery["booker"] = $cust_nric;
                 $arrQuery["restaurant"] = $resto_contact;
