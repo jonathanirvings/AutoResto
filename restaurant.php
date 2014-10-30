@@ -10,12 +10,12 @@
 
         public function Restaurant()
         {
-            self::$dbOperation = new DBOperation("restaurant","");
+            self::$dbOperation = new DBOperation("restaurant");
         }
         
         public function add()
         {
-            array_push(self::$listOfRestaurants,$this);
+            
         }
         
 
