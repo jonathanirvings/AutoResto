@@ -12,14 +12,43 @@
 
                 /**
                  * Insert a row into the table
-                 * @param type $values - the row that want to be inserted
+                 * @param type $toInsert - the row that want to be inserted
                  *          for every $values[a] = b, the inserted row R will have R.a = b
                  */
-		public function insertData($values)
+		public function insertData($toInsert)
 		{
-			$query = "INSERT INTO ".$this->tableName." VALUES ";
+                        $keys = "";
+                        $values = "";
+                        foreach ($toInsert as $key => $value)
+                        {
+                            if ($keys != "")
+                            {
+                                $keys = $keys.",";
+                            }
+                            $keys = $keys.$key;
+                            if ($values != "")
+                            {
+                                $values = $values.",";
+                            }
+                            $values = $values.$value;
+                        }
+			$query = "INSERT INTO ".$this->tableName." (".$keys.") VALUES (".$values.")";
 			$this->dbHandler->doQuery($query);
 		}
+                
+                private function commandiseCondition($condition)
+                {
+                    $conditionCommand = "";
+                    foreach ($condition as $key => $value)
+                    {
+                        if ($conditionCommand != "")
+                        {
+                            $conditionCommand = $conditionCommand." AND ";
+                        }
+                        $conditionCommand = $conditionCommand.$key." = ".$value;
+                    }
+                    return $conditionCommand;
+                }
 
                 /**
                  * Update a row (or maybe multiple rows) in the table
@@ -30,7 +59,16 @@
                  */
 		public function updateData($conditions,$update)
 		{
-			//$query =
+                    $conditionCommand = commandiseCondition($conditions);
+                    foreach ($update as $keyUpdate => $valueUpdate)
+                    {
+                        $query = "UPDATE ".$this->tableName." SET ".$keyUpdate." = ".$valueUpdate;
+                        if ($conditionCommand != "")
+                        {
+                            $query = $query." WHERE ".$conditionCommand;
+                        }
+                    }
+                    $this->dbHandler->doQuery($query);
 		}
 
                 /**
@@ -40,7 +78,13 @@
                  */
 		public function deleteData($conditions)
 		{
-			//$query = 
+                    $conditionCommand = commandiseCondition($conditions);
+                    $query = "DELETE FROM ".$this->tableName;
+                    if ($conditionCommand != "")
+                    {
+                        $query = $query." WHERE ".$conditionCommand;
+                    }
+                    $this->dbHandler->doQuery($query);
 		}
                 
                 /**
@@ -51,8 +95,13 @@
                  */
                 public function get($conditions)
 		{
-			$query = "SELECT * FROM ".$this->tableName." WHERE ".$key." = ".$value;
-			return $this->dbHandler->getQuery($query);
+                    $conditionCommand = commandiseCondition($conditions);
+                    $query = "SELECT * FROM ".$this->tableName." WHERE ".$key." = ".$value;
+                    if ($conditionCommand != "")
+                    {
+                        $query = $query.$conditionCommand;
+                    }
+                    return $this->dbHandler->getQuery($query);
 		}
                 
                 /**
