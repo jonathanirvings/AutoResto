@@ -25,23 +25,23 @@ Class Booking
             public function book($cust_nric,$resto_contact,$date,$session,$no_of_pax)
             {
                 $arrQuery = [];
-                $arrQuery[0] = $cust_nric;
-                $arrQuery[1] = $resto_contact;
-                $arrQuery[2] = $date;
-                $arrQuery[3] = $session;
-                $arrQuery[4] = 0;
-                $arrQuery[5] = 0;
-                $arrQuery[6] = 0;
+                $arrQuery["booker"] = $cust_nric;
+                $arrQuery["restaurant"] = $resto_contact;
+                $arrQuery["date"] = $date;
+                $arrQuery["session"] = $session;
+                $arrQuery["booked1seaters"] = 0;
+                $arrQuery["booked2seaters"] = 0;
+                $arrQuery["booked4seaters"] = 0;
                 while ($no_of_pax >= 2) {
                     if ($no_of_pax >= 4) {
-                        $arrQuery[6] = $no_of_pax / 4;
+                        $arrQuery["booked4seaters"] = $no_of_pax / 4;
                         $no_of_pax = $no_of_pax / 4;
                     } elseif ($no_of_pax >= 2) {
-                        $arrQuery[5] = $no_of_pax / 2;
+                        $arrQuery["booked2seaters"] = $no_of_pax / 2;
                         $no_of_pax = $no_of_pax / 2;
                     }
                 }
-                $arrQuery[4] = $no_of_pax;
+                $arrQuery["booked1seaters"] = $no_of_pax;
                 
                 self::$dbOperation->insertData($arrQuery);
             }
