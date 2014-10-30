@@ -45,7 +45,7 @@ Class Booking
                 $totalSeatTaken = 0;
                 for ($i = 0; $i < sizeof($rows); ++$i){
                     $row = $rows[$i];
-                    $totalSeatTaken = $row[4] + (2*$row[5]) + (4*$row[6]);
+                    $totalSeatTaken = $row["booked1seaters"] + (2*$row["booked2seaters"]) + (4*$row["booked4seaters"]);
                 }
                 
                 //counts the number of seat capacity
@@ -53,7 +53,7 @@ Class Booking
                 $condition2["contact_no"] = $resto_contact;
                 $rows2 = self::$dbOperationResto->get($condition2);
                 $row2 = $rows2[0];
-                $totalSeatCapacity = $row2[4] + (2*$row2[5]) + (4*$row2[6]);
+                $totalSeatCapacity = $row2["total1seaters"] + (2*$row2["total2seaters"]) + (4*$row2["total4seaters"]);
                 
                 //checks whether there are enough seats for booking
                 if($totalSeatTaken + $no_of_pax > $totalSeatCapacity){
