@@ -36,7 +36,7 @@
                 
             <!-- Logo -->
             <div id="logo">
-                <h1><a href="#">Ex Machina</a></h1>
+                <h1><a href="#">AutoResto</a></h1>
             </div>
             
             <!-- Nav -->
