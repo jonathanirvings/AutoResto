@@ -57,7 +57,7 @@ Class Booking
                 
                 //checks whether there are enough seats for booking
                 if($totalSeatTaken + $no_of_pax > $totalSeatCapacity){
-                    return "ERROR! Restaurant is fully booked!";
+                    return "ERROR! Only ".$totalSeatCapacity-$totalSeatTaken." seats left!";
                 }
                 
                 $arrQuery = [];
@@ -80,6 +80,7 @@ Class Booking
                 $arrQuery["booked1seaters"] = $no_of_pax;
                 
                 self::$dbOperation->insertData($arrQuery);
+                return "Booking successful!";
             }
 	};
 ?>
