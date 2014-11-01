@@ -68,7 +68,36 @@
                             <header>
                                 <h2>Restaurant Name</h2>
                             </header>
-                            <a href="#" class="button">Book</a>
+                            <?php
+                            if (isset($_POST['pax'])){
+                                $numberOfPax = $_POST['pax'];
+                            } else {
+                                $numberOfPax = 0;
+                            }
+
+                            if (isset($_POST['time'])){
+                                $time = $_POST['time'];
+                            } else {
+                                $time = "1";
+                            }
+                            ?>
+                            <form method="post" action="">
+                                Time <select name="time" id="time">
+                                <?php
+                                    $states = array(
+                                                '1'=>"Lunch",
+                                                '2'=>"Dinner"
+                                                );
+                                    foreach($states as $key=>$val) {
+                                        echo ($key == $time)
+                                                ? "<option selected=\"selected\" value=\"$key\">$val</option>"
+                                                :"<option value=\"$key\">$val</option>";
+                                    }
+                                ?>
+                                </select>
+                                No of pax. <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
+                                <input type="submit" name="book" id="book" class="button"/>
+                            </form>
                         </section>
                     </div>
                 </div>
