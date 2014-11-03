@@ -38,14 +38,11 @@
         $restaurant = new Restaurant();
         $restaurantDetails = Restaurant::getRestaurantDetails($_GET['contact_no']);
         
-        function bookTable() {
+        function bookTable($details) {
             $eventHandler = new EventHandler();
-            global $restaurantDetails;
-            global $date;
-            global $numberOfPax;
-            global $time;
-            
-            $eventHandler->book("G0325435L",$restaurantDetails['contact_no'],$date,$time,$numberOfPax);
+
+            $details['ic_no'] = "G0325435L";
+            $eventHandler->book($details, $details['pax']);
             ?>
             <script>
                 alert("Booking successful");
@@ -99,10 +96,10 @@
                                 $date = date('Y-m-d', strtotime("today"));
                             }
 
-                            if (isset($_POST['time'])){
-                                $time = $_POST['time'];
+                            if (isset($_POST['session'])){
+                                $time = $_POST['session'];
                             } else {
-                                $time = "1";
+                                $time = "lunch";
                             }
 
                             if (isset($_POST['pax'])){
@@ -112,7 +109,7 @@
                             }
                             
                             if (isset($_POST['date'])){
-                                bookTable();
+                                bookTable(array_merge($_POST, $restaurantDetails));
                             }
                             ?>
                             <div id="bookingoptions" class="container">
@@ -122,11 +119,11 @@
                                         echo "<input type=\"date\" id=\"datepicker\" name=\"date\" size=\"10\" value=\"$date\"/>";
                                     ?>
 
-                                    Time <select name="time" id="time">
+                                    Time <select name="session" id="session">
                                     <?php
                                         $states = array(
-                                                    '1'=>"Lunch",
-                                                    '2'=>"Dinner"
+                                                    'lunch'=>"Lunch",
+                                                    'dinner'=>"Dinner"
                                                     );
                                         foreach($states as $key=>$val) {
                                             echo ($key == $time)
