@@ -91,9 +91,11 @@
                  * Get rows. 
                  * @param type $conditions - conditions of the row that want to be achieved
                  *        for every $conditions[a] = b, a row R that want to be achieved must have R.a == b
+                 * @param type $sortBy - sort based on this column
+                 *       
                  * @return type. Array of rows that fullfilled the conditions
                  */
-                public function get($conditions)
+                public function get($conditions,$sortBy)
 		{
                     $conditionCommand = $this->commandiseCondition($conditions);
                     $query = "SELECT * FROM ".$this->tableName;
@@ -101,8 +103,14 @@
                     {
                         $query = $query." WHERE ".$conditionCommand;
                     }
+                    if ($sortBy != "")
+                    {
+                        $query = $query." ORDER BY ".$sortBy;
+                    }
                     return $this->dbHandler->getQuery($query);
 		}
+                
+               
                 
                 /**
                  * Get all rows. Can be done by calling get(empty array) actually. 

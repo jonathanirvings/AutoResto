@@ -100,6 +100,20 @@
                                             <input name="address" id="address" type="text" size="50" value="<?php echo $restaurant['address'] ?>"/>
                                             <h3>Contact Number</h3>
                                             <input name="contact_no" id="contact_no" type="text" size="50" value="<?php echo $restaurant['contact_no'] ?>"/>
+                                            <h3>Status</h3>
+                                            <select name="time" id="time">
+                                                <?php
+                                                    $states = array(
+                                                                '0'=>"Open",
+                                                                '1'=>"Closed"
+                                                                );
+                                                    foreach($states as $key=>$val) {
+                                                        echo ($key == $restaurant['open'])
+                                                                ? "<option selected=\"selected\" value=\"$key\">$val</option>"
+                                                                :"<option value=\"$key\">$val</option>";
+                                                    }
+                                                ?>
+                                            </select>
                                             <br><br>
                                             <h3><b>Seat Details</b><h3>
                                             <h3>Total 1 Seaters</h3>

@@ -71,7 +71,13 @@
                             
                             <?php
                                 $eventHandler = new EventHandler();
-                                $rows = $eventHandler->getListOfRestaurants();
+                                if(isset($_GET["order_by"])){
+                                   $orderBy = $_GET["order_by"];
+                                }
+                                else{
+                                   $orderBy = "";
+                                }
+                                $rows = $eventHandler->getListOfRestaurants($orderBy);
                             ?>
                             <form name="table">
                                 <table>
