@@ -41,7 +41,7 @@ Class Booking
                 $condition1["date"] = $date;
                 $condition1["session"] = $session;
                 
-                $rows = self::$dbOperation->get($condition1);
+                $rows = self::$dbOperation->get($condition1,"");
                 $totalSeatTaken = 0;
                 for ($i = 0; $i < sizeof($rows); ++$i){
                     $row = $rows[$i];
@@ -51,7 +51,7 @@ Class Booking
                 //counts the number of seat capacity
                 $condition2 = [];
                 $condition2["contact_no"] = $resto_contact;
-                $rows2 = self::$dbOperationResto->get($condition2);
+                $rows2 = self::$dbOperationResto->get($condition2,"");
                 $row2 = $rows2[0];
                 $totalSeatCapacity = $row2["total1seaters"] + (2*$row2["total2seaters"]) + (4*$row2["total4seaters"]);
                 
