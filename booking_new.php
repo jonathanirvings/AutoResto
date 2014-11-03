@@ -117,7 +117,7 @@
 
                                     </select>
                                     No of pax. <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
-                                    <input type="submit" name="book" id="book" class="button"/>
+                                    <input type="submit" name="book" id="book" class="button" value="Book"/>
                                 </form>
                             </div>
                             <div id="restaurantdetails" class="container">
