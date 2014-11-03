@@ -35,7 +35,8 @@
 
 <body class="homepage">
     <?php
-
+        $restaurant = new Restaurant();
+        $restaurantDetails = Restaurant::getRestaurantDetails($_GET['contact_no']);
     ?>
     <!-- Header -->
     <div id="header">
@@ -73,7 +74,7 @@
                     <div class="15u">
                         <section>
                             <header>
-                                <h2>Restaurant Name</h2>
+                                <h2><?php echo $restaurantDetails['restaurant_name']?></h2>
                             </header>
                             <?php
                             if (isset($_POST['date'])){
@@ -94,29 +95,51 @@
                                 $numberOfPax = 0;
                             }
                             ?>
-                            <form method="post" action="">
-                                Date
-                                <?php
-                                    echo "<input type=\"date\" id=\"datepicker\" name=\"date\" size=\"10\" value=\"$date\"/>";
-                                ?>
+                            <div id="bookingoptions" class="container">
+                                <form method="post" action="">
+                                    Date
+                                    <?php
+                                        echo "<input type=\"date\" id=\"datepicker\" name=\"date\" size=\"10\" value=\"$date\"/>";
+                                    ?>
 
-                                Time <select name="time" id="time">
-                                <?php
-                                    $states = array(
-                                                '1'=>"Lunch",
-                                                '2'=>"Dinner"
-                                                );
-                                    foreach($states as $key=>$val) {
-                                        echo ($key == $time)
-                                                ? "<option selected=\"selected\" value=\"$key\">$val</option>"
-                                                :"<option value=\"$key\">$val</option>";
-                                    }
-                                ?>
+                                    Time <select name="time" id="time">
+                                    <?php
+                                        $states = array(
+                                                    '1'=>"Lunch",
+                                                    '2'=>"Dinner"
+                                                    );
+                                        foreach($states as $key=>$val) {
+                                            echo ($key == $time)
+                                                    ? "<option selected=\"selected\" value=\"$key\">$val</option>"
+                                                    :"<option value=\"$key\">$val</option>";
+                                        }
+                                    ?>
 
-                                </select>
-                                No of pax. <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
-                                <input type="submit" name="book" id="book" class="button"/>
-                            </form>
+                                    </select>
+                                    No of pax. <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
+                                    <input type="submit" name="book" id="book" class="button"/>
+                                </form>
+                            </div>
+                            <div id="restaurantdetails" class="container">
+                                <div class="6u">
+                                    <ul>
+                                        <h3>Cuisine</h3>
+                                        <p>
+                                            <?php echo $restaurantDetails['cuisine']?>
+                                        </p>
+
+                                        <h3>Address</h3>
+                                        <p class="subtitle">
+                                            <?php echo $restaurantDetails['address']?>
+                                        </p>
+
+                                        <h3>Contact Number</h3>
+                                        <p>
+                                            <?php echo $restaurantDetails['contact_no']?>
+                                        </p>
+                                    </ul>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>
