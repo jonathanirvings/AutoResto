@@ -87,22 +87,26 @@
                                         <th> Option </th>
                                     </tr>
                                     <?php
-                                    for ($i = 0; $i < sizeof($rows); ++$i){
-                                        $row = $rows[$i];
-                                    ?>
-                                        <tr>
-                                            <td> <?= $row['restaurant_name'] ?> </td>
-                                            <td> <?= $row['address'] ?> </td>
-                                            <td> <?= $row['contact_no'] ?> </td>
-                                            <td> <?= $row['cuisine'] ?> </td>
-                                            <td> <?= $row['total1seaters'] ?> </td>
-                                            <td> <?= $row['total2seaters'] ?> </td>
-                                            <td> <?= $row['total4seaters'] ?> </td>
-                                            <td> <?= $row['open']?"Open":"Closed" ?> </td>
-                                            <td> <a href="booking_new.php?contact_no=<?php echo $row['contact_no']?>">Book</a></td>
-                                        </tr>
-                                    <?php
-                                    }
+                                        if (sizeof($rows) > 0){
+                                            for ($i = 0; $i < sizeof($rows); ++$i){
+                                                $row = $rows[$i];
+                                            ?>
+                                                <tr>
+                                                    <td> <?= $row['restaurant_name'] ?> </td>
+                                                    <td> <?= $row['address'] ?> </td>
+                                                    <td> <?= $row['contact_no'] ?> </td>
+                                                    <td> <?= $row['cuisine'] ?> </td>
+                                                    <td> <?= $row['total1seaters'] ?> </td>
+                                                    <td> <?= $row['total2seaters'] ?> </td>
+                                                    <td> <?= $row['total4seaters'] ?> </td>
+                                                    <td> <?= $row['open']?"Open":"Closed" ?> </td>
+                                                    <td> <a href="booking_new.php?contact_no=<?php echo $row['contact_no']?>">Book</a></td>
+                                                </tr>
+                                            <?php
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='5'>There are no bookings to display.</td></tr>";
+                                        }
                                     ?>
                                 </table>
                             </form>
