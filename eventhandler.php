@@ -28,9 +28,9 @@
             }
         }
         
-        public function book($cust_nric,$resto_contact,$date,$session,$no_of_pax)
+        public function book($array, $pax)
         {
-            $this->booking->book($cust_nric,$resto_contact,$date,$session,$no_of_pax);
+            $this->booking->book($array,$pax);
         }
     };
 ?>
