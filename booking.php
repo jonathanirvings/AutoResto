@@ -31,15 +31,15 @@ Class Booking
              *      if restaurant is booked succesfully, store information in booking table
              *      else return error message string.
              */
-            public function book($cust_nric,$resto_contact,$date,$session,$no_of_pax)
+            public function book($arrQuery,$no_of_pax)
             {
                 //assuming all table 1,2,and 4 seaters are mobile and can be moved around conveniently 
                 
                 //counts the number of seats taken
                 $condition1 = [];
-                $condition1["restaurant"] = $resto_contact;
-                $condition1["date"] = $date;
-                $condition1["session"] = $session;
+                $condition1["restaurant"] = $arrQuery["restaurant"];
+                $condition1["date"] = $arrQuery["date"];
+                $condition1["session"] = $arrQuery["session"];
                 
                 $rows = self::$dbOperation->get($condition1,"");
                 $totalSeatTaken = 0;
@@ -50,7 +50,7 @@ Class Booking
                 
                 //counts the number of seat capacity
                 $condition2 = [];
-                $condition2["contact_no"] = $resto_contact;
+                $condition2["contact_no"] = $arrQuery["contact_no"];
                 $rows2 = self::$dbOperationResto->get($condition2,"");
                 $row2 = $rows2[0];
                 $totalSeatCapacity = $row2["total1seaters"] + (2*$row2["total2seaters"]) + (4*$row2["total4seaters"]);
@@ -59,15 +59,7 @@ Class Booking
                 if($totalSeatTaken + $no_of_pax > $totalSeatCapacity){
                     return "ERROR! Only ".$totalSeatCapacity-$totalSeatTaken." seats left!";
                 }
-                
-                $arrQuery = [];
-                $arrQuery["booker"] = $cust_nric;
-                $arrQuery["restaurant"] = $resto_contact;
-                $arrQuery["date"] = $date;
-                $arrQuery["session"] = $session;
-                $arrQuery["booked1seaters"] = 0;
-                $arrQuery["booked2seaters"] = 0;
-                $arrQuery["booked4seaters"] = 0;
+             
                 while ($no_of_pax >= 2) {
                     if ($no_of_pax >= 4) {
                         $arrQuery["booked4seaters"] = $no_of_pax / 4;
