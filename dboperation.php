@@ -30,9 +30,9 @@
                             {
                                 $values = $values.",";
                             }
-                            $values = $values.$value;
+                            $values = $values."\"".$value."\"";
                         }
-			$query = "INSERT INTO ".$this->tableName." (".$keys.") VALUES (\"".$values."\")";
+			$query = "INSERT INTO ".$this->tableName." (".$keys.") VALUES (".$values.")";
 			$this->dbHandler->doQuery($query);
 		}
                 

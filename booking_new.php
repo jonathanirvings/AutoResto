@@ -37,6 +37,21 @@
     <?php
         $restaurant = new Restaurant();
         $restaurantDetails = Restaurant::getRestaurantDetails($_GET['contact_no']);
+        
+        function bookTable() {
+            $eventHandler = new EventHandler();
+            global $restaurantDetails;
+            global $date;
+            global $numberOfPax;
+            global $time;
+            
+            $eventHandler->book("G0325435L",$restaurantDetails['contact_no'],$date,$time,$numberOfPax);
+            ?>
+            <script>
+                alert("Booking successful");
+            </script>
+            <?php
+        }
     ?>
     <!-- Header -->
     <div id="header">
@@ -77,6 +92,7 @@
                                 <h2><?php echo $restaurantDetails['restaurant_name']?></h2>
                             </header>
                             <?php
+                            
                             if (isset($_POST['date'])){
                                 $date = $_POST['date'];
                             } else {
@@ -93,6 +109,10 @@
                                 $numberOfPax = $_POST['pax'];
                             } else {
                                 $numberOfPax = 0;
+                            }
+                            
+                            if (isset($_POST['date'])){
+                                bookTable();
                             }
                             ?>
                             <div id="bookingoptions" class="container">

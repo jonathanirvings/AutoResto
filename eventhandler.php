@@ -19,8 +19,13 @@
         
         public function getListOfRestaurantsSorted($sortedKey)
         {
-            $list =  Restaurant::listOfRestaurants();
+            $list = Restaurant::listOfRestaurants();
             //sort disini
+        }
+        
+        public function book($cust_nric,$resto_contact,$date,$session,$no_of_pax)
+        {
+            $this->booking->book($cust_nric,$resto_contact,$date,$session,$no_of_pax);
         }
     };
 ?>
