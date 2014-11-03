@@ -82,14 +82,14 @@
                             <form name="table">
                                 <table>
                                     <tr>
-                                        <th><a href="?order_by=name"> Name </a></th>
+                                        <th><a href="?order_by=restaurant_name"> Name </a></th>
                                         <th> Address </th>
                                         <th> Contact No. </th>
                                         <th><a href="?order_by=cuisine"> Cuisine </a></th>
                                         <th> 1 Seater </th>
                                         <th> 2 Seater </th>
                                         <th> 4 Seater </th>
-                                        <th><a href="?order_by=status"> Status </a></th>
+                                        <th><a href="?order_by=open"> Status </a></th>
                                         <th> Option </th>
                                     </tr>
                                     <?php
