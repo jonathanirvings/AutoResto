@@ -24,15 +24,6 @@
                 return Restaurant::listOfRestaurants();
             }
             else{
-                if($sortedKey == "name"){
-                    $sortedKey = "restaurant_name";
-                }
-                else if($sortedKey == "cuisine"){
-                    $sortedKey = "cuisine";
-                }
-                else if ($sortedKey == "status"){
-                    $sortedKey = "open";
-                }
                 return Restaurant::listOfRestaurantsSorted($sortedKey);
             }
         }
