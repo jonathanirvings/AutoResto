@@ -38,11 +38,12 @@
         $restaurant = new Restaurant();
         $restaurantDetails = Restaurant::getRestaurantDetails($_GET['contact_no']);
         
-        function bookTable($details) {
+        function bookTable($bookingDetails, $restaurant_contact_no) {
             $eventHandler = new EventHandler();
-
-            $details['ic_no'] = "G0325435L";
-            $eventHandler->book($details, $details['pax']);
+            
+            $bookingDetails['restaurant_contact_no'] = $restaurant_contact_no;
+            $bookingDetails['ic_no'] = "G0325435L";
+            $eventHandler->book($bookingDetails, $bookingDetails['pax']);
             ?>
             <script>
                 alert("Booking successful");
@@ -109,7 +110,7 @@
                             }
                             
                             if (isset($_POST['date'])){
-                                bookTable(array_merge($_POST, $restaurantDetails));
+                                bookTable($_POST, $restaurantDetails['contact_no']);
                             }
                             ?>
                             <div id="bookingoptions" class="container">

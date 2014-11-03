@@ -37,7 +37,7 @@ Class Booking
                 
                 //counts the number of seats taken
                 $condition1 = [];
-                $condition1["restaurant_contact_no"] = $arrQuery["contact_no"];
+                $condition1["restaurant_contact_no"] = $arrQuery["restaurant_contact_no"];
                 $condition1["date"] = $arrQuery["date"];
                 $condition1["session"] = $arrQuery["session"];
                 
@@ -50,7 +50,7 @@ Class Booking
                 
                 //counts the number of seat capacity
                 $condition2 = [];
-                $condition2["contact_no"] = $arrQuery["contact_no"];
+                $condition2["contact_no"] = $arrQuery["restaurant_contact_no"];
                 $rows2 = self::$dbOperationResto->get($condition2,"");
                 $row2 = $rows2[0];
                 $totalSeatCapacity = $row2["total1seaters"] + (2*$row2["total2seaters"]) + (4*$row2["total4seaters"]);
