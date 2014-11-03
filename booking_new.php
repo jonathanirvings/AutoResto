@@ -43,7 +43,12 @@
             
             $bookingDetails['restaurant_contact_no'] = $restaurant_contact_no;
             $bookingDetails['booker_ic_no'] = "G0325435L";
-            $eventHandler->book($bookingDetails, $bookingDetails['pax']);
+            
+            $no_of_pax = $bookingDetails['pax'];
+            unset($bookingDetails['pax']);
+            unset($bookingDetails['book']);
+            
+            $eventHandler->book($bookingDetails, $no_of_pax);
             ?>
             <script>
                 alert("Booking successful");
