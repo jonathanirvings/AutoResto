@@ -91,15 +91,15 @@
                                         $row = $rows[$i];
                                     ?>
                                         <tr>
-                                            <td> <?= $row[0] ?> </td>
-                                            <td> <?= $row[1] ?> </td>
-                                            <td> <?= $row[2] ?> </td>
-                                            <td> <?= $row[3] ?> </td>
-                                            <td> <?= $row[4] ?> </td>
-                                            <td> <?= $row[5] ?> </td>
-                                            <td> <?= $row[6] ?> </td>
-                                            <td> <?= $row[7]?"Open":"Closed" ?> </td>
-                                            <td> <a href="booking_new.php?resto_id=<?php echo $i?>">Book</a></td>
+                                            <td> <?= $row['restaurant_name'] ?> </td>
+                                            <td> <?= $row['address'] ?> </td>
+                                            <td> <?= $row['contact_no'] ?> </td>
+                                            <td> <?= $row['cuisine'] ?> </td>
+                                            <td> <?= $row['total1seaters'] ?> </td>
+                                            <td> <?= $row['total2seaters'] ?> </td>
+                                            <td> <?= $row['total4seaters'] ?> </td>
+                                            <td> <?= $row['open']?"Open":"Closed" ?> </td>
+                                            <td> <a href="booking_new.php?contact_no=<?php echo $row['contact_no']?>">Book</a></td>
                                         </tr>
                                     <?php
                                     }
