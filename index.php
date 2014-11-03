@@ -71,14 +71,28 @@
                             
                             <?php
                                 $eventHandler = new EventHandler();
+
                                 if(isset($_GET["order_by"])){
-                                   $orderBy = $_GET["order_by"];
+                                   $order_by = $_GET["order_by"];
                                 }
                                 else{
-                                   $orderBy = "";
+                                   $order_by = "";
                                 }
-                                $rows = $eventHandler->getListOfRestaurants($orderBy);
+
+                                if (isset($_GET['search_string'])){
+                                    $search_string = $_GET['search_string'];
+                                } else {
+                                    $search_string = "";
+                                }
+
+                                $rows = $eventHandler->getListOfRestaurants($order_by);
                             ?>
+                            <div>
+                                <form name="search"><ul class="style2"><li>
+                                    <input name="search_string" id="search_string" type="text" value="<?php echo $search_string ?>"/>
+                                    <input type="submit" name="search" id="search" class="button" value="Search"/>
+                                </li></ul></form>
+                            </div>
                             <form name="table">
                                 <table>
                                     <tr>
