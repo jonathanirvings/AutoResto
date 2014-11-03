@@ -59,7 +59,7 @@
                  */
 		public function updateData($conditions,$update)
 		{
-                    $conditionCommand = commandiseCondition($conditions);
+                    $conditionCommand = $this->commandiseCondition($conditions);
                     foreach ($update as $keyUpdate => $valueUpdate)
                     {
                         $query = "UPDATE ".$this->tableName." SET ".$keyUpdate." = \"".$valueUpdate."\"";
@@ -78,7 +78,7 @@
                  */
 		public function deleteData($conditions)
 		{
-                    $conditionCommand = commandiseCondition($conditions);
+                    $conditionCommand = $this->commandiseCondition($conditions);
                     $query = "DELETE FROM ".$this->tableName;
                     if ($conditionCommand != "")
                     {
@@ -99,7 +99,7 @@
                     $query = "SELECT * FROM ".$this->tableName;
                     if ($conditionCommand != "")
                     {
-                        $query = $query.$conditionCommand;
+                        $query = $query." WHERE ".$conditionCommand;
                     }
                     return $this->dbHandler->getQuery($query);
 		}
