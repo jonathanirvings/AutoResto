@@ -42,7 +42,7 @@
             $eventHandler = new EventHandler();
             
             $bookingDetails['restaurant_contact_no'] = $restaurant_contact_no;
-            $bookingDetails['ic_no'] = "G0325435L";
+            $bookingDetails['booker_ic_no'] = "G0325435L";
             $eventHandler->book($bookingDetails, $bookingDetails['pax']);
             ?>
             <script>
