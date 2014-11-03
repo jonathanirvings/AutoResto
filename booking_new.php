@@ -24,6 +24,13 @@
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/style-desktop.css" />
     </noscript>
+    <script>
+        $(document).ready(function() {
+        $("#datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
+            });
+        })
+    </script>
 </head>
 
 <body class="homepage">
@@ -69,10 +76,10 @@
                                 <h2>Restaurant Name</h2>
                             </header>
                             <?php
-                            if (isset($_POST['pax'])){
-                                $numberOfPax = $_POST['pax'];
+                            if (isset($_POST['date'])){
+                                $date = $_POST['date'];
                             } else {
-                                $numberOfPax = 0;
+                                $date = date('Y-m-d', strtotime("today"));
                             }
 
                             if (isset($_POST['time'])){
@@ -80,8 +87,19 @@
                             } else {
                                 $time = "1";
                             }
+
+                            if (isset($_POST['pax'])){
+                                $numberOfPax = $_POST['pax'];
+                            } else {
+                                $numberOfPax = 0;
+                            }
                             ?>
                             <form method="post" action="">
+                                Date
+                                <?php
+                                    echo "<input type=\"date\" id=\"datepicker\" name=\"date\" size=\"10\" value=\"$date\"/>";
+                                ?>
+
                                 Time <select name="time" id="time">
                                 <?php
                                     $states = array(
@@ -94,6 +112,7 @@
                                                 :"<option value=\"$key\">$val</option>";
                                     }
                                 ?>
+
                                 </select>
                                 No of pax. <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
                                 <input type="submit" name="book" id="book" class="button"/>
