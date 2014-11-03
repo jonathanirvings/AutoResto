@@ -95,7 +95,7 @@
                  */
                 public function get($conditions)
 		{
-                    $conditionCommand = commandiseCondition($conditions);
+                    $conditionCommand = $this->commandiseCondition($conditions);
                     $query = "SELECT * FROM ".$this->tableName;
                     if ($conditionCommand != "")
                     {
