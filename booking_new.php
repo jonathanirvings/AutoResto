@@ -38,15 +38,16 @@
         $restaurant = new Restaurant();
         $restaurantDetails = Restaurant::getRestaurantDetails($_GET['contact_no']);
         
-        function bookTable($bookingDetails, $restaurant_contact_no) {
+        function bookTable($bookingPost, $restaurant_contact_no) {
             $eventHandler = new EventHandler();
             
+            $bookingDetails = [];
             $bookingDetails['restaurant_contact_no'] = $restaurant_contact_no;
             $bookingDetails['booker_ic_no'] = "G0325435L";
+            $bookingDetails['date'] = $bookingPost['date'];
+            $bookingDetails['session'] = $bookingPost['session'];
             
-            $no_of_pax = $bookingDetails['pax'];
-            unset($bookingDetails['pax']);
-            unset($bookingDetails['book']);
+            $no_of_pax = $bookingPost['pax'];
             
             $eventHandler->book($bookingDetails, $no_of_pax);
             ?>
