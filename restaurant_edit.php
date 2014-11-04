@@ -36,11 +36,6 @@
 <body class="homepage">
     <?php
         $page_mode = $_GET['page_mode'];
-        if ($page_mode == 'add'){
-            $restaurant = null;
-        } else {
-            //get restaurant details
-        }
 
         function editRestaurant($oldArray, $newArray){
             $eventHandler = new eventhandler();
@@ -115,20 +110,20 @@
                             
                             <?php
                                 $eventHandler = new eventhandler();
-                                if ($_GET['contact_no']){
+                                if (isset($_GET['contact_no'])){
                                     $contact_no = $_GET['contact_no'];
                                 } else {
-                                    //goto restaurant list
+                                    $contact_no = "";
                                 }
                                 $restaurant = $eventHandler->getRestaurantDetails($contact_no);
-                                
+
                                 if (isset($_POST['save'])) {
                                     if ($_POST['save'] == "Edit"){
                                         editRestaurant($restaurant, $_POST);
                                     } else {
                                         // addRestaurant($_POST);
                                     }
-                                    $restaurant = $_POST;
+                                    $restaurant = $_POST;  
                                 }
                             ?>
 
