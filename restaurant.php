@@ -48,8 +48,13 @@
         {
             global $restaurant_contact_no;
             global $empty_string;
+            $arrQuery = [];
             $arrQuery[$restaurant_contact_no] = $resto_contact_number;
-            return self::$dbOperation->get($arrQuery,$empty_string)[0];
+            $rows = self::$dbOperation->get($arrQuery,$empty_string);
+            if(count($rows) == 1){
+                return $rows[0];
+            }
+            return false;
         }
         
         public static function getRestaurantCapacity($resto_contact_number){
