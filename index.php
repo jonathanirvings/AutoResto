@@ -85,7 +85,10 @@
                                     $search_string = "";
                                 }
 
-                                $rows = $eventHandler->getListOfRestaurants($search_string,$order_by);
+                                $rows = $eventHandler->getListOfRestaurants($search_string, $order_by);
+
+                                //Check whether the user is an admin or not
+                                $userIsAdmin = $eventHandler->isAdmin("G0587235M");
                             ?>
                             <div>
                                 <form name="search"><ul class="style2"><li>
@@ -132,7 +135,18 @@
                                                     <td> <?= $row['total2seaters'] ?> </td>
                                                     <td> <?= $row['total4seaters'] ?> </td>
                                                     <td> <?= $row['open']?"Open":"Closed" ?> </td>
-                                                    <td> <a href="booking_new.php?contact_no=<?php echo $row['contact_no']?>">Book</a></td>
+                                                    <td>
+                                                    <?php
+                                                        $restaurant = $row['contact_no'];
+                                                        $bookLink = "<a href=\"booking_new.php?contact_no=$restaurant\">Book</a>";
+
+                                                        if ($userIsAdmin){
+                                                            echo $bookLink . " - <a href=\"restaurant_edit.php?contact_no=$restaurant&page_mode=edit\">Edit</a>";
+                                                        } else {
+                                                            echo $bookLink;
+                                                        }
+                                                    ?>
+                                                    </td>
                                                 </tr>
                                             <?php
                                             }
