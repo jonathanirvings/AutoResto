@@ -42,14 +42,16 @@
         {  
             return Restaurant::getRestaurantDetails($resto_contact_number);
         }
-        
-        
-        
+         
         public function book($array, $pax )
         {
             //counts the number of seat capacity
             $totalSeatCapacity = Restaurant::getRestaurantCapacity($array["restaurant_contact_no"]);
             Booking::book($array,$pax,$totalSeatCapacity);
+        }
+        
+        public function getListOfBooking($ic_no){
+            return Booking::listOfBookingsPersonal($ic_no);
         }
     };
 ?>

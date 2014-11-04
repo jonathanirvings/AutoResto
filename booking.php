@@ -66,5 +66,13 @@ Class Booking
                 self::$dbOperation->insertData($arrQuery);
                 return "Booking successful!";
             }
+            
+            public static function listOfBookingsPersonal($ic_no){
+                $arrQuery = [];
+                $arrQuery["booker_ic_no"] = $ic_no;
+                return self::$dbOperation->get($arrQuery,"date");
+            }
 	};
+        
+        
 ?>
