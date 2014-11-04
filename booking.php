@@ -80,6 +80,13 @@ Class Booking
                 return self::$dbOperation->deleteData($arrQuery);
             }
             
+            public static function editBookings($arrQueryOld,$arrQueryNew)
+            {
+                $bool1 = self::$dbOperation->deleteData($arrQueryOld);
+                $bool2 = self::$dbOperation->insertData($arrQueryNew);
+                return ($bool1&&$bool2);
+            }
+            
             public static function getBookings($ic_no)
             {
                 global $booking_booker_key;

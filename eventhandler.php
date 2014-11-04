@@ -13,9 +13,18 @@
             $this->booking = new Booking();
         }
         
-        public function addRestaurant($array)
+        //RESTAURANT METHODS BEGIN
+        
+        public function addRestaurant($arrQuery)
         {
-            Restaurant::addRestaurant($array);
+            Restaurant::addRestaurant($arrQuery);
+        }
+        
+        // $arrQuery here contains all information in the table
+        // e.g. $arrQuery["restaurant_name"] = "xxxx"; and all the information
+        public function deleteRestaurant($arrQuery)
+        {
+            Restaurant::deleteRestaurant($arrQuery);
         }
         
         public function editRestaurant($arrayOld,$arrayNew)
@@ -45,6 +54,13 @@
             return Restaurant::getRestaurantDetails($resto_contact_number);
         }
         
+        //RESTAURANT METHODS END
+        
+        
+        
+        
+        //BOOKING METHODS BEGIN
+        
         // $arrQuery here contains the primary keys of the booking table
         // i.e. need to have the following 4 information
         // $arrQuery["booker_ic_no"] = "G0000000X";
@@ -70,10 +86,26 @@
             return Booking::deleteBookings($arrQuery);
         }
         
+        // $arrQuery here contains all information in the table
+        public function editBookings($arrQueryOld, $arrQueryNew)
+        {
+            return Booking::editBookings($arrQueryOld, $arrQueryNew);
+        }
+           
         public function getBookings($ic_no)
         {
             return Booking::getBookings($ic_no);
         }
+        
+        //BOOKING METHODS END
+        
+        
+        
+        //CUSTOMER METHODS BEGIN
+        
+        
+        
+        //CUSTOMER METHODS END
         
     };
 ?>

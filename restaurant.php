@@ -14,6 +14,11 @@
             return self::$dbOperation->insertData($arrayData);
         }
         
+        public static function deleteRestaurant($arrQuery)
+        {
+            return self::$dbOperation->deleteData($arrQuery);
+        }
+        
         public static function editRestaurant($arrayOld,$arrayNew)
         {
             $bool1 = self::$dbOperation->deleteData($arrayOld);
