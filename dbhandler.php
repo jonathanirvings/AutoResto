@@ -14,7 +14,9 @@
 	
         public function doQuery($query)
 	{
+            global $db_handler_success;
             mysqli_query($this->con,$query);
+            return $db_handler_success;
 	}
 
 	public function getQuery($query)

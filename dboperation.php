@@ -33,7 +33,7 @@
                             $values = $values."\"".$value."\"";
                         }
 			$query = "INSERT INTO ".$this->tableName." (".$keys.") VALUES (".$values.")";
-			$this->dbHandler->doQuery($query);
+			return $this->dbHandler->doQuery($query);
 		}
                 
                 private function commandiseCondition($condition)
@@ -82,7 +82,7 @@
                             $query = $query." WHERE ".$conditionCommand;
                         }
                     }
-                    $this->dbHandler->doQuery($query);
+                    return $this->dbHandler->doQuery($query);
 		}
 
                 /**
@@ -98,7 +98,7 @@
                     {
                         $query = $query." WHERE ".$conditionCommand;
                     }
-                    $this->dbHandler->doQuery($query);
+                    return $this->dbHandler->doQuery($query);
 		}
                 
                 /**

@@ -3,4 +3,6 @@
     $db_name = "autoresto";
     $db_username = "root";
     $db_password = "";
+    
+    $db_handler_success = "";
 ?>  
