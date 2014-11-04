@@ -120,15 +120,18 @@
             Customer::editCustomer($arrayOld,$arrayNew);
         }
         
-        public function getCustomers(){
+        public function getCustomers()
+        {
             Customer::getAllCustomers();
         }
         // $id is customer_ic_no, $password is customer_password
-        public function login($id,$password){
+        public function login($id,$password)
+        {
             return Customer::isLoginSuccessful($id,$password);
         }
         
-        public function isAdmin($ic_no){
+        public function isAdmin($ic_no)
+        {
             return Customer::isAdmin($ic_no);
         }
         
