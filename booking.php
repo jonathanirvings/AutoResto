@@ -75,7 +75,12 @@ Class Booking
                 return "Booking successful!";
             }
             
-            public static function listOfBookingsPersonal($ic_no)
+            public static function deleteBookings($arrQuery)
+            {
+                return self::$dbOperation->deleteData($arrQuery);
+            }
+            
+            public static function getBookings($ic_no)
             {
                 global $booking_booker_key;
                 global $booking_date;

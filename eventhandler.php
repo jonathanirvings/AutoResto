@@ -44,17 +44,36 @@
         {  
             return Restaurant::getRestaurantDetails($resto_contact_number);
         }
-         
-        public function book($array, $pax )
+        
+        // $arrQuery here contains the primary keys of the booking table
+        // i.e. need to have the following 4 information
+        // $arrQuery["booker_ic_no"] = "G0000000X";
+        // $arrQuery["restaurant_contact_no"] = "99999999";
+        // $arrQuery["date"] = "xxxx-xx-xx";
+        // $arrQuery["session"] = "lunch";
+        public function book($arrQuery, $pax )
         {
             global $booking_restaurant_key;
             //counts the number of seat capacity
-            $totalSeatCapacity = Restaurant::getRestaurantCapacity($array[$booking_restaurant_key]);
-            Booking::book($array,$pax,$totalSeatCapacity);
+            $totalSeatCapacity = Restaurant::getRestaurantCapacity($arrQuery[$booking_restaurant_key]);
+            return Booking::book($arrQuery,$pax,$totalSeatCapacity);
         }
         
-        public function getListOfBooking($ic_no){
-            return Booking::listOfBookingsPersonal($ic_no);
+        // $arrQuery here contains the primary keys of the booking table
+        // i.e. need to have the following 4 information
+        // $arrQuery["booker_ic_no"] = "G0000000X";
+        // $arrQuery["restaurant_contact_no"] = "99999999";
+        // $arrQuery["date"] = "xxxx-xx-xx";
+        // $arrQuery["session"] = "lunch";
+        public function deleteBookings($arrQuery)
+        {
+            return Booking::deleteBookings($arrQuery);
         }
+        
+        public function getBookings($ic_no)
+        {
+            return Booking::getBookings($ic_no);
+        }
+        
     };
 ?>
