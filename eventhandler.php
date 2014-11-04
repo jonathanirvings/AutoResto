@@ -103,7 +103,34 @@
         
         //CUSTOMER METHODS BEGIN
         
+        public function addCustomer($arrQuery)
+        {
+            Customer::addCustomer($arrQuery);
+        }
         
+        // $arrQuery here contains all information in the table
+        // e.g. $arrQuery["restaurant_name"] = "xxxx"; and all the information
+        public function deleteCustomer($arrQuery)
+        {
+            Customer::deleteCustomer($arrQuery);
+        }
+        
+        public function editCustomer($arrayOld,$arrayNew)
+        {
+            Customer::editCustomer($arrayOld,$arrayNew);
+        }
+        
+        public function getCustomers(){
+            Customer::getAllCustomers();
+        }
+        // $id is customer_ic_no, $password is customer_password
+        public function login($id,$password){
+            return Customer::isLoginSuccessful($id,$password);
+        }
+        
+        public function isAdmin($ic_no){
+            return Customer::isAdmin($ic_no);
+        }
         
         //CUSTOMER METHODS END
         
