@@ -1,6 +1,7 @@
 <?php
     Class EventHandler
     {
+        
         private $restaurant;
         private $customer;
         private $booking;
@@ -24,17 +25,18 @@
 
         public function getListOfRestaurants($keyword,$sortedKey)
         {
-            if(($sortedKey == "")&&($keyword == "")){
+            global $empty_string;
+            if(($sortedKey == $empty_string)&&($keyword == $empty_string)){
                 return Restaurant::listOfRestaurants();
             }
-            else if (($sortedKey != "")&&($keyword != "")){
+            else if (($sortedKey != $empty_string)&&($keyword != $empty_string)){
                 return Restaurant::listOfRestaurantsSearch($keyword,$sortedKey);
             }
-            else if ($keyword != ""){
-                return Restaurant::listOfRestaurantsSearch($keyword,"");
+            else if ($keyword != $empty_string){
+                return Restaurant::listOfRestaurantsSearch($keyword,$empty_string);
             }
-            else if ($sortedKey != ""){
-                return Restaurant::listOfRestaurantsSearch("",$sortedKey);
+            else if ($sortedKey != $empty_string){
+                return Restaurant::listOfRestaurantsSearch($empty_string,$sortedKey);
             }
         }
         
@@ -45,8 +47,9 @@
          
         public function book($array, $pax )
         {
+            global $booking_restaurant_key;
             //counts the number of seat capacity
-            $totalSeatCapacity = Restaurant::getRestaurantCapacity($array["restaurant_contact_no"]);
+            $totalSeatCapacity = Restaurant::getRestaurantCapacity($array[$booking_restaurant_key]);
             Booking::book($array,$pax,$totalSeatCapacity);
         }
         

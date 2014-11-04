@@ -31,19 +31,27 @@ Class Booking
              */
             public static function book($arrQuery,$no_of_pax,$totalSeatCapacity)
             {
+                global $booking_booked1seaters;
+                global $booking_booked2seaters;
+                global $booking_booked4seaters;
+                global $booking_restaurant_key;
+                global $booking_date;
+                global $booking_session;
+                global $empty_string;
+                
                 //assuming all table 1,2,and 4 seaters are mobile and can be moved around conveniently 
                 
                 //counts the number of seats taken
                 $condition1 = [];
-                $condition1["restaurant_contact_no"] = $arrQuery["restaurant_contact_no"];
-                $condition1["date"] = $arrQuery["date"];
-                $condition1["session"] = $arrQuery["session"];
+                $condition1[$booking_restaurant_key] = $arrQuery[$booking_restaurant_key];
+                $condition1[$booking_date] = $arrQuery[$booking_date];
+                $condition1[$booking_session] = $arrQuery[$booking_session];
                 
-                $rows = self::$dbOperation->get($condition1,"");
+                $rows = self::$dbOperation->get($condition1,$empty_string);
                 $totalSeatTaken = 0;
                 for ($i = 0; $i < sizeof($rows); ++$i){
                     $row = $rows[$i];
-                    $totalSeatTaken = $row["booked1seaters"] + (2*$row["booked2seaters"]) + (4*$row["booked4seaters"]);
+                    $totalSeatTaken = $row[$booking_booked1seaters] + (2*$row[$booking_booked2seaters]) + (4*$row[$booking_booked4seaters]);
                 }
                 
                 
@@ -54,23 +62,26 @@ Class Booking
              
                 while ($no_of_pax >= 2) {
                     if ($no_of_pax >= 4) {
-                        $arrQuery["booked4seaters"] = $no_of_pax / 4;
+                        $arrQuery[$booking_booked4seaters] = $no_of_pax / 4;
                         $no_of_pax = $no_of_pax / 4;
                     } elseif ($no_of_pax >= 2) {
-                        $arrQuery["booked2seaters"] = $no_of_pax / 2;
+                        $arrQuery[$booking_booked2seaters] = $no_of_pax / 2;
                         $no_of_pax = $no_of_pax / 2;
                     }
                 }
-                $arrQuery["booked1seaters"] = $no_of_pax;
+                $arrQuery[$booking_booked1seaters] = $no_of_pax;
                 
                 self::$dbOperation->insertData($arrQuery);
                 return "Booking successful!";
             }
             
-            public static function listOfBookingsPersonal($ic_no){
+            public static function listOfBookingsPersonal($ic_no)
+            {
+                global $booking_booker_key;
+                global $booking_date;
                 $arrQuery = [];
-                $arrQuery["booker_ic_no"] = $ic_no;
-                return self::$dbOperation->get($arrQuery,"date");
+                $arrQuery[$booking_booker_key] = $ic_no;
+                return self::$dbOperation->get($arrQuery,$booking_date);
             }
 	};
         
