@@ -49,6 +49,20 @@
                     }
                     return $conditionCommand;
                 }
+                
+                private function commandiseSearchCondition($condition)
+                {
+                    $conditionCommand = "";
+                    foreach ($condition as $key => $value)
+                    {
+                        if ($conditionCommand != "")
+                        {
+                            $conditionCommand = $conditionCommand." AND ";
+                        }
+                        $conditionCommand = $conditionCommand.$key." like \"%".$value."%\"";
+                    }
+                    return $conditionCommand;
+                }
 
                 /**
                  * Update a row (or maybe multiple rows) in the table
@@ -103,6 +117,8 @@
                     {
                         $query = $query." WHERE ".$conditionCommand;
                     }
+                    
+                    
                     if ($sortBy != "")
                     {
                         $query = $query." ORDER BY ".$sortBy;
@@ -110,6 +126,20 @@
                     return $this->dbHandler->getQuery($query);
 		}
                 
+                public function getSearch($searchConditions,$sortBy)
+		{
+                    $query = "SELECT * FROM ".$this->tableName;
+                    $conditionSearchCommand = $this->commandiseSearchCondition($searchConditions); 
+                    if ($conditionSearchCommand != "")
+                    {
+                        $query = $query." WHERE ".$conditionSearchCommand;
+                    }
+                    if ($sortBy != "")
+                    {
+                        $query = $query." ORDER BY ".$sortBy;
+                    }
+                    return $this->dbHandler->getQuery($query);
+		}
                
                 
                 /**

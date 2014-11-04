@@ -12,14 +12,19 @@
             $this->booking = new Booking();
         }
 
-        public function getListOfRestaurants($sortedKey)
+        public function getListOfRestaurants($keyword,$sortedKey)
         {
-            $list = Restaurant::listOfRestaurants();
-            if($sortedKey == ""){
+            if(($sortedKey == "")&&($keyword == "")){
                 return Restaurant::listOfRestaurants();
             }
-            else{
-                return Restaurant::listOfRestaurantsSorted($sortedKey);
+            else if (($sortedKey != "")&&($keyword != "")){
+                return Restaurant::listOfRestaurantsSearch($keyword,$sortedKey);
+            }
+            else if ($keyword != ""){
+                return Restaurant::listOfRestaurantsSearch($keyword,"");
+            }
+            else if ($sortedKey != ""){
+                return Restaurant::listOfRestaurantsSearch("",$sortedKey);
             }
         }
         
