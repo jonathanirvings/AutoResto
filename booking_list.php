@@ -70,29 +70,36 @@
                             </header>
                             
                             <?php
-                                $rows = null;
+                                $eventHandler = new eventhandler();
+                                
                                 //get list of the user's bookings
+                                $bookingRows = $eventHandler->getBookings("G0587235M");
                             ?>
                             <form name="table">
                                 <table>
                                     <tr>
-                                        <th><a href="?order_by=name"> Name </a></th>
+                                        <th> Name </a></th>
                                         <th> Address </th>
                                         <th> Contact No. </th>
-                                        <th><a href="?order_by=cuisine"> Cuisine </a></th>
+                                        <th> Cuisine </a></th>
+                                        <th> Date </th>
+                                        <th> No. of Tables </th>
                                         <th> Options </th>
                                     </tr>
                                     <?php
-                                        if (sizeof($rows) > 0){
-                                            for ($i = 0; $i < sizeof($rows); ++$i){
-                                                $row = $rows[$i];
+                                        if (sizeof($bookingRows) > 0){
+                                            for ($i = 0; $i < sizeof($bookingRows); ++$i){
+                                                $row = $bookingRows[$i];
+                                                $restaurant = $eventHandler->getRestaurantDetails($row['restaurant_contact_no']);
                                             ?>
                                                 <tr>
-                                                    <td> <?= $row['restaurant_name'] ?> </td>
-                                                    <td> <?= $row['address'] ?> </td>
-                                                    <td> <?= $row['contact_no'] ?> </td>
-                                                    <td> <?= $row['cuisine'] ?> </td>
-                                                    <td> <a href="#">Edit - </a><a href="#">Delete</a></td>
+                                                    <td> <?= $restaurant['restaurant_name'] ?> </td>
+                                                    <td> <?= $restaurant['address'] ?> </td>
+                                                    <td> <?= $restaurant['contact_no'] ?> </td>
+                                                    <td> <?= $restaurant['cuisine'] ?> </td>
+                                                    <td> <?= date('d M Y', strtotime($row['date'])) ?> </td>
+                                                    <td> <?= $row['booked1seaters'] + $row['booked2seaters'] + $row['booked4seaters'] ?> </td>
+                                                    <td> <a href="#">Edit</a> - <a href="#">Delete</a></td>
                                                 </tr>
                                             <?php
                                             }
