@@ -2,12 +2,10 @@
 Class Booking
 	{
             private static $dbOperation;
-            private static $dbOperationResto;
         
             public function Booking()
             {
                 self::$dbOperation = new DBOperation("booking");
-                self::$dbOperationResto = new DBOperation("restaurant");
             }
             
             
@@ -31,7 +29,7 @@ Class Booking
              *      if restaurant is booked succesfully, store information in booking table
              *      else return error message string.
              */
-            public function book($arrQuery,$no_of_pax)
+            public static function book($arrQuery,$no_of_pax,$totalSeatCapacity)
             {
                 //assuming all table 1,2,and 4 seaters are mobile and can be moved around conveniently 
                 
@@ -48,12 +46,6 @@ Class Booking
                     $totalSeatTaken = $row["booked1seaters"] + (2*$row["booked2seaters"]) + (4*$row["booked4seaters"]);
                 }
                 
-                //counts the number of seat capacity
-                $condition2 = [];
-                $condition2["contact_no"] = $arrQuery["restaurant_contact_no"];
-                $rows2 = self::$dbOperationResto->get($condition2,"");
-                $row2 = $rows2[0];
-                $totalSeatCapacity = $row2["total1seaters"] + (2*$row2["total2seaters"]) + (4*$row2["total4seaters"]);
                 
                 //checks whether there are enough seats for booking
                 if($totalSeatTaken + $no_of_pax > $totalSeatCapacity){

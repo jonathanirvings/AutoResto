@@ -8,12 +8,12 @@
             self::$dbOperation = new DBOperation("restaurant");
         }
         
-        public function addRestaurant($arrayData)
+        public static function addRestaurant($arrayData)
         {
             return self::$dbOperation->insertData($arrayData);
         }
         
-        public function editRestaurant($arrayOld,$arrayNew)
+        public static function editRestaurant($arrayOld,$arrayNew)
         {
             $bool1 = self::$dbOperation->deleteData($arrayOld);
             $bool2 = self::$dbOperation->insertData($arrayNew);

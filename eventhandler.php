@@ -14,12 +14,12 @@
         
         public function addRestaurant($array)
         {
-            $this->restaurant->addRestaurant($array);
+            Restaurant::addRestaurant($array);
         }
         
         public function editRestaurant($arrayOld,$arrayNew)
         {
-            $this->restaurant->editRestaurant($arrayOld,$arrayNew);
+            Restaurant::editRestaurant($arrayOld,$arrayNew);
         }
 
         public function getListOfRestaurants($keyword,$sortedKey)
@@ -49,7 +49,7 @@
         {
             //counts the number of seat capacity
             $totalSeatCapacity = Restaurant::getRestaurantCapacity($array["restaurant_contact_no"]);
-            $this->booking->book($array,$pax,$totalSeatCapacity);
+            Booking::book($array,$pax,$totalSeatCapacity);
         }
     };
 ?>
