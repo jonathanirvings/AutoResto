@@ -45,9 +45,11 @@
         
         
         
-        public function book($array, $pax)
+        public function book($array, $pax )
         {
-            $this->booking->book($array,$pax);
+            //counts the number of seat capacity
+            $totalSeatCapacity = Restaurant::getRestaurantCapacity($array["restaurant_contact_no"]);
+            $this->booking->book($array,$pax,$totalSeatCapacity);
         }
     };
 ?>
