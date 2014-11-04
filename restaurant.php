@@ -8,9 +8,16 @@
             self::$dbOperation = new DBOperation("restaurant");
         }
         
-        public function add($arrayData)
+        public function addRestaurant($arrayData)
         {
-            self::$dbOperation->insertData($arrayData);
+            return self::$dbOperation->insertData($arrayData);
+        }
+        
+        public function editRestaurant($arrayOld,$arrayNew)
+        {
+            $bool1 = self::$dbOperation->deleteData($arrayOld);
+            $bool2 = self::$dbOperation->insertData($arrayNew);
+            return ($bool1&&$bool2);
         }
         
         public static function listOfRestaurants()

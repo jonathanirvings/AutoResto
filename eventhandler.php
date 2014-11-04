@@ -11,6 +11,16 @@
             $this->customer = new Customer();
             $this->booking = new Booking();
         }
+        
+        public function addRestaurant($array)
+        {
+            $this->restaurant->addRestaurant($array);
+        }
+        
+        public function editRestaurant($arrayOld,$arrayNew)
+        {
+            $this->restaurant->editRestaurant($arrayOld,$arrayNew);
+        }
 
         public function getListOfRestaurants($keyword,$sortedKey)
         {
@@ -33,10 +43,7 @@
             return Restaurant::getRestaurantDetails($resto_contact_number);
         }
         
-        public function addRestaurant($array)
-        {
-            $this->restaurant->addRestaurant($array);
-        }
+        
         
         public function book($array, $pax)
         {
