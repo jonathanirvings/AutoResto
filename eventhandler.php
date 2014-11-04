@@ -94,7 +94,17 @@
            
         public function getBookings($ic_no)
         {
-            return Booking::getBookings($ic_no);
+            global $restaurant_contact_no;
+            global $restaurant_name;
+            $result_rows = Booking::getBookings($ic_no);
+            for ($i = 0; $i < sizeof($result_rows); ++$i) {
+                $single_row = $result_rows[$i];
+                $contact_no = $single_row[$restaurant_contact_no];
+                $restaurant_row = Restaurant::getRestaurantDetails($contact_no);
+                $single_row[$restaurant_name] = $restaurant_row[$restaurant_name];
+                $result_rows[$i] = $single_row;
+            }
+            return $result_rows;
         }
         
         //BOOKING METHODS END
