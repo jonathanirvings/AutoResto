@@ -43,7 +43,7 @@
             
             $bookingDetails = [];
             $bookingDetails['restaurant_contact_no'] = $restaurant_contact_no;
-            $bookingDetails['booker_ic_no'] = "G0325435L";
+            $bookingDetails['booker_ic_no'] = "G0587235M";
             $bookingDetails['date'] = $bookingPost['date'];
             $bookingDetails['session'] = $bookingPost['session'];
             
