@@ -87,13 +87,18 @@ Class Booking
                 return ($bool1&&$bool2);
             }
             
-            public static function getBookings($ic_no)
+            public static function getBookingsByIC($ic_no)
             {
                 global $booking_booker_key;
                 global $booking_date;
                 $arrQuery = [];
                 $arrQuery[$booking_booker_key] = $ic_no;
                 return self::$dbOperation->get($arrQuery,$booking_date);
+            }
+            
+            public static function getBookings($arrQuery)
+            {
+                return self::$dbOperation->get($arrQuery);
             }
 	};
         

@@ -73,7 +73,7 @@
                                 $eventHandler = new eventhandler();
                                 
                                 //get list of the user's bookings
-                                $bookingRows = $eventHandler->getBookings("G0587235M");
+                                $bookingRows = $eventHandler->getBookingsByIC("G0587235M");
                             ?>
                             <form name="table">
                                 <table>

@@ -51,10 +51,10 @@
             $bookingDetails['booker_ic_no'] = "G0587235M";
             $bookingDetails['date'] = $bookingPost['date'];
             $bookingDetails['session'] = $bookingPost['session'];
-            
             $no_of_pax = $bookingPost['pax'];
             
             $eventHandler->book($bookingDetails, $no_of_pax);
+            
             ?>
             <script>
                 alert("Booking successful");
@@ -69,7 +69,8 @@
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
         }
-        //$bookingDetails = $eventHandler->getBookings($arrQuery);
+        
+        $bookingDetails = $eventHandler->getBookings($arrQuery);
 
         if (isset($_POST['save'])){
             if ($_POST['save'] == "Edit"){

@@ -109,7 +109,7 @@
                  *       
                  * @return type. Array of rows that fullfilled the conditions
                  */
-                public function get($conditions,$sortBy)
+                public function get($conditions,$sortBy = "")
 		{
                     $conditionCommand = $this->commandiseCondition($conditions);
                     $query = "SELECT * FROM ".$this->tableName;
