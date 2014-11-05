@@ -64,37 +64,37 @@
         
         $arrQuery = array();
         if (isset($_GET['contact_no']) && isset($_GET['date']) && isset($_GET['session'])){
+            echo "hehe";
             $arrQuery['booker_ic_no'] = "G0587235M";
             $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
-        }
-        
-        $bookingDetails = $eventHandler->getBookings($arrQuery);
 
+            $bookingDetails = $eventHandler->getBookings($arrQuery);
+            $bookingDetails = $bookingDetails[0];
+            print_r($bookingDetails);
+            $date = $bookingDetails['date'];
+            $session = $bookingDetails['session'];
+            //how to manage this?
+            $numberOfPax = 0;
+
+        }
         if (isset($_POST['save'])){
-            if ($_POST['save'] == "Edit"){
-                editBooking($bookingDetails, $_POST);
-            } else {
-                addBooking($_POST, $restaurantDetails['contact_no']);
+            if (isset($_POST['save'])){
+                if ($_POST['save'] == "Edit"){
+                    editBooking($bookingDetails, $_POST);
+                } else {
+                    addBooking($_POST, $restaurantDetails['contact_no']);
+                }
+                $bookingDetails = $_POST;
             }
-        } 
-
-        if (isset($_POST['date'])){
-            $date = $_POST['date'];
-        } else {
+            $date = $bookingDetails['date'];
+            $session = $bookingDetails['session'];
+            //how to manage this?
+            $numberOfPax = 0;
+        } else if (!isset($_GET['page_mode'])) {
             $date = date('Y-m-d', strtotime("today"));
-        }
-
-        if (isset($_POST['session'])){
-            $session = $_POST['session'];
-        } else {
-            $session = "lunch";
-        }
-
-        if (isset($_POST['pax'])){
-            $numberOfPax = $_POST['pax'];
-        } else {
+            $session = 'lunch';
             $numberOfPax = 0;
         }
     ?>

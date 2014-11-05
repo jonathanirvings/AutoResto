@@ -99,7 +99,14 @@
                                                     <td> <?= $restaurant['cuisine'] ?> </td>
                                                     <td> <?= date('d M Y', strtotime($row['date'])) ?> </td>
                                                     <td> <?= $row['booked1seaters'] + $row['booked2seaters'] + $row['booked4seaters'] ?> </td>
-                                                    <td> <a href="#">Edit</a> - <a href="#">Delete</a></td>
+                                                    <td>
+                                                    <?php
+                                                        $contact_no = $restaurant['contact_no'];
+                                                        $date = $row['date'];
+                                                        $session = $row['session'];
+                                                        echo "<a href=\"booking_new.php?contact_no=$contact_no&date=$date&session=$session&page_mode=edit\">Edit</a> - <a href=\"#\">Delete</a>";
+                                                    ?>
+                                                    </td>
                                                 </tr>
                                             <?php
                                             }
