@@ -92,9 +92,14 @@
             return Booking::editBookings($arrQueryOld, $arrQueryNew);
         }
            
-        public function getBookings($ic_no)
+        public function getBookingsByIC($ic_no)
         {
-            return Booking::getBookings($ic_no);
+            return Booking::getBookingsByIC($ic_no);
+        }
+        
+        public function getBookings($arrQuery)
+        {
+            return Booking::getBookings($arrQuery);
         }
         
         //BOOKING METHODS END
