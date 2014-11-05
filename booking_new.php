@@ -35,10 +35,15 @@
 
 <body class="homepage">
     <?php
-        $restaurant = new Restaurant();
-        $restaurantDetails = Restaurant::getRestaurantDetails($_GET['contact_no']);
-        
-        function bookTable($bookingPost, $restaurant_contact_no) {
+        $eventHandler = new eventhandler();
+        if (isset($_GET['contact_no'])){
+            $contact_no = $_GET['contact_no'];
+        } else {
+            $contact_no = "";
+        }
+        $restaurantDetails = $eventHandler->getRestaurantDetails($contact_no);
+
+        function addBooking($bookingPost, $restaurant_contact_no) {
             $eventHandler = new EventHandler();
             
             $bookingDetails = [];
@@ -96,6 +101,24 @@
                                 <h2><?php echo $restaurantDetails['restaurant_name']?></h2>
                             </header>
                             <?php
+                            $eventHandler = new eventhandler();
+                            if (isset($_GET['contact_no']) && isset($_GET['date']) && isset($_GET['session'])){
+                                $arrQuery['booker_ic_no'] = "G0587235M";
+                                $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
+                                $arrQuery['date'] = $_GET['date'];
+                                $addQuery['session'] = $_GET['session'];
+                            } else {
+                                $arrQuery = array();
+                            }
+                            $bookingDetails = $eventHandler->getBooking($arrQuery);
+
+                            if (isset($_POST['save'])){
+                                if ($_POST['save'] == "Edit"){
+                                    editBooking($bookingDetails, $_POST);
+                                } else {
+                                    addBooking($_POST, $restaurantDetails['contact_no']);
+                                }
+                            }
                             
                             if (isset($_POST['date'])){
                                 $date = $_POST['date'];
@@ -104,19 +127,15 @@
                             }
 
                             if (isset($_POST['session'])){
-                                $time = $_POST['session'];
+                                $session = $_POST['session'];
                             } else {
-                                $time = "lunch";
+                                $session = "lunch";
                             }
 
                             if (isset($_POST['pax'])){
                                 $numberOfPax = $_POST['pax'];
                             } else {
                                 $numberOfPax = 0;
-                            }
-                            
-                            if (isset($_POST['date'])){
-                                bookTable($_POST, $restaurantDetails['contact_no']);
                             }
                             ?>
                             <div id="bookingoptions" class="container">
@@ -133,7 +152,7 @@
                                                     'dinner'=>"Dinner"
                                                     );
                                         foreach($states as $key=>$val) {
-                                            echo ($key == $time)
+                                            echo ($key == $session)
                                                     ? "<option selected=\"selected\" value=\"$key\">$val</option>"
                                                     :"<option value=\"$key\">$val</option>";
                                         }
