@@ -1,6 +1,15 @@
 <html>
 <head>
     <?php
+        session_start();
+        print_r($_SESSION);
+        if (!isset($_SESSION["ic_number"]))
+        {
+            header('Location: login.php');
+        } else 
+        {
+            $ic_number = $_SESSION["ic_number"];
+        }
         ini_set("memory_limit",-1);
         include "constant.php";
         include "dbhandler.php";
@@ -26,6 +35,22 @@
     </noscript>
 </head>
 
+<?php
+    function showLoginForm()
+    {
+        ?>
+        <form method="post" action="">
+            IC Number
+            <input type="text" id="ic_number" name="ic_number" size="10"/>
+            Password
+            <input type="password" id="password" name="password" size="10"/>
+            <input type="submit" name="login" id="login" class="button" value="login"/>
+        </form>
+        <?php
+    }
+
+?>
+
 <body class="homepage">
     <!-- Header -->
     <div id="header">
@@ -43,6 +68,7 @@
                     <li><a href="booking_list.php">My Bookings</a></li>
                     <li><a href="right-sidebar.html">Right Sidebar</a></li>
                     <li><a href="no-sidebar.html">No Sidebar</a></li>
+                    <li><a href="login.php">Log Out</a></li>
                 </ul>
             </nav>
         </div>
@@ -71,7 +97,8 @@
                             
                             <?php
                                 $eventHandler = new EventHandler();
-
+                                echo $ic_number;
+                                
                                 if(isset($_GET["order_by"])){
                                    $order_by = $_GET["order_by"];
                                 }
