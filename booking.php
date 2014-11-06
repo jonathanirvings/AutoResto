@@ -42,6 +42,11 @@ Class Booking
                 global $booking_session;
                 global $empty_string;
                 
+                //if no of pax is zero, return error message
+                if($no_of_pax <= 0){
+                    return "Error! Please enter a valid number of pax!";
+                }
+                
                 //assuming all table 1,2,and 4 seaters are mobile and can be moved around conveniently 
                 
                 //counts the number of seats taken
