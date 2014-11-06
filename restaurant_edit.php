@@ -61,6 +61,22 @@
 
             $eventHandler->editRestaurant($contact_no, $newDetails);
         }
+        
+        function addRestaurant($newArray) {
+            $eventHandler = new eventhandler();
+            $newDetails = array();
+
+            $newDetails['restaurant_name'] = $newArray['restaurant_name'];
+            $newDetails['contact_no'] = $newArray['contact_no'];
+            $newDetails['cuisine'] = $newArray['cuisine'];
+            $newDetails['address'] = $newArray['address'];
+            $newDetails['total1seaters'] = $newArray['total1seaters'];
+            $newDetails['total2seaters'] = $newArray['total2seaters'];
+            $newDetails['total4seaters'] = $newArray['total4seaters'];
+            $newDetails['open'] = $newArray['open'];
+
+            $eventHandler->addRestaurant($newDetails);
+        }
     ?>
     <!-- Header -->
     <?php
@@ -70,7 +86,7 @@
 
      <!-- Main -->
         <div id="page">
-            <div id="main" class="container">
+            <div class="container">
                 <div class="row">
                     <div class="15u">
                         <section>
@@ -97,7 +113,7 @@
                                     if ($_POST['save'] == "Edit"){
                                         editRestaurant($contact_no, $_POST);
                                     } else {
-                                        // addRestaurant($_POST);
+                                        addRestaurant($_POST);
                                     }
                                     $restaurant = $_POST;  
                                 }

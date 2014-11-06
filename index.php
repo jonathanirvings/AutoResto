@@ -61,10 +61,10 @@
     <!-- Header -->
 
      <!-- Main -->
-        <div id="page">
 
+        <div id="page">
        <!-- Main -->
-            <div id="main" class="container">
+            <div class="container">
                 <div class="row">
                     <div class="15u">
                         <section>
@@ -101,6 +101,12 @@
                                     <input name="search_string" id="search_string" type="text" value="<?php echo $search_string ?>"/>
                                     <input type="submit" name="search" id="search" class="button" value="Search"/>
                                 </li></ul></form>
+                                <?php
+                                    if ($userIsAdmin)
+                                    {
+                                        echo "<a href=\"restaurant_edit.php?page_mode=add\">Add a new Restaurant</a>";
+                                    }
+                                ?>
                             </div>
                             <form name="table">
                                 <table>
