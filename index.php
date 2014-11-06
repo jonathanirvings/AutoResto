@@ -144,12 +144,18 @@
                                                     <td>
                                                     <?php
                                                         $restaurant = $row['contact_no'];
-                                                        $bookLink = "<a href=\"booking_new.php?contact_no=$restaurant\">Book</a>";
                                                         
-                                                        if ($userIsAdmin){
-                                                            echo $bookLink . " - <a href=\"restaurant_edit.php?contact_no=$restaurant&page_mode=edit\">Edit</a>";
-                                                        } else {
+                                                        $bookLink = "<a href=\"booking_new.php?contact_no=$restaurant\">Book</a>";
+                                                        $editLink = "<a href=\"restaurant_edit.php?contact_no=$restaurant&page_mode=edit\">Edit</a>";
+                                                        if ($row["open"] && $userIsAdmin)
+                                                        {
+                                                            echo $bookLink." - ".$editLink;
+                                                        } else if ($row["open"])
+                                                        {
                                                             echo $bookLink;
+                                                        } else if ($userIsAdmin)
+                                                        {
+                                                            echo $editLink;
                                                         }
                                                     ?>
                                                     </td>

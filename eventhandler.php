@@ -113,6 +113,11 @@
         
         //CUSTOMER METHODS BEGIN
         
+        public function getCustomerName($ic_number)
+        {
+            return Customer::getCustomerName($ic_number);
+        }
+        
         public function addCustomer($arrQuery)
         {
             Customer::addCustomer($arrQuery);

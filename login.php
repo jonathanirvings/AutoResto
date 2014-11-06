@@ -45,9 +45,15 @@
 
 <body class="homepage">
     <!-- Header -->
-    <?php
-        include "headerPage.php";
-    ?>
+    <div id="header">
+           <div class="container">
+
+               <!-- Logo -->
+               <div id="logo">
+                   <h1><a href="./">AutoResto</a></h1>
+               </div>
+           </div>
+   </div>
     <!-- Header -->
     
 

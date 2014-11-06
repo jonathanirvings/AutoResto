@@ -63,6 +63,13 @@
                 
             }
             
+            public static function getCustomerName($ic_number) {
+                global $customer_name;
+                global $customer_ic_no;
+                $cond = array();
+                $cond[$customer_ic_no] = $ic_number;
+                return self::$dbOperation->get($cond)[0][$customer_name];
+            }
                 
 	};
 ?>
