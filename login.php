@@ -45,33 +45,11 @@
 
 <body class="homepage">
     <!-- Header -->
-    <div id="header">
-        <div class="container">
-                
-            <!-- Logo -->
-            <div id="logo">
-                <h1><a href="#">AutoResto</a></h1>
-            </div>
-            
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li class="active"><a href="index.php">Restaurants</a></li>
-                    <li><a href="booking_list.php">My Bookings</a></li>
-                    <li><a href="right-sidebar.html">Right Sidebar</a></li>
-                    <li><a href="no-sidebar.html">No Sidebar</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <?php
+        include "headerPage.php";
+    ?>
     <!-- Header -->
-
-    <!-- Banner -->
-        <div id="banner">
-            <div class="container">
-            </div>
-        </div>
-    <!-- /Banner -->
+    
 
      <!-- Main -->
         <div id="page">

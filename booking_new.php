@@ -1,6 +1,14 @@
 <html>
 <head>
     <?php
+        session_start();
+        if (!isset($_SESSION["ic_number"]))
+        {
+            header('Location: login.php');
+        } else 
+        {
+            $ic_number = $_SESSION["ic_number"];
+        }
         ini_set("memory_limit",-1);
         include "constant.php";
         include "dbhandler.php";
@@ -44,11 +52,12 @@
         $restaurantDetails = $eventHandler->getRestaurantDetails($contact_no);
 
         function addBooking($bookingPost, $restaurant_contact_no) {
+            global $ic_number;
             $eventHandler = new EventHandler();
             
             $bookingDetails = [];
             $bookingDetails['restaurant_contact_no'] = $restaurant_contact_no;
-            $bookingDetails['booker_ic_no'] = "G0587235M";
+            $bookingDetails['booker_ic_no'] = $ic_number;
             $bookingDetails['date'] = $bookingPost['date'];
             $bookingDetails['session'] = $bookingPost['session'];
             $no_of_pax = $bookingPost['pax'];
@@ -65,7 +74,7 @@
         $arrQuery = array();
         if (isset($_GET['contact_no']) && isset($_GET['date']) && isset($_GET['session'])){
             echo "hehe";
-            $arrQuery['booker_ic_no'] = "G0587235M";
+            $arrQuery['booker_ic_no'] = $ic_number;
             $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
@@ -99,33 +108,10 @@
         }
     ?>
     <!-- Header -->
-    <div id="header">
-        <div class="container">
-                
-            <!-- Logo -->
-            <div id="logo">
-                <h1><a href="#">AutoResto</a></h1>
-            </div>
-            
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li class="active"><a href="index.php">Restaurants</a></li>
-                    <li><a href="booking_list.php">My Bookings</a></li>
-                    <li><a href="right-sidebar.html">Right Sidebar</a></li>
-                    <li><a href="no-sidebar.html">No Sidebar</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <?php
+        include "headerPage.php";
+    ?>
     <!-- Header -->
-
-    <!-- Banner -->
-        <div id="banner">
-            <div class="container">
-            </div>
-        </div>
-    <!-- /Banner -->
 
      <!-- Main -->
         <div id="page">

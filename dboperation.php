@@ -63,6 +63,20 @@
                     }
                     return $conditionCommand;
                 }
+                
+                private function commandiseUpdate($update)
+                {
+                    $updateCommand = "";
+                    foreach ($update as $key => $value)
+                    {
+                        if ($updateCommand != "")
+                        {
+                            $updateCommand = $updateCommand.", ";
+                        }
+                        $updateCommand = $updateCommand.$key." = \"".$value."\"";
+                    }
+                    return $updateCommand;
+                }
 
                 /**
                  * Update a row (or maybe multiple rows) in the table
@@ -74,13 +88,11 @@
 		public function updateData($conditions,$update)
 		{
                     $conditionCommand = $this->commandiseCondition($conditions);
-                    foreach ($update as $keyUpdate => $valueUpdate)
+                    $query = "UPDATE ".$this->tableName." SET ";
+                    $query = $query.$this->commandiseUpdate($update);
+                    if ($conditionCommand != "")
                     {
-                        $query = "UPDATE ".$this->tableName." SET ".$keyUpdate." = \"".$valueUpdate."\"";
-                        if ($conditionCommand != "")
-                        {
-                            $query = $query." WHERE ".$conditionCommand;
-                        }
+                        $query = $query." WHERE ".$conditionCommand;
                     }
                     return $this->dbHandler->doQuery($query);
 		}

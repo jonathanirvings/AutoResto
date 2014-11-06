@@ -19,11 +19,12 @@
             return self::$dbOperation->deleteData($arrQuery);
         }
         
-        public static function editRestaurant($arrayOld,$arrayNew)
+        public static function editRestaurant($contact_no,$arrayNew)
         {
-            $bool1 = self::$dbOperation->deleteData($arrayOld);
-            $bool2 = self::$dbOperation->insertData($arrayNew);
-            return ($bool1&&$bool2);
+            global $restaurant_contact_no;
+            $arrCondition = array();
+            $arrCondition[$restaurant_contact_no] = $contact_no;
+            self::$dbOperation->updateData($arrCondition,$arrayNew);
         }
         
         public static function listOfRestaurants()

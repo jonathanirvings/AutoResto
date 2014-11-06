@@ -1,6 +1,14 @@
 <html>
 <head>
     <?php
+        session_start();
+        if (!isset($_SESSION["ic_number"]))
+        {
+            header('Location: login.php');
+        } else 
+        {
+            $ic_number = $_SESSION["ic_number"];
+        }
         ini_set("memory_limit",-1);
         include "constant.php";
         include "dbhandler.php";
@@ -28,33 +36,13 @@
 
 <body class="homepage">
     <!-- Header -->
-    <div id="header">
-        <div class="container">
-                
-            <!-- Logo -->
-            <div id="logo">
-                <h1><a href="#">AutoResto</a></h1>
-            </div>
-            
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li><a href="index.php">Restaurants</a></li>
-                    <li class="active"><a href="booking_list.php">My Bookings</a></li>
-                    <li><a href="right-sidebar.html">Right Sidebar</a></li>
-                    <li><a href="no-sidebar.html">No Sidebar</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <?php
+        include "headerPage.php";
+        ?>
+        <script>$(".booking_list").addClass("active");</script>
+        <?php
+    ?>
     <!-- Header -->
-
-    <!-- Banner -->
-        <div id="banner">
-            <div class="container">
-            </div>
-        </div>
-    <!-- /Banner -->
 
      <!-- Main -->
         <div id="page">
@@ -73,7 +61,7 @@
                                 $eventHandler = new eventhandler();
                                 
                                 //get list of the user's bookings
-                                $bookingRows = $eventHandler->getBookingsByIC("G0587235M");
+                                $bookingRows = $eventHandler->getBookingsByIC($ic_number);
                             ?>
                             <form name="table">
                                 <table>
@@ -111,7 +99,7 @@
                                             <?php
                                             }
                                         } else {
-                                            echo "<tr><td colspan='5'>There are no bookings to display.</td></tr>";
+                                            echo "<tr><td colspan='7'>There are no bookings to display.</td></tr>";
                                         }
                                     ?>
                                 </table>

@@ -2,7 +2,6 @@
 <head>
     <?php
         session_start();
-        print_r($_SESSION);
         if (!isset($_SESSION["ic_number"]))
         {
             header('Location: login.php');
@@ -53,34 +52,13 @@
 
 <body class="homepage">
     <!-- Header -->
-    <div id="header">
-        <div class="container">
-                
-            <!-- Logo -->
-            <div id="logo">
-                <h1><a href="#">AutoResto</a></h1>
-            </div>
-            
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li class="active"><a href="index.php">Restaurants</a></li>
-                    <li><a href="booking_list.php">My Bookings</a></li>
-                    <li><a href="right-sidebar.html">Right Sidebar</a></li>
-                    <li><a href="no-sidebar.html">No Sidebar</a></li>
-                    <li><a href="login.php">Log Out</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <?php
+        include "headerPage.php";
+        ?>
+        <script>$(".index").addClass("active");</script>
+        <?php
+    ?>
     <!-- Header -->
-
-    <!-- Banner -->
-        <div id="banner">
-            <div class="container">
-            </div>
-        </div>
-    <!-- /Banner -->
 
      <!-- Main -->
         <div id="page">
@@ -97,7 +75,6 @@
                             
                             <?php
                                 $eventHandler = new EventHandler();
-                                echo $ic_number;
                                 
                                 if(isset($_GET["order_by"])){
                                    $order_by = $_GET["order_by"];
@@ -115,7 +92,9 @@
                                 $rows = $eventHandler->getListOfRestaurants($search_string, $order_by);
 
                                 //Check whether the user is an admin or not
-                                $userIsAdmin = $eventHandler->isAdmin("G0587235M");
+                                $userIsAdmin = $eventHandler->isAdmin($ic_number);
+                                
+                                
                             ?>
                             <div>
                                 <form name="search"><ul class="style2"><li>
@@ -166,7 +145,7 @@
                                                     <?php
                                                         $restaurant = $row['contact_no'];
                                                         $bookLink = "<a href=\"booking_new.php?contact_no=$restaurant\">Book</a>";
-
+                                                        
                                                         if ($userIsAdmin){
                                                             echo $bookLink . " - <a href=\"restaurant_edit.php?contact_no=$restaurant&page_mode=edit\">Edit</a>";
                                                         } else {

@@ -27,9 +27,14 @@
             Restaurant::deleteRestaurant($arrQuery);
         }
         
-        public function editRestaurant($arrayOld,$arrayNew)
+        /*public function editRestaurant($arrayOld,$arrayNew)
         {
             Restaurant::editRestaurant($arrayOld,$arrayNew);
+        }*/
+        
+        public function editRestaurant($contact_no,$arrayNew)
+        {
+            Restaurant::editRestaurant($contact_no,$arrayNew);
         }
 
         public function getListOfRestaurants($keyword,$sortedKey)

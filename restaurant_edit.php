@@ -1,6 +1,14 @@
 <html>
 <head>
     <?php
+        session_start();
+        if (!isset($_SESSION["ic_number"]))
+        {
+            header('Location: login.php');
+        } else 
+        {
+            $ic_number = $_SESSION["ic_number"];
+        }
         ini_set("memory_limit",-1);
         include "constant.php";
         include "dbhandler.php";
@@ -37,19 +45,10 @@
     <?php
         $page_mode = $_GET['page_mode'];
 
-        function editRestaurant($oldArray, $newArray){
+        function editRestaurant($contact_no, $newArray){
+            
             $eventHandler = new eventhandler();
-            $oldDetails = array();
             $newDetails = array();
-
-            $oldDetails['restaurant_name'] = $oldArray['restaurant_name'];
-            $oldDetails['contact_no'] = $oldArray['contact_no'];
-            $oldDetails['cuisine'] = $oldArray['cuisine'];
-            $oldDetails['address'] = $oldArray['address'];
-            $oldDetails['total1seaters'] = $oldArray['total1seaters'];
-            $oldDetails['total2seaters'] = $oldArray['total2seaters'];
-            $oldDetails['total4seaters'] = $oldArray['total4seaters'];
-            $oldDetails['open'] = $oldArray['open'];
 
             $newDetails['restaurant_name'] = $newArray['restaurant_name'];
             $newDetails['contact_no'] = $newArray['contact_no'];
@@ -60,37 +59,14 @@
             $newDetails['total4seaters'] = $newArray['total4seaters'];
             $newDetails['open'] = $newArray['open'];
 
-            $eventHandler->editRestaurant($oldDetails, $newDetails);
+            $eventHandler->editRestaurant($contact_no, $newDetails);
         }
     ?>
     <!-- Header -->
-    <div id="header">
-        <div class="container">
-                
-            <!-- Logo -->
-            <div id="logo">
-                <h1><a href="#">AutoResto</a></h1>
-            </div>
-            
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li class="active"><a href="index.php">Restaurants</a></li>
-                    <li><a href="booking_list.php">My Bookings</a></li>
-                    <li><a href="right-sidebar.html">Right Sidebar</a></li>
-                    <li><a href="no-sidebar.html">No Sidebar</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
+    <?php
+        include "headerPage.php";
+    ?>
     <!-- Header -->
-
-    <!-- Banner -->
-        <div id="banner">
-            <div class="container">
-            </div>
-        </div>
-    <!-- /Banner -->
 
      <!-- Main -->
         <div id="page">
@@ -119,7 +95,7 @@
 
                                 if (isset($_POST['save'])) {
                                     if ($_POST['save'] == "Edit"){
-                                        editRestaurant($restaurant, $_POST);
+                                        editRestaurant($contact_no, $_POST);
                                     } else {
                                         // addRestaurant($_POST);
                                     }
@@ -144,8 +120,8 @@
                                             <select name="open" id="open">
                                                 <?php
                                                     $states = array(
-                                                                '0'=>"Open",
-                                                                '1'=>"Closed"
+                                                                '1'=>"Open",
+                                                                '0'=>"Closed"
                                                                 );
                                                     foreach($states as $key=>$val) {
                                                         echo ($key == $restaurant['open'])
