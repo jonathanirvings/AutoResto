@@ -234,6 +234,11 @@ Class Booking
             {
                 return self::$dbOperation->get($arrQuery);
             }
+            
+            public static function getAllBookings()
+            {
+                return self::$dbOperation->getAll();
+            }
 	};
         
         

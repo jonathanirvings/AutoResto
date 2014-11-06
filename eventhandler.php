@@ -108,6 +108,11 @@
             return Booking::getBookings($arrQuery);
         }
         
+        public function getAllBookings()
+        {
+            return Booking::getAllBookings();
+        }
+        
         //BOOKING METHODS END
         
         
