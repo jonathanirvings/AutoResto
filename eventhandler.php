@@ -91,9 +91,11 @@
         }
         
         // $arrQuery here contains all information in the table
-        public function editBookings($arrQueryOld, $arrQueryNew)
+        public function editBookings($arrQueryOld, $arrQueryNew, $new_no_of_pax)
         {
-            return Booking::editBookings($arrQueryOld, $arrQueryNew);
+            global $booking_restaurant_key;
+            $seatCapacity = Restaurant::getRestaurantCapacity($arrQueryNew[$booking_restaurant_key]);
+            return Booking::editBookings($arrQueryOld, $arrQueryNew, $new_no_of_pax, $seatCapacity);
         }
            
         public function getBookingsByIC($ic_no)

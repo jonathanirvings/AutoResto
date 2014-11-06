@@ -36,4 +36,8 @@
     
     //extra
     $pax = "pax";
+    
+    $one = "1";
+    $two = "2";
+    $four = "4";
 ?>  
