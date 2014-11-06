@@ -51,10 +51,17 @@ Class Booking
                 $condition1[$booking_session] = $arrQuery[$booking_session];
                 
                 $rows = self::$dbOperation->get($condition1,$empty_string);
+                
                 $totalSeatTaken = 0;
+                $seat1Taken = 0;
+                $seat2Taken = 0;
+                $seat4Taken = 0;
                 for ($i = 0; $i < sizeof($rows); ++$i){
                     $row = $rows[$i];
-                    $totalSeatTaken = $row[$booking_booked1seaters] + (2*$row[$booking_booked2seaters]) + (4*$row[$booking_booked4seaters]);
+                    $totalSeatTaken = $totalSeatTaken + $row[$booking_booked1seaters] + (2*$row[$booking_booked2seaters]) + (4*$row[$booking_booked4seaters]);
+                    $seat1Taken = $seat1Taken + $row[$booking_booked1seaters];
+                    $seat2Taken = $seat2Taken + $row[$booking_booked2seaters];
+                    $seat4Taken = $seat4Taken + $row[$booking_booked4seaters];
                 }
                 
                 $totalSeatCapacity = $seatCapacity[$restaurant_total1seaters] + (2*$seatCapacity[$restaurant_total2seaters]) + (4*$seatCapacity[$restaurant_total4seaters]);
@@ -66,19 +73,38 @@ Class Booking
                         $feedback = "Sorry! The restaurant is fully booked for this date and session!";
                     }
                     else {
-                        $feedback = "ERROR! Only ".($totalSeatCapacity-$totalSeatTaken)." seats left!";
+                        $feedback = "Sorry, only ".($totalSeatCapacity-$totalSeatTaken)." seats available!";
                     }
                     return $feedback;
                 }
+                
+                $seatsLeft = $totalSeatCapacity - $totalSeatTaken;
+                $seat1Left = $seatCapacity[$restaurant_total1seaters] - $seat1Taken;
+                $seat2Left = $seatCapacity[$restaurant_total2seaters] - $seat2Taken;
+                $seat4Left = $seatCapacity[$restaurant_total4seaters] - $seat4Taken;
+                
              
-               
                 if ($no_of_pax >= 4) {
-                    $arrQuery[$booking_booked4seaters] = $no_of_pax / 4;
-                    $no_of_pax = $no_of_pax - (4* ($no_of_pax / 4));
+                    $expected4Seater = floor($no_of_pax / 4);
+                    if($expected4Seater > $seat4Left){
+                        $arrQuery[$booking_booked4seaters] = $seat4Left;
+                        $no_of_pax = $no_of_pax - (4* $seat4Left);
+                    }
+                    else{
+                        $arrQuery[$booking_booked4seaters] = $expected4Seater;
+                        $no_of_pax = $no_of_pax - (4* $expected4Seater);
+                    }
                 } 
                 if ($no_of_pax >= 2) {
-                    $arrQuery[$booking_booked2seaters] = $no_of_pax / 2;
-                    $no_of_pax = $no_of_pax - (2* ($no_of_pax / 2));
+                    $expected2Seater = floor($no_of_pax / 2);
+                    if($expected2Seater > $seat2Left){
+                        $arrQuery[$booking_booked2seaters] = $seat2Left;
+                        $no_of_pax = $no_of_pax - (2* $seat2Left);
+                    }
+                    else{
+                        $arrQuery[$booking_booked2seaters] = $expected2Seater;
+                        $no_of_pax = $no_of_pax - (2* $expected2Seater);
+                    }
                 }
                 
                 $arrQuery[$booking_booked1seaters] = $no_of_pax;
