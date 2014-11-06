@@ -63,12 +63,16 @@
             global $restaurant_total1seaters;
             global $restaurant_total2seaters;
             global $restaurant_total4seaters;
+            global $empty_string;
             $condition2 = [];
             $condition2[$restaurant_contact_no] = $resto_contact_number;
-            $rows2 = self::$dbOperation->get($condition2,"");
+            $rows2 = self::$dbOperation->get($condition2,$empty_string);
             $row2 = $rows2[0];
-            $totalSeatCapacity = $row2[$restaurant_total1seaters] + (2*$row2[$restaurant_total2seaters]) + (4*$row2[$restaurant_total4seaters]);
-            return $totalSeatCapacity;
+            $seatCapacity = [];
+            $seatCapacity[$restaurant_total1seaters] = $row2[$restaurant_total1seaters];
+            $seatCapacity[$restaurant_total2seaters] = $row2[$restaurant_total2seaters];
+            $seatCapacity[$restaurant_total4seaters] = $row2[$restaurant_total4seaters];
+            return $seatCapacity;
         }
 
     };

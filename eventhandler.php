@@ -75,9 +75,8 @@
         public function book($arrQuery, $pax )
         {
             global $booking_restaurant_key;
-            //counts the number of seat capacity
-            $totalSeatCapacity = Restaurant::getRestaurantCapacity($arrQuery[$booking_restaurant_key]);
-            return Booking::book($arrQuery,$pax,$totalSeatCapacity);
+            $seatCapacity = Restaurant::getRestaurantCapacity($arrQuery[$booking_restaurant_key]);
+            return Booking::book($arrQuery,$pax,$seatCapacity);
         }
         
         // $arrQuery here contains the primary keys of the booking table
