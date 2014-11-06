@@ -89,10 +89,12 @@ Class Booking
                     if($expected4Seater > $seat4Left){
                         $arrQuery[$booking_booked4seaters] = $seat4Left;
                         $no_of_pax = $no_of_pax - (4* $seat4Left);
+                        $seat4Left = 0;
                     }
                     else{
                         $arrQuery[$booking_booked4seaters] = $expected4Seater;
                         $no_of_pax = $no_of_pax - (4* $expected4Seater);
+                        $seat4Left = $seat4Left - $expected4Seater;
                     }
                 } 
                 if ($no_of_pax >= 2) {
@@ -100,14 +102,30 @@ Class Booking
                     if($expected2Seater > $seat2Left){
                         $arrQuery[$booking_booked2seaters] = $seat2Left;
                         $no_of_pax = $no_of_pax - (2* $seat2Left);
+                        $seat2Left = 0;
                     }
                     else{
                         $arrQuery[$booking_booked2seaters] = $expected2Seater;
                         $no_of_pax = $no_of_pax - (2* $expected2Seater);
+                        $seat2Left = $seat2Left - $expected2Seater;
                     }
                 }
                 
-                $arrQuery[$booking_booked1seaters] = $no_of_pax;
+                if ($seat1Left >= $no_of_pax){
+                    $arrQuery[$booking_booked1seaters] = $no_of_pax;
+                }
+                else{
+                    $expected2Seater = ceil($no_of_pax / 2);
+                    if($expected2Seater <= $seat2Left){ //if can hold with 2 seaters
+                        $arrQuery[$booking_booked2seaters] = $arrQuery[$booking_booked2seaters] + $expected2Seater;
+                    }
+                    else{ //if cannot hold with two seater
+                        $expected4Seater = ceil($no_of_pax / 4);
+                        if($expected4Seater <= $seat4Left){
+                            $arrQuery[$booking_booked4seaters] = $arrQuery[$booking_booked4seaters] + $expected4Seater;
+                        }
+                    }
+                }
                 
                 self::$dbOperation->insertData($arrQuery);
                 return "Booking successful!";
