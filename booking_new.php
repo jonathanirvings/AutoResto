@@ -62,11 +62,11 @@
             $bookingDetails['session'] = $bookingPost['session'];
             $no_of_pax = $bookingPost['pax'];
             
-            $eventHandler->book($bookingDetails, $no_of_pax);
+            $feedback = $eventHandler->book($bookingDetails, $no_of_pax);
             
             ?>
             <script>
-                alert("Booking successful");
+                alert("<?php echo $feedback?>");
             </script>
             <?php
         }

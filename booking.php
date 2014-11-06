@@ -29,11 +29,14 @@ Class Booking
              *      if restaurant is booked succesfully, store information in booking table
              *      else return error message string.
              */
-            public static function book($arrQuery,$no_of_pax,$totalSeatCapacity)
+            public static function book($arrQuery,$no_of_pax,$seatCapacity)
             {
                 global $booking_booked1seaters;
                 global $booking_booked2seaters;
                 global $booking_booked4seaters;
+                global $restaurant_total1seaters;
+                global $restaurant_total2seaters;
+                global $restaurant_total4seaters;
                 global $booking_restaurant_key;
                 global $booking_date;
                 global $booking_session;
@@ -54,21 +57,30 @@ Class Booking
                     $totalSeatTaken = $row[$booking_booked1seaters] + (2*$row[$booking_booked2seaters]) + (4*$row[$booking_booked4seaters]);
                 }
                 
+                $totalSeatCapacity = $seatCapacity[$restaurant_total1seaters] + (2*$seatCapacity[$restaurant_total2seaters]) + (4*$seatCapacity[$restaurant_total4seaters]);
                 
                 //checks whether there are enough seats for booking
                 if($totalSeatTaken + $no_of_pax > $totalSeatCapacity){
-                    return "ERROR! Only ".$totalSeatCapacity-$totalSeatTaken." seats left!";
+                    $feedback = $empty_string;
+                    if(($totalSeatCapacity-$totalSeatTaken)==0){
+                        $feedback = "Sorry! The restaurant is fully booked for this date and session!";
+                    }
+                    else {
+                        $feedback = "ERROR! Only ".($totalSeatCapacity-$totalSeatTaken)." seats left!";
+                    }
+                    return $feedback;
                 }
              
-                while ($no_of_pax >= 2) {
-                    if ($no_of_pax >= 4) {
-                        $arrQuery[$booking_booked4seaters] = $no_of_pax / 4;
-                        $no_of_pax = $no_of_pax / 4;
-                    } elseif ($no_of_pax >= 2) {
-                        $arrQuery[$booking_booked2seaters] = $no_of_pax / 2;
-                        $no_of_pax = $no_of_pax / 2;
-                    }
+               
+                if ($no_of_pax >= 4) {
+                    $arrQuery[$booking_booked4seaters] = $no_of_pax / 4;
+                    $no_of_pax = $no_of_pax - (4* ($no_of_pax / 4));
+                } 
+                if ($no_of_pax >= 2) {
+                    $arrQuery[$booking_booked2seaters] = $no_of_pax / 2;
+                    $no_of_pax = $no_of_pax - (2* ($no_of_pax / 2));
                 }
+                
                 $arrQuery[$booking_booked1seaters] = $no_of_pax;
                 
                 self::$dbOperation->insertData($arrQuery);
