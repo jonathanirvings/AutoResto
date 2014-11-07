@@ -124,9 +124,10 @@
                                                         
                                                         $bookLink = "<a href=\"booking_new.php?contact_no=$restaurant\">Book</a>";
                                                         $editLink = "<a href=\"restaurant_edit.php?contact_no=$restaurant&page_mode=edit\">Edit</a>";
+                                                        $deleteLink = "<a href=\"restaurant_delete.php?contact_no=$restaurant\">Delete</a>";
                                                         if ($row["open"] && $userIsAdmin)
                                                         {
-                                                            echo $bookLink." - ".$editLink;
+                                                            echo $bookLink." - ".$editLink." - ".$deleteLink;
                                                         } else if ($row["open"])
                                                         {
                                                             echo $bookLink;
