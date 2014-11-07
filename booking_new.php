@@ -126,7 +126,7 @@
                                     ?>
 
                                     </select>
-                                    No of pax. <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
+                                    <?php echo $page_mode!="edit" ? "No of Pax." : "Seats Allocated"?> <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
                                     <input type="submit" name="book" id="book" class="button" value="<?php echo ($page_mode != "edit") ? "Book" : "Edit Booking"?>"/>
                                 </form>
                             </div>
