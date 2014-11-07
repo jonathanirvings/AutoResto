@@ -61,16 +61,6 @@
                 <div class="row">
                     <div class="15u">
                         <section>
-                            <header>
-                                <?php
-                                    if ($page_mode != "edit"){
-                                        echo "<h2>Add New Restaurant</h2>";
-                                    } else {
-                                        echo "<h2>Edit Restaurant</h2>";
-                                    }
-                                ?>
-                            </header>
-                            
                             <?php
                                 $eventHandler = new eventhandler();
                                 if (isset($_GET['contact_no'])){
@@ -86,9 +76,21 @@
                                     } else {
                                         addRestaurant($_POST);
                                     }
-                                    $restaurant = $_POST;  
+                                    $restaurant = $_POST;
+                                    $contact_no = $restaurant['contact_no'];
+                                    header("Location: restaurant_edit.php?contact_no=$contact_no&page_mode=edit");
                                 }
                             ?>
+
+                            <header>
+                                <?php
+                                    if ($page_mode != "edit"){
+                                        echo "<h2>Add New Restaurant</h2>";
+                                    } else {
+                                        echo "<h2>Edit Restaurant</h2>";
+                                    }
+                                ?>
+                            </header>
 
                             <div id="restaurantdetails" class="container">
                                 <form method="post" action="">
