@@ -1,7 +1,7 @@
 <html>
 <head>
     <?php
-    include "htmlHeader.php";
+    include "htmlHeaderLogin.php";
     ?>
 </head>
 
