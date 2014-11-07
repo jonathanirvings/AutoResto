@@ -14,6 +14,8 @@
 
 <body class="homepage">
     <?php
+        $page_mode = $_GET['page_mode'];
+
         $eventHandler = new eventhandler();
         if (isset($_GET['contact_no'])){
             $contact_no = $_GET['contact_no'];
@@ -55,8 +57,8 @@
             $session = $bookingDetails['session'];
             //how to manage this?
             $numberOfPax = 0;
-
         }
+
         if (isset($_POST['save'])){
             if (isset($_POST['save'])){
                 if ($_POST['save'] == "Edit"){
@@ -68,6 +70,8 @@
             }
             $date = $bookingDetails['date'];
             $session = $bookingDetails['session'];
+            $contact_no = $restaurantDetails['contact_no'];
+            header("Location: booking_new.php?contact_no=$contact_no&date=$date&session=$session&page_mode=edit");
             //how to manage this?
             $numberOfPax = 0;
         } else if (!isset($_GET['page_mode'])) {
@@ -90,6 +94,13 @@
                         <section>
                             <header>
                                 <h2><?php echo $restaurantDetails['restaurant_name']?></h2>
+                                <?php
+                                if ($page_mode != 'edit'){
+                                    echo "<span class=\"byline\">New Booking</span>";
+                                } else {
+                                    echo "<span class=\"byline\">Edit Booking</span>";
+                                }
+                                ?>
                             </header>
                                 
                             <div id="bookingoptions" class="container">
@@ -116,7 +127,7 @@
 
                                     </select>
                                     No of pax. <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
-                                    <input type="submit" name="book" id="book" class="button" value="Book"/>
+                                    <input type="submit" name="book" id="book" class="button" value="<?php echo ($page_mode != "edit") ? "Book" : "Edit Booking"?>"/>
                                 </form>
                             </div>
                             <div id="restaurantdetails" class="container">
