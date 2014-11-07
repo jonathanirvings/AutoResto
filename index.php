@@ -125,16 +125,16 @@
                                                         $bookLink = "<a href=\"booking_new.php?contact_no=$restaurant\">Book</a>";
                                                         $editLink = "<a href=\"restaurant_edit.php?contact_no=$restaurant&page_mode=edit\">Edit</a>";
                                                         $deleteLink = "<a href=\"restaurant_delete.php?contact_no=$restaurant\">Delete</a>";
-                                                        if ($row["open"] && $userIsAdmin)
+                                                        $url = "";
+                                                        if ($row["open"])
                                                         {
-                                                            echo $bookLink." - ".$editLink." - ".$deleteLink;
-                                                        } else if ($row["open"])
-                                                        {
-                                                            echo $bookLink;
+                                                            $url .= $bookLink;
+                                                            if ($userIsAdmin) $url .= " - ".$editLink." - ".$deleteLink;
                                                         } else if ($userIsAdmin)
                                                         {
-                                                            echo $editLink;
+                                                            $url = $editLink." - ".$deleteLink;
                                                         }
+                                                        echo $url;
                                                     ?>
                                                     </td>
                                                 </tr>
