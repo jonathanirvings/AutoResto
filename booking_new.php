@@ -74,7 +74,7 @@
             header("Location: booking_new.php?contact_no=$contact_no&date=$date&session=$session&page_mode=edit");
             //how to manage this?
             $numberOfPax = 0;
-        } else if (!isset($_GET['page_mode'])) {
+        } else if (!isset($_GET['page_mode']) || $page_mode == "add") {
             $date = date('Y-m-d', strtotime("today"));
             $session = 'lunch';
             $numberOfPax = 0;
