@@ -79,6 +79,7 @@
         public static function isValidRestaurant($contact_no)
         {
             global $restaurant_contact_no;
+            global $empty_string;
             $arrQuery = [];
             $arrQuery[$restaurant_contact_no] = $contact_no;
             $rows = self::$dbOperation->get($arrQuery,$empty_string);

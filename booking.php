@@ -239,6 +239,17 @@ Class Booking
             {
                 return self::$dbOperation->getAll();
             }
+            
+            public static function isValidBooking($arrQuery)
+            {
+                global $empty_string;
+                $rows = self::$dbOperation->get($arrQuery,$empty_string);
+                $totalRows = count($rows);
+                if ($totalRows == 1){
+                   return true;
+                }
+                return false;
+            }
 	};
         
         

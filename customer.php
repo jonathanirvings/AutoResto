@@ -65,6 +65,7 @@
             
             public static function isValidIC($ic_no){
                 global $customer_ic_no;
+                global $empty_string;
                 $arrQuery = [];
                 $arrQuery[$customer_ic_no] = $ic_no;
                 $rows = self::$dbOperation->get($arrQuery,$empty_string);
