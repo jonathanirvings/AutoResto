@@ -40,16 +40,29 @@ function printNotAllowedMessage() {
                             
                             <?php
                                 $bookingRows = $eventHandler->getAllBookings();
+                                if (isset($_POST["filter"])) {
+                                    $keyword_booker_ic = $_POST["booker_ic"];
+                                    $bookingRows = $eventHandler->getBookingsSearch($keyword_booker_ic);
+                                }
+                                if(isset($_GET["order_by"])){
+                                   $order_by = $_GET["order_by"];
+                                   $bookingRows = $eventHandler->sortBookings($bookingRows,$order_by);
+                                }
                             ?>
+                            <form id="filtering" method="post">
+                                    <input name="filter" type="hidden" value="true"/>
+                                    Booker IC <input name="booker_ic" id="booker_ic" type="text" value=""/>
+                                    <input type="submit" name="search" id="search" class="button" value="Search"/>
+                                </form>
                             <form name="table">
                                 <table>
                                     <tr>
-                                        <th> Booker </a></th>
+                                        <th><a href="?order_by=booker_ic_no">Booker </a></th>
                                         <th> Restaurant Name </a></th>
                                         <th> Address </th>
                                         <th> Contact No. </th>
                                         <th> Cuisine </a></th>
-                                        <th> Date </th>
+                                        <th><a href="?order_by=date">Date </a></th>
                                         <th> Session </th>
                                         <th> No. of Tables </th>
                                         <th> Options </th>

@@ -45,7 +45,6 @@
                             </header>
                             
                             <?php
-                                $eventHandler = new EventHandler();
                                 
                                 if(isset($_GET["order_by"])){
                                    $order_by = $_GET["order_by"];
@@ -87,26 +86,14 @@
                             <form name="table">
                                 <table>
                                     <tr>
-                                        <th><a href="?order_by=restaurant_name<?php
-                                               if($search_string!=""){
-                                                   echo "&search_string=".$search_string."&search=Search";
-                                               }
-                                               ?>"> Name </a></th>
+                                        <th><a href="?order_by=restaurant_name"> Name </a></th>
                                         <th> Address </th>
                                         <th> Contact No. </th>
-                                        <th><a href="?order_by=cuisine<?php
-                                               if($search_string!=""){
-                                                   echo "&search_string=".$search_string."&search=Search";
-                                               }
-                                               ?>"> Cuisine </a></th>
+                                        <th><a href="?order_by=cuisine"> Cuisine </a></th>
                                         <th> 1 Seater </th>
                                         <th> 2 Seater </th>
                                         <th> 4 Seater </th>
-                                        <th><a href="?order_by=open<?php
-                                               if($search_string!=""){
-                                                   echo "&search_string=".$search_string."&search=Search";
-                                               }
-                                               ?>"> Status </a></th>
+                                        <th><a href="?order_by=open"> Status </a></th>
                                         <th> Option </th>
                                     </tr>
                                     <?php

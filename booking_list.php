@@ -38,7 +38,12 @@
                                 
                                 //get list of the user's bookings
                                 $bookingRows = $eventHandler->getBookingsByIC($ic_number);
+                                if(isset($_GET["order_by"])){
+                                   $order_by = $_GET["order_by"];
+                                   $bookingRows = $eventHandler->sortBookings($bookingRows,$order_by);
+                                }
                             ?>
+                            
                             <form name="table">
                                 <table>
                                     <tr>
@@ -46,7 +51,7 @@
                                         <th> Address </th>
                                         <th> Contact No. </th>
                                         <th> Cuisine </a></th>
-                                        <th> Date </th>
+                                        <th><a href="?order_by=date">Date </a></th>
                                         <th> Session </th>
                                         <th> No. of Tables </th>
                                         <th> Options </th>

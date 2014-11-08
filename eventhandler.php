@@ -86,6 +86,20 @@
             return Booking::book($arrQuery,$pax,$seatCapacity);
         }
         
+        public function sortBookings($listOfBookings,$sortKey)
+        {
+            for ($i = 0; $i < count($listOfBookings); ++$i) {
+                for ($j = $i; $j < count($listOfBookings); ++$j) {
+                    if ($listOfBookings[$j][$sortKey] < $listOfBookings[$i][$sortKey]) {
+                        $temp = $listOfBookings[$i];
+                        $listOfBookings[$i] = $listOfBookings[$j];
+                        $listOfBookings[$j] = $temp;
+                    }
+                }
+            }
+            return $listOfBookings;
+        }
+        
         // $arrQuery here contains the primary keys of the booking table
         // i.e. need to have the following 4 information
         // $arrQuery["booker_ic_no"] = "G0000000X";
