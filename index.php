@@ -60,7 +60,7 @@
                                     $search_string = "";
                                 }
 
-                                $rows = $eventHandler->getListOfRestaurants($search_string, $order_by);
+                                $rows = $eventHandler->getListOfRestaurants($search_string, $empty_string, $empty_string, $order_by);
 
                                 //Check whether the user is an admin or not
                                 $userIsAdmin = $eventHandler->isAdmin($ic_number);

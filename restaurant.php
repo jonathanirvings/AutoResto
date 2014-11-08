@@ -38,10 +38,14 @@
             return self::$dbOperation->get($arrQuery,$sortBy);
         }
         
-        public static function listOfRestaurantsSearch($keyword,$orderBy)
+        public static function listOfRestaurantsSearch($keyword_name,$keyword_address,$keyword_cuisine,$orderBy)
         {
             global $restaurant_name;
-            $arrQuery[$restaurant_name] = $keyword;
+            global $restaurant_address;
+            global $restaurant_cuisine;
+            $arrQuery[$restaurant_name] = $keyword_name;
+            $arrQuery[$restaurant_address] = $keyword_address;
+            $arrQuery[$restaurant_cuisine] = $keyword_cuisine;
             return self::$dbOperation->getSearch($arrQuery,$orderBy);
         }
         

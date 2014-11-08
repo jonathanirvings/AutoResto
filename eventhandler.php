@@ -37,21 +37,16 @@
             Restaurant::editRestaurant($contact_no,$arrayNew);
         }
 
-        public function getListOfRestaurants($keyword,$sortedKey)
+        public function getListOfRestaurants($keyword_name,$keyword_address,$keyword_cuisine,$sortedKey)
         {
             global $empty_string;
             global $restaurant_name;
-            if(($sortedKey == $empty_string)&&($keyword == $empty_string)){
-                return Restaurant::listOfRestaurantsSorted($restaurant_name);
+            
+            if ($sortedKey == $empty_string){
+                return Restaurant::listOfRestaurantsSearch($keyword_name,$keyword_address,$keyword_cuisine,$restaurant_name);
             }
-            else if (($sortedKey != $empty_string)&&($keyword != $empty_string)){
-                return Restaurant::listOfRestaurantsSearch($keyword,$sortedKey);
-            }
-            else if ($keyword != $empty_string){
-                return Restaurant::listOfRestaurantsSearch($keyword,$empty_string);
-            }
-            else if ($sortedKey != $empty_string){
-                return Restaurant::listOfRestaurantsSearch($empty_string,$sortedKey);
+            else{
+                return Restaurant::listOfRestaurantsSearch($keyword_name,$keyword_address,$keyword_cuisine,$sortedKey);
             }
         }
         
