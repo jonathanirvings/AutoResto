@@ -58,7 +58,8 @@
             return false;
         }
         
-        public static function getRestaurantCapacity($resto_contact_number){
+        public static function getRestaurantCapacity($resto_contact_number)
+        {
             global $restaurant_contact_no;
             global $restaurant_total1seaters;
             global $restaurant_total2seaters;
@@ -73,6 +74,19 @@
             $seatCapacity[$restaurant_total2seaters] = $row2[$restaurant_total2seaters];
             $seatCapacity[$restaurant_total4seaters] = $row2[$restaurant_total4seaters];
             return $seatCapacity;
+        }
+        
+        public static function isValidRestaurant($contact_no)
+        {
+            global $restaurant_contact_no;
+            $arrQuery = [];
+            $arrQuery[$restaurant_contact_no] = $contact_no;
+            $rows = self::$dbOperation->get($arrQuery,$empty_string);
+            $totalRows = count($rows);
+            if ($totalRows == 1){
+               return true;
+            }
+            return false;
         }
 
     };

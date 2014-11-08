@@ -63,6 +63,18 @@
                 
             }
             
+            public static function isValidIC($ic_no){
+                global $customer_ic_no;
+                $arrQuery = [];
+                $arrQuery[$customer_ic_no] = $ic_no;
+                $rows = self::$dbOperation->get($arrQuery,$empty_string);
+                $totalRows = count($rows);
+                if ($totalRows == 1){
+                   return true;
+                }
+                return false;
+            }
+            
             public static function getCustomerName($ic_number) {
                 global $customer_name;
                 global $customer_ic_no;

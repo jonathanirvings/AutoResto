@@ -59,6 +59,11 @@
             return Restaurant::getRestaurantDetails($resto_contact_number);
         }
         
+        public function isValidRestaurant($contact_no)
+        {
+            return Restaurant::isValidRestaurant($contact_no);
+        }
+        
         //RESTAURANT METHODS END
         
         
@@ -155,6 +160,12 @@
         {
             return Customer::isAdmin($ic_no);
         }
+        
+        public function isValidIC($ic_no)
+        {
+            return Customer::isValidIC($ic_no);
+        }
+        
         
         //CUSTOMER METHODS END
         
