@@ -53,6 +53,7 @@ function delete(){
                                         <th> Contact No. </th>
                                         <th> Cuisine </a></th>
                                         <th> Date </th>
+                                        <th> Session </th>
                                         <th> No. of Tables </th>
                                         <th> Options </th>
                                     </tr>
@@ -69,6 +70,7 @@ function delete(){
                                                     <td> <?= $restaurant['contact_no'] ?> </td>
                                                     <td> <?= $restaurant['cuisine'] ?> </td>
                                                     <td> <?= date('d M Y', strtotime($row['date'])) ?> </td>
+                                                    <td> <?= $row['session'] ?> </td>
                                                     <td> <?= $row['booked1seaters'] + $row['booked2seaters'] + $row['booked4seaters'] ?> </td>
                                                     <td>
                                                     <?php
