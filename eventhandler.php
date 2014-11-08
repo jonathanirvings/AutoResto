@@ -121,7 +121,7 @@
             $seatCapacity = Restaurant::getRestaurantCapacity($arrQueryNew[$booking_restaurant_key]);
             return Booking::editBookings($arrQueryOld, $arrQueryNew, $new_no_of_pax, $seatCapacity);
         }
-           
+                   
         public function getBookingsByIC($ic_no)
         {
             return Booking::getBookingsByIC($ic_no);
@@ -130,6 +130,11 @@
         public function getBookings($arrQuery)
         {
             return Booking::getBookings($arrQuery);
+        }
+        
+        public function getBookingsSearch($keyword_booker_ic)
+        {
+            return Booking::getBookingsSearch($keyword_booker_ic);
         }
         
         public function getAllBookings()

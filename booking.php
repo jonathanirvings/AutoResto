@@ -240,6 +240,14 @@ Class Booking
                 return self::$dbOperation->getAll();
             }
             
+            public static function getBookingsSearch($keyword_booker_ic){
+                global $booking_booker_key;
+                global $booking_date;
+                $arrQuery = [];
+                $arrQuery[$booking_booker_key] = $keyword_booker_ic;
+                return self::$dbOperation->getSearch($arrQuery,$booking_date);
+            }
+            
             public static function isValidBooking($arrQuery)
             {
                 global $empty_string;
