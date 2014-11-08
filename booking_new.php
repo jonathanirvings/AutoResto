@@ -50,6 +50,7 @@
             $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
+            
 
             $rows = $eventHandler->getBookings($arrQuery);
             $bookingDetails = $rows[0];
@@ -60,14 +61,12 @@
         }
 
         if (isset($_POST['save'])){
-            if (isset($_POST['save'])){
-                if ($_POST['save'] == "Edit"){
-                    editBooking($bookingDetails, $_POST);
-                } else {
-                    addBooking($_POST, $restaurantDetails['contact_no']);
-                }
-                $bookingDetails = $_POST;
+            if ($_POST['save'] == "Add"){
+                addBooking($_POST, $restaurantDetails['contact_no']);
+            } else {
+                editBooking($bookingDetails, $_POST);
             }
+            $bookingDetails = $_POST;
             $date = $bookingDetails['date'];
             $session = $bookingDetails['session'];
             $contact_no = $restaurantDetails['contact_no'];

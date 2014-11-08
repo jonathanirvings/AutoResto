@@ -53,27 +53,32 @@
                                 else{
                                    $order_by = "";
                                 }
-
-                                if (isset($_GET['search_string'])){
-                                    $search_string = $_GET['search_string'];
-                                } else {
-                                    $search_string = "";
+                                
+                                $rows = $eventHandler->getListOfRestaurants("","","",$order_by);
+                                
+                                if (isset($_POST["filter"])) {
+                                    $keyword_name = $_POST["restaurant_name"];
+                                    $keyword_address = $_POST["restaurant_address"];
+                                    $keyword_cuisine = $_POST["restaurant_cuisine"];
+                                    $rows = $eventHandler->getListOfRestaurants($keyword_name,$keyword_address,$keyword_cuisine,$order_by);
                                 }
-
-                                $rows = $eventHandler->getListOfRestaurants($search_string, $empty_string, $empty_string, $order_by);
-
-                                //Check whether the user is an admin or not
-                                $userIsAdmin = $eventHandler->isAdmin($ic_number);
-                                
-                                
                             ?>
                             <div>
+                                <form id="filtering" method="post">
+                                    <input name="filter" type="hidden" value="true"/>
+                                    Restaurant Name <input name="restaurant_name" id="restaurant_name" type="text" value=""/>
+                                    Restaurant Address <input name="restaurant_address" id="restaurant_address" type="text" value=""/>
+                                    Cuisine <input name="restaurant_cuisine" id="restaurant_cuisine" type="text" value=""/>
+                                    <input type="submit" name="search" id="search" class="button" value="Search"/>
+                                </form>
+                                <!--
                                 <form name="search"><ul class="style2"><li>
                                     <input name="search_string" id="search_string" type="text" value="<?php echo $search_string ?>"/>
                                     <input type="submit" name="search" id="search" class="button" value="Search"/>
-                                </li></ul></form>
+                                </li></ul>
+                                </form>-->
                                 <?php
-                                    if ($userIsAdmin)
+                                    if ($isAdmin)
                                     {
                                         echo "<a href=\"restaurant_edit.php?page_mode=add\">Add a new Restaurant</a>";
                                     }
@@ -129,8 +134,10 @@
                                                         if ($row["open"])
                                                         {
                                                             $url .= $bookLink;
-                                                            if ($userIsAdmin) $url .= " - ".$editLink." - ".$deleteLink;
-                                                        } else if ($userIsAdmin)
+                                                            if ($isAdmin) {
+                                                                $url .= " - ".$editLink." - ".$deleteLink;
+                                                            }
+                                                        } else if ($isAdmin)
                                                         {
                                                             $url = $editLink." - ".$deleteLink;
                                                         }

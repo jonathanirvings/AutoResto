@@ -16,12 +16,10 @@
                         </a></li>
                     <li class="index"><a href="./">Restaurants</a></li>
                     <?php
-                        if ($isAdmin) 
-                        {
-                            echo "<li class=\"booking_list\"><a href=\"booking_list.php\">All Bookings</a></li>";
+                        if ($isAdmin) {
+                            echo "<li class=\"booking_list\"><a href=\"booking_list_admin.php\">All Bookings</a></li>";
                         }
-                        else 
-                        {
+                        else {
                             echo "<li class=\"booking_list\"><a href=\"booking_list.php\">My Bookings</a></li>";
                         }
                     ?>

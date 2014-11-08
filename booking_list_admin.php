@@ -6,15 +6,19 @@
 </head>
 
 <?php
+function printNotAllowedMessage() {
+    ?>
+    <header>
+        <h2>You are not allowed to see this page</h2>
+    </header>
+    <?php
+}
 ?>
 
 <body class="homepage">
     <!-- Header -->
     <?php
         include "headerPage.php";
-        if ($isAdmin) {
-            header('Location: booking_list_admin.php');
-        }
         ?>
         <script>$(".booking_list").addClass("active");</script>
         <?php
@@ -31,17 +35,16 @@
                         <section>
                             <header>
                                 <h2>Booking List</h2>
-                                <span class="byline">Below are the bookings that you have made</span>
+                                <span class="byline">Below are the bookings that users made</span>
                             </header>
                             
                             <?php
-                                
-                                //get list of the user's bookings
-                                $bookingRows = $eventHandler->getBookingsByIC($ic_number);
+                                $bookingRows = $eventHandler->getAllBookings();
                             ?>
                             <form name="table">
                                 <table>
                                     <tr>
+                                        <th> Booker </a></th>
                                         <th> Restaurant Name </a></th>
                                         <th> Address </th>
                                         <th> Contact No. </th>
@@ -58,6 +61,7 @@
                                                 $restaurant = $eventHandler->getRestaurantDetails($row['restaurant_contact_no']);
                                             ?>
                                                 <tr>
+                                                    <td> <?= $row['booker_ic_no'] ?> </td>
                                                     <td> <?= $restaurant['restaurant_name'] ?> </td>
                                                     <td> <?= $restaurant['address'] ?> </td>
                                                     <td> <?= $restaurant['contact_no'] ?> </td>
