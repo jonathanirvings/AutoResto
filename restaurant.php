@@ -43,9 +43,9 @@
             global $restaurant_name;
             global $restaurant_address;
             global $restaurant_cuisine;
-            $arrQuery[$restaurant_name] = $keyword_name;
-            $arrQuery[$restaurant_address] = $keyword_address;
-            $arrQuery[$restaurant_cuisine] = $keyword_cuisine;
+            $arrQuery[$restaurant_name] = trim($keyword_name);
+            $arrQuery[$restaurant_address] = trim($keyword_address);
+            $arrQuery[$restaurant_cuisine] = trim($keyword_cuisine);
             return self::$dbOperation->getSearch($arrQuery,$orderBy);
         }
         

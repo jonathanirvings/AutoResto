@@ -73,10 +73,21 @@
         // $arrQuery["restaurant_contact_no"] = "99999999";
         // $arrQuery["date"] = "xxxx-xx-xx";
         // $arrQuery["session"] = "lunch";
-        public function book($arrQuery, $pax )
+        public function book($condition, $pax )
         {
             global $booking_restaurant_key;
+            global $booking_booker_key;
+            global $booking_date;
+            global $booking_session;
+            
+            $arrQuery = [];
+            $arrQuery[$booking_restaurant_key] = trim($condition[$booking_restaurant_key]);
+            $arrQuery[$booking_booker_key] = trim($condition[$booking_booker_key]);
+            $arrQuery[$booking_date] = trim($condition[$booking_date]);
+            $arrQuery[$booking_session] = trim($condition[$booking_session]);
+            
             $seatCapacity = Restaurant::getRestaurantCapacity($arrQuery[$booking_restaurant_key]);
+          
             return Booking::book($arrQuery,$pax,$seatCapacity);
         }
         
@@ -92,9 +103,21 @@
         }
         
         // $arrQuery here contains all information in the table
-        public function editBookings($arrQueryOld, $arrQueryNew, $new_no_of_pax)
+        public function editBookings($conditionOld, $conditionNew, $new_no_of_pax)
         {
             global $booking_restaurant_key;
+            global $booking_booker_key;
+            global $booking_date;
+            global $booking_session;
+            
+            $arrQueryOld = $conditionOld;
+            
+            $arrQueryNew = [];
+            $arrQueryNew[$booking_restaurant_key] = trim($conditionNew[$booking_restaurant_key]);
+            $arrQueryNew[$booking_booker_key] = trim($conditionNew[$booking_booker_key]);
+            $arrQueryNew[$booking_date] = trim($conditionNew[$booking_date]);
+            $arrQueryNew[$booking_session] = trim($conditionNew[$booking_session]);
+            
             $seatCapacity = Restaurant::getRestaurantCapacity($arrQueryNew[$booking_restaurant_key]);
             return Booking::editBookings($arrQueryOld, $arrQueryNew, $new_no_of_pax, $seatCapacity);
         }
