@@ -51,12 +51,12 @@
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
 
-            $bookingDetails = $eventHandler->getBookings($arrQuery);
-            $bookingDetails = $bookingDetails[0];
+            $rows = $eventHandler->getBookings($arrQuery);
+            $bookingDetails = $rows[0];
             $date = $bookingDetails['date'];
             $session = $bookingDetails['session'];
             //how to manage this?
-            $numberOfPax = 0;
+            $numberOfPax = $bookingDetails[$booking_booked1seaters] +(2*$bookingDetails[$booking_booked2seaters]) + (4*$bookingDetails[$booking_booked4seaters]);
         }
 
         if (isset($_POST['save'])){
