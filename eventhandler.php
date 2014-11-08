@@ -40,8 +40,9 @@
         public function getListOfRestaurants($keyword,$sortedKey)
         {
             global $empty_string;
+            global $restaurant_name;
             if(($sortedKey == $empty_string)&&($keyword == $empty_string)){
-                return Restaurant::listOfRestaurants();
+                return Restaurant::listOfRestaurantsSorted($restaurant_name);
             }
             else if (($sortedKey != $empty_string)&&($keyword != $empty_string)){
                 return Restaurant::listOfRestaurantsSearch($keyword,$sortedKey);
