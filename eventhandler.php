@@ -118,6 +118,11 @@
             return Booking::getAllBookings();
         }
         
+        public function isValidBooking($arrQuery)
+        {
+            return Booking::isValidBooking($arrQuery);
+        }
+        
         //BOOKING METHODS END
         
         
