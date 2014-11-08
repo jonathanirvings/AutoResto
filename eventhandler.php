@@ -81,10 +81,10 @@
             global $booking_session;
             
             $arrQuery = [];
-            $arrQuery[$booking_restaurant_key] = trim($condition[$booking_restaurant_key]);
-            $arrQuery[$booking_booker_key] = trim($condition[$booking_booker_key]);
-            $arrQuery[$booking_date] = trim($condition[$booking_date]);
-            $arrQuery[$booking_session] = trim($condition[$booking_session]);
+            $arrQuery[$booking_restaurant_key] = $condition[$booking_restaurant_key];
+            $arrQuery[$booking_booker_key] = $condition[$booking_booker_key];
+            $arrQuery[$booking_date] = $condition[$booking_date];
+            $arrQuery[$booking_session] = $condition[$booking_session];
             
             $seatCapacity = Restaurant::getRestaurantCapacity($arrQuery[$booking_restaurant_key]);
           
@@ -113,10 +113,10 @@
             $arrQueryOld = $conditionOld;
             
             $arrQueryNew = [];
-            $arrQueryNew[$booking_restaurant_key] = trim($conditionNew[$booking_restaurant_key]);
-            $arrQueryNew[$booking_booker_key] = trim($conditionNew[$booking_booker_key]);
-            $arrQueryNew[$booking_date] = trim($conditionNew[$booking_date]);
-            $arrQueryNew[$booking_session] = trim($conditionNew[$booking_session]);
+            $arrQueryNew[$booking_restaurant_key] = $conditionNew[$booking_restaurant_key];
+            $arrQueryNew[$booking_booker_key] = $conditionNew[$booking_booker_key];
+            $arrQueryNew[$booking_date] = $conditionNew[$booking_date];
+            $arrQueryNew[$booking_session] = $conditionNew[$booking_session];
             
             $seatCapacity = Restaurant::getRestaurantCapacity($arrQueryNew[$booking_restaurant_key]);
             return Booking::editBookings($arrQueryOld, $arrQueryNew, $new_no_of_pax, $seatCapacity);
