@@ -11,7 +11,18 @@
         
         public static function addRestaurant($arrayData)
         {
-            return self::$dbOperation->insertData($arrayData);
+            global $restaurant_contact_no;
+            global $empty_string;
+            $arrCondition = array();
+            $arrCondition[$restaurant_contact_no] = $arrayData[$restaurant_contact_no];
+            $rows = self::$dbOperation->get($arrCondition,$empty_string);
+            if(count($rows)>0){
+                return "Error! Restaurant already exists!";
+            }
+            
+            self::$dbOperation->insertData($arrayData);
+            
+            return "Restaurant added successfully!";
         }
         
         public static function deleteRestaurant($arrQuery)
