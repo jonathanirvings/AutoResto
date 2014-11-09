@@ -190,7 +190,7 @@ Class Booking
                 $totalSeatDeleted = 0;
                 
                 //if it is the same restaurant, corner case, need to calculate the deleted seats
-                if(cond1&&cond2&&cond3&&cond4){
+                if($cond1&&$cond2&&$cond3&&$cond4){
                     $condition = [];
                     $condition[$booking_restaurant_key] = $arrQueryOld[$booking_restaurant_key];
                     $condition[$booking_date] = $arrQueryOld[$booking_date];
