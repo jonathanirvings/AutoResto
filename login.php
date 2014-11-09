@@ -15,6 +15,7 @@
             Password
             <input type="password" id="password" name="password" size="10"/>
             <input type="submit" name="login" id="login" class="button" value="login"/>
+            <p class="error_message" id="login_error"></p>
         </form>
         <?php
     }
@@ -62,12 +63,12 @@
                                             header('Location: index.php');
                                         } else
                                         {
+                                            showLoginForm();
                                             ?>
                                             <script>
-                                                alert("Invalid IC Number/Password");
+                                                $("#login_error").html("Invalid IC Number/Password");
                                             </script>
                                             <?php
-                                            showLoginForm();
                                         }
                                     } else
                                     {

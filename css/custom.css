@@ -2,3 +2,9 @@
 {
 	float:right;
 }
+
+.error_message
+{
+	color:red;
+	font-size:80%;
+}
