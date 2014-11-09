@@ -74,7 +74,7 @@
                                     <?php
                                         global $rows_each_page;
                                         if (sizeof($bookingRows) > 0){
-                                            $numPages = ceil(sizeof($rows) / $rows_each_page);
+                                            $numPages = ceil(sizeof($bookingRows) / $rows_each_page);
                                             $page = min($page,$numPages - 1);
                                             $firstRow = $page * $rows_each_page;
                                             $lastRow = min(($page+1) * $rows_each_page,sizeof($bookingRows)) - 1;
