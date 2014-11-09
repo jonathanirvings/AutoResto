@@ -31,11 +31,14 @@
             $newDetails['open'] = $newArray['open'];
 
             $feedback = $eventHandler->editRestaurant($contact_no, $newDetails);
+            if ($feedback == "Restaurant updated successfully!"){
             ?>
-            <script>
-                alert("<?php echo $feedback?>");
-            </script>
+                <script>
+                    window.location.href = "index.php";
+                    alert("<?php echo $feedback?>");
+                </script>
             <?php
+            }
             return ($feedback == "Restaurant updated successfully!");
         }
         
@@ -53,11 +56,14 @@
             $newDetails['open'] = $newArray['open'];
 
             $feedback = $eventHandler->addRestaurant($newDetails);
+            if ($feedback == "Restaurant added successfully!"){
             ?>
-            <script>
-                alert("<?php echo $feedback?>");
-            </script>
+                <script>
+                    window.location.href = "index.php";
+                    alert("<?php echo $feedback?>");
+                </script>
             <?php
+            }
             return ($feedback == "Restaurant added successfully!");
         }
 
