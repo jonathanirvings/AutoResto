@@ -53,7 +53,7 @@
                                         <th> Cuisine </a></th>
                                         <th><a href="?order_by=date">Date </a></th>
                                         <th> Session </th>
-                                        <th> No. of Tables </th>
+                                        <th> No. of Seats Allocated </th>
                                         <th> Options </th>
                                     </tr>
                                     <?php
@@ -69,7 +69,7 @@
                                                     <td> <?= $restaurant['cuisine'] ?> </td>
                                                     <td> <?= date('d M Y', strtotime($row['date'])) ?> </td>
                                                     <td> <?= $row['session'] ?> </td>
-                                                    <td> <?= $row['booked1seaters'] + $row['booked2seaters'] + $row['booked4seaters'] ?> </td>
+                                                    <td> <?= $row['booked1seaters'] + (2*$row['booked2seaters']) + (4*$row['booked4seaters']) ?> </td>
                                                     <td>
                                                     <?php
                                                         $contact_no = $restaurant['contact_no'];
