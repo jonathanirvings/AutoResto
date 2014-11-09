@@ -169,6 +169,7 @@
         
         public function addCustomer($arrQuery)
         {
+            $arrQuery['password'] = md5($arrQuery['password']);
             return Customer::addCustomer($arrQuery);
         }
         
@@ -191,7 +192,7 @@
         // $id is customer_ic_no, $password is customer_password
         public function login($id,$password)
         {
-            return Customer::isLoginSuccessful($id,$password);
+            return Customer::isLoginSuccessful($id,md5($password));
         }
         
         public function isAdmin($ic_no)
