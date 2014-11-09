@@ -73,7 +73,7 @@
 
         function isValidBooking($bookingPost){
             $msg = "";
-            if (!isset($_POST['date'])){
+            if (!isset($_POST['date']) || empty($_POST['date'])){
                 $msg = "Date should not be empty.";
             } else if (strtotime($_POST['date']) < strtotime("today")){
                 $msg = "Date should not be earlier than today.";
