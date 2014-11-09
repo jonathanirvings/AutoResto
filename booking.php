@@ -82,6 +82,11 @@ Class Booking
                     return "Error! Please enter a valid number of pax!";
                 }
                 
+                $rows = self::$dbOperation->get($arrQuery);
+                if (count($rows)>0){
+                    return "Error! You have already booked on this date and session, please view your booking and edit.";
+                }
+                
                 $totalSeatCapacity = $seatCapacity[$restaurant_total1seaters] + (2*$seatCapacity[$restaurant_total2seaters]) + (4*$seatCapacity[$restaurant_total4seaters]);
                 
                 $seatTaken = self::getNumberOfSeatsTaken($arrQuery);
