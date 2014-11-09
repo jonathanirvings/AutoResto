@@ -38,7 +38,7 @@
             $arrValidation = array();
             $arrValidation[$restaurant_contact_no] = $arrayNew[$restaurant_contact_no];
             $rows = self::$dbOperation->get($arrValidation,$empty_string);
-            if(count($rows)>0){
+            if((count($rows)>0)&&($contact_no!=$arrayNew[$restaurant_contact_no])){
                 return "Error! Restaurant contact number already exists!";
             }
                         
