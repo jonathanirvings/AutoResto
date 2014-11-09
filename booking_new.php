@@ -70,7 +70,7 @@
             $date = $bookingDetails['date'];
             $session = $bookingDetails['session'];
             $contact_no = $restaurantDetails['contact_no'];
-            header("Location: booking_new.php?contact_no=$contact_no&date=$date&session=$session&page_mode=edit");
+            header("Location: index.php");
             //how to manage this?
             $numberOfPax = 0;
         } else if (!isset($_GET['page_mode']) || $page_mode == "add") {
