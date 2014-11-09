@@ -12,14 +12,16 @@
             {
                 global $customer_ic_no;
                 global $empty_string;
+                global $add_customer_duplicate_message;
+                global $add_customer_success_message;
                 $arrCondition = array();
                 $arrCondition[$customer_ic_no] = $arrayData[$customer_ic_no];
                 $rows = self::$dbOperation->get($arrCondition,$empty_string);
                 if(count($rows)>0){
-                    return "Error! User already exists!";
+                    return $add_customer_duplicate_message;
                 }
                 self::$dbOperation->insertData($arrayData);
-                return "User registered successfully!";
+                return $add_customer_success_message;
             }
 
             public static function deleteCustomer($arrQuery)

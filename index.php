@@ -25,10 +25,8 @@
     <!-- Header -->
     <?php
         include "headerPage.php";
-        ?>
-        <script>$(".index").addClass("active");</script>
-        <?php
     ?>
+    <script>$(".index").addClass("active");</script>
     <!-- Header -->
 
      <!-- Main -->
@@ -45,7 +43,11 @@
                             </header>
                             
                             <?php
-                                
+                                $page = 0;
+                                if (isset($_GET["page"])) {
+                                    $page = $_GET["page"] - 1;
+                                }
+                            
                                 if(isset($_GET["order_by"])){
                                    $order_by = $_GET["order_by"];
                                 }
@@ -83,6 +85,7 @@
                                     }
                                 ?>
                             </div>
+                            <div class="page_button"></div>
                             <form name="table">
                                 <table>
                                     <tr>
@@ -97,8 +100,13 @@
                                         <th> Option </th>
                                     </tr>
                                     <?php
+                                        global $rows_each_page;
                                         if (sizeof($rows) > 0){
-                                            for ($i = 0; $i < sizeof($rows); ++$i){
+                                            $firstRow = $page * $rows_each_page;
+                                            $lastRow = min(($page+1) * $rows_each_page,sizeof($rows)) - 1;
+                                            $numPages = ceil(sizeof($rows) / $rows_each_page);
+                                            echo "Showing from ".($firstRow+1)." to ".($lastRow+1)." from ".sizeof($rows)." rows";
+                                            for ($i = $firstRow; $i <= $lastRow; ++$i){
                                                 $row = $rows[$i];
                                             ?>
                                                 <tr>
@@ -137,6 +145,20 @@
                                     ?>
                                 </table>
                             </form>
+                            <div class="page_button"></div>
+                            <?php
+                                $pageButton = "Jump to Page ";
+                                for ($i = 1; $i <= $numPages; ++$i) {
+                                                if ($order_by == "") {
+                                                    $pageButton .= "<a href='?page=".$i."'>".$i."</a>  ";
+                                                } else {
+                                                    $pageButton .= "<a href='?order_by=".$order_by."&page=".$i."'>".$i."</a>  ";
+                                                }
+                                            }
+                            ?>
+                            <script>
+                                $(".page_button").html("<?php echo $pageButton;?>");
+                            </script>
                         </section>
                     </div>
                 </div>

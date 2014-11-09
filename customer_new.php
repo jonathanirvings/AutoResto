@@ -44,10 +44,12 @@
         }
         
         function addUser() {
+            global $eventHandler;
+            
             $ic_number = $_POST["ic_number"];
             $name = $_POST["name"];
             $email = $_POST["email"];
-            $contact_no = $_POST["email"];
+            $contact_no = $_POST["contact_no"];
             $password = $_POST["password"];
             $password_confirm = $_POST["password_confirm"];
             if (!checkPassword($password,$password_confirm)) {
@@ -56,6 +58,18 @@
             if (!checkContactNo($contact_no)) {
                 return false;
             }
+            $newArray = array();
+            $newArray["ic_no"] = $ic_number;
+            $newArray["name"] = $name;
+            $newArray["email"] = $email;
+            $newArray["contact_no"] = $contact_no;
+            $newArray["password"] = $password;
+            $newArray["active"] = 1;
+            $newArray["isAdmin"] = 0;
+            $error_message = $eventHandler->addCustomer($newArray);
+            ?><script>
+            alert("<?php echo $error_message; ?>");
+            </script><?php
             return true;
         }
     

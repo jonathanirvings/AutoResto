@@ -1,4 +1,6 @@
 <?php
+    $rows_each_page = 20;
+
     $db_location = "localhost";
     $db_name = "autoresto";
     $db_username = "root";
@@ -40,4 +42,7 @@
     $one = "1";
     $two = "2";
     $four = "4";
+    
+    $add_customer_duplicate_message = "Error! IC already exists!";
+    $add_customer_success_message = "User registered successfully!";
 ?>  
