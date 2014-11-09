@@ -43,6 +43,7 @@
                 alert("<?php echo $feedback?>");
             </script>
             <?php
+            return ($feedback == "Booking successful!");
         }
 
         function editBooking($old, $new, $restaurant_contact_no){
@@ -67,12 +68,27 @@
                 alert("<?php echo $feedback?>");
             </script>
             <?php
+            return ($feedback == "Edit booking successful!");
+        }
+
+        function isValidBooking($bookingPost){
+            $msg = "";
+            if (!isset($_POST['date'])){
+                $msg = "Date should not be empty.";
+            } else if (strtotime($_POST['date']) < strtotime("today")){
+                $msg = "Date should not be earlier than today.";
+            }
+            if (!isset($_POST['pax']) || $_POST['pax'] <= 0){
+                $msg .= ($msg != "" ? " " : "")."No of pax booked should be more than 0.";
+            }
+            return $msg;
         }
 
         if (isset($_POST['save'])){
-            // if (isValidBooking($_POST)){
+            $msg = isValidBooking($_POST);
+            if ($msg == ""){
                 if ($_POST['save'] == "Book"){
-                    addBooking($_POST, $restaurantDetails['contact_no']);
+                    $success = addBooking($_POST, $restaurantDetails['contact_no']);
                 } else if ($_POST['save'] == "Edit Booking"){
                     $arrQuery = array();
                     $arrQuery['booker_ic_no'] = $ic_number;
@@ -83,11 +99,20 @@
                     $oldBookingDetails = $eventHandler->getBookings($arrQuery);
                     $oldBookingDetails = $oldBookingDetails[0];
 
-                    editBooking($oldBookingDetails, $_POST, $restaurantDetails['contact_no']);
+                    $success = editBooking($oldBookingDetails, $_POST, $restaurantDetails['contact_no']);
                 }
-            // } else {
-
-            // }
+                if ($success){
+                    //redirect to index.php page
+                    // header("Location: index.php");
+                }
+            } else {
+                unset($_POST['save']);
+                ?>
+                <script>  
+                    alert("<?php echo $msg?>");
+                </script>
+                <?php
+            }
         }
         if ($page_mode == "edit"){
             $arrQuery = array();
@@ -103,7 +128,7 @@
             $session = $bookingDetails['session'];
             $numberOfPax = $bookingDetails[$booking_booked1seaters] +(2*$bookingDetails[$booking_booked2seaters]) + (4*$bookingDetails[$booking_booked4seaters]);
         } else {
-            if (!isset($_POST['save'])){
+            if (!isset($_POST['hidden_save'])){
                 $date = date('Y-m-d', strtotime("today"));
                 $session = 'lunch';
                 $numberOfPax = 0;
@@ -139,7 +164,7 @@
                                 
                             <div id="bookingoptions" class="container">
                                 <form method="post" action="">
-                                    <input type="hidden" name="save" value="Add">
+                                    <input type="hidden" name="hidden_save" value=true>
                                     
                                     Date
                                     <?php
