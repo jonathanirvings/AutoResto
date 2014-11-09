@@ -32,6 +32,11 @@
                </div>
            </div>
    </div>
+    <nav id="nav">
+                <ul>
+                    <li class="signup"><a href="customer_new.php">Sign up</a></li>
+                </ul>
+            </nav>
     <!-- Header -->
     
 
