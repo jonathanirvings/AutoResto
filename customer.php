@@ -10,7 +10,16 @@
             
             public static function addCustomer($arrayData)
             {
-                return self::$dbOperation->insertData($arrayData);
+                global $customer_ic_no;
+                global $empty_string;
+                $arrCondition = array();
+                $arrCondition[$customer_ic_no] = $arrayData[$customer_ic_no];
+                $rows = self::$dbOperation->get($arrCondition,$empty_string);
+                if(count($rows)>0){
+                    return "Error! User already exists!";
+                }
+                self::$dbOperation->insertData($arrayData);
+                return "User registered successfully!";
             }
 
             public static function deleteCustomer($arrQuery)
@@ -18,11 +27,25 @@
                 return self::$dbOperation->deleteData($arrQuery);
             }
 
-            public static function editCustomer($arrayOld,$arrayNew)
+            public static function editCustomer($ic_no,$arrayNew)
             {
-                $bool1 = self::$dbOperation->deleteData($arrayOld);
-                $bool2 = self::$dbOperation->insertData($arrayNew);
-                return ($bool1&&$bool2);
+                global $customer_ic_no;
+                global $empty_string;
+
+                $arrValidation = array();
+                $arrValidation[$customer_ic_no] = $arrayNew[$customer_ic_no];
+                $rows = self::$dbOperation->get($arrValidation,$empty_string);
+                if((count($rows)>0)&&($ic_no!=$arrayNew[$customer_ic_no])){
+                    return "Error! User NRIC already exists!";
+                }
+
+                $arrCondition = array();
+                $arrCondition[$customer_ic_no] = $ic_no;
+                
+                self::$dbOperation->deleteData($arrCondition);
+                self::$dbOperation->insertData($arrayNew);
+                
+                return "User updated successfully!";
             }
 
             public static function getAllCustomers()

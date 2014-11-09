@@ -179,9 +179,9 @@
             return Customer::deleteCustomer($arrQuery);
         }
         
-        public function editCustomer($arrayOld,$arrayNew)
+        public function editCustomer($ic_no,$arrayNew)
         {
-            return Customer::editCustomer($arrayOld,$arrayNew);
+            return Customer::editCustomer($ic_no,$arrayNew);
         }
         
         public function getCustomers()
