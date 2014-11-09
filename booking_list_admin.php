@@ -5,16 +5,6 @@
     ?>
 </head>
 
-<?php
-function printNotAllowedMessage() {
-    ?>
-    <header>
-        <h2>You are not allowed to see this page</h2>
-    </header>
-    <?php
-}
-?>
-
 <body class="homepage">
     <!-- Header -->
     <?php
@@ -39,6 +29,11 @@ function printNotAllowedMessage() {
                             </header>
                             
                             <?php
+                            
+                                if (!$isAdmin) {
+                                    header("Location: no_permission.php");
+                                } 
+                            
                                 $page = 0;
                                 if (isset($_GET["page"])) {
                                     $page = $_GET["page"] - 1;
