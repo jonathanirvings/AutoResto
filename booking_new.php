@@ -30,7 +30,7 @@
             
             $bookingDetails = array(
                 'restaurant_contact_no' => $restaurant_contact_no,
-                'booker_ic_no' => $ic_number,
+                'booker_ic_no' => $bookingPost['booker_ic_no'],
                 'date' => $bookingPost['date'],
                 'session' => $bookingPost['session']
                 );
@@ -52,13 +52,13 @@
 
             $oldBookingDetails = array(
                 'restaurant_contact_no' => $restaurant_contact_no,
-                'booker_ic_no' => $ic_number,
+                'booker_ic_no' => $old['booker_ic_no'],
                 'date' => $old['date'],
                 'session' => $old['session']
                 );
             $newBookingDetails = array(
                 'restaurant_contact_no' => $restaurant_contact_no,
-                'booker_ic_no' => $ic_number,
+                'booker_ic_no' => $new['booker_ic_no'],
                 'date' => $new['date'],
                 'session' => $new['session']
                 );
@@ -91,7 +91,7 @@
                     $success = addBooking($_POST, $restaurantDetails['contact_no']);
                 } else if ($_POST['save'] == "Edit Booking"){
                     $arrQuery = array();
-                    $arrQuery['booker_ic_no'] = $ic_number;
+                    $arrQuery['booker_ic_no'] = $_GET['booker_ic_no'];
                     $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
                     $arrQuery['date'] = $_GET['date'];
                     $arrQuery['session'] = $_GET['session'];
@@ -114,12 +114,17 @@
                 <?php
             }
         }
+        
         if ($page_mode == "edit"){
             $arrQuery = array();
-            $arrQuery['booker_ic_no'] = $ic_number;
+            $arrQuery['booker_ic_no'] = $_GET['booker_ic_no'];
             $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
+            
+            if (!$isAdmin && $_GET["booker_ic_no"] != $ic_number) {
+                header("Location: no_permission.php");
+            }
             
             $bookingDetails = $eventHandler->getBookings($arrQuery);
             $bookingDetails = $bookingDetails[0];
@@ -165,6 +170,7 @@
                             <div id="bookingoptions" class="container">
                                 <form method="post" action="">
                                     <input type="hidden" name="hidden_save" value=true>
+                                    <input type="hidden" name="booker_ic_no" value=<?php echo ($page_mode != "edit") ? $ic_number : $_GET["booker_ic_no"]?> >
                                     
                                     Date
                                     <?php

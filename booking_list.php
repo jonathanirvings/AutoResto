@@ -85,10 +85,11 @@
                                                     <td> <?= $row['booked1seaters'] + (2*$row['booked2seaters']) + (4*$row['booked4seaters']) ?> </td>
                                                     <td>
                                                     <?php
+                                                        $booker_ic_no = $row['booker_ic_no'];
                                                         $contact_no = $restaurant['contact_no'];
                                                         $date = $row['date'];
                                                         $session = $row['session'];
-                                                        echo "<a href=\"booking_new.php?contact_no=$contact_no&date=$date&session=$session&page_mode=edit\">Edit</a> - <a href=\"booking_delete.php?restaurant_contact_no=$contact_no&date=$date&session=$session\">Delete</a>";
+                                                        echo "<a href=\"booking_new.php?booker_ic_no=$booker_ic_no&contact_no=$contact_no&date=$date&session=$session&page_mode=edit\">Edit</a> - <a href=\"booking_delete.php?restaurant_contact_no=$contact_no&date=$date&session=$session\">Delete</a>";
                                                     ?>
                                                     </td>
                                                 </tr>

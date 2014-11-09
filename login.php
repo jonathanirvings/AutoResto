@@ -67,6 +67,7 @@
                                             ?>
                                             <script>
                                                 $("#login_error").html("Invalid IC Number/Password");
+                                                //alert("Invalid IC Number/Password");
                                             </script>
                                             <?php
                                         }
