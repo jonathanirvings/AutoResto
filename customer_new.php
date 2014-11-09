@@ -68,6 +68,7 @@
             $newArray["isAdmin"] = 0;
             $error_message = $eventHandler->addCustomer($newArray);
             ?><script>
+            window.location.href = "login.php";
             alert("<?php echo $error_message; ?>");
             </script><?php
             return true;
