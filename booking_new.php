@@ -40,7 +40,7 @@
             if ($feedback == "Booking successful!") {
             ?>
                 <script>
-                    window.location.href = "index.php";
+                    window.location.href = "booking_list.php";
                     alert("<?php echo $feedback?>");
                 </script>
             <?php
