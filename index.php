@@ -118,12 +118,9 @@
                                                         $editLink = "<a href=\"restaurant_edit.php?contact_no=$restaurant&page_mode=edit\">Edit</a>";
                                                         $deleteLink = "<a href=\"restaurant_delete.php?contact_no=$restaurant\">Delete</a>";
                                                         $url = "";
-                                                        if ($row["open"])
+                                                        if ($row["open"] && !$isAdmin)
                                                         {
                                                             $url .= $bookLink;
-                                                            if ($isAdmin) {
-                                                                $url .= " - ".$editLink." - ".$deleteLink;
-                                                            }
                                                         } else if ($isAdmin)
                                                         {
                                                             $url = $editLink." - ".$deleteLink;
