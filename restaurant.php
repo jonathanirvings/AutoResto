@@ -33,9 +33,20 @@
         public static function editRestaurant($contact_no,$arrayNew)
         {
             global $restaurant_contact_no;
+            global $empty_string;
+            
+            $arrValidation = array();
+            $arrValidation[$restaurant_contact_no] = $arrayNew[$restaurant_contact_no];
+            $rows = self::$dbOperation->get($arrValidation,$empty_string);
+            if(count($rows)>0){
+                return "Error! Restaurant contact number already exists!";
+            }
+                        
             $arrCondition = array();
             $arrCondition[$restaurant_contact_no] = $contact_no;
             self::$dbOperation->updateData($arrCondition,$arrayNew);
+            
+            return "Restaurant updated successfully!";
         }
         
         public static function listOfRestaurants()
