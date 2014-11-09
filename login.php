@@ -62,6 +62,11 @@
                                             header('Location: index.php');
                                         } else
                                         {
+                                            ?>
+                                            <script>
+                                                alert("Invalid IC Number/Password");
+                                            </script>
+                                            <?php
                                             showLoginForm();
                                         }
                                     } else
