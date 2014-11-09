@@ -16,7 +16,7 @@
     <?php
         $page_mode = $_GET['page_mode'];
 
-        $eventHandler = new eventhandler();
+        $eventHandler = new EventHandler();
         if (isset($_GET['contact_no'])){
             $contact_no = $_GET['contact_no'];
         } else {
@@ -28,11 +28,12 @@
             global $ic_number;
             $eventHandler = new EventHandler();
             
-            $bookingDetails = [];
-            $bookingDetails['restaurant_contact_no'] = $restaurant_contact_no;
-            $bookingDetails['booker_ic_no'] = $ic_number;
-            $bookingDetails['date'] = $bookingPost['date'];
-            $bookingDetails['session'] = $bookingPost['session'];
+            $bookingDetails = array(
+                'restaurant_contact_no' => $restaurant_contact_no,
+                'booker_ic_no' => $ic_number,
+                'date' => $bookingPost['date'],
+                'session' => $bookingPost['session']
+                );
             $no_of_pax = $bookingPost['pax'];
             
             $feedback = $eventHandler->book($bookingDetails, $no_of_pax);
@@ -43,40 +44,74 @@
             </script>
             <?php
         }
-        
-        $arrQuery = array();
-        if (isset($_GET['contact_no']) && isset($_GET['date']) && isset($_GET['session'])){
+
+        function editBooking($old, $new, $restaurant_contact_no){
+            global $ic_number;
+            $eventHandler = new EventHandler();
+
+            $oldBookingDetails = array(
+                'restaurant_contact_no' => $restaurant_contact_no,
+                'booker_ic_no' => $ic_number,
+                'date' => $old['date'],
+                'session' => $old['session']
+                );
+            $newBookingDetails = array(
+                'restaurant_contact_no' => $restaurant_contact_no,
+                'booker_ic_no' => $ic_number,
+                'date' => $new['date'],
+                'session' => $new['session']
+                );
+            $feedback = $eventHandler->editBookings($oldBookingDetails, $newBookingDetails, $new['pax']);
+            ?>
+            <script>
+                alert("<?php echo $feedback?>");
+            </script>
+            <?php
+        }
+
+        if (isset($_POST['save'])){
+            // if (isValidBooking($_POST)){
+                if ($_POST['save'] == "Book"){
+                    addBooking($_POST, $restaurantDetails['contact_no']);
+                } else if ($_POST['save'] == "Edit Booking"){
+                    $arrQuery = array();
+                    $arrQuery['booker_ic_no'] = $ic_number;
+                    $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
+                    $arrQuery['date'] = $_GET['date'];
+                    $arrQuery['session'] = $_GET['session'];
+                    
+                    $oldBookingDetails = $eventHandler->getBookings($arrQuery);
+                    $oldBookingDetails = $oldBookingDetails[0];
+
+                    editBooking($oldBookingDetails, $_POST, $restaurantDetails['contact_no']);
+                }
+            // } else {
+
+            // }
+        }
+        if ($page_mode == "edit"){
+            $arrQuery = array();
             $arrQuery['booker_ic_no'] = $ic_number;
             $arrQuery['restaurant_contact_no'] = $_GET['contact_no'];
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
             
+            $bookingDetails = $eventHandler->getBookings($arrQuery);
+            $bookingDetails = $bookingDetails[0];
 
-            $rows = $eventHandler->getBookings($arrQuery);
-            $bookingDetails = $rows[0];
             $date = $bookingDetails['date'];
             $session = $bookingDetails['session'];
-            //how to manage this?
             $numberOfPax = $bookingDetails[$booking_booked1seaters] +(2*$bookingDetails[$booking_booked2seaters]) + (4*$bookingDetails[$booking_booked4seaters]);
-        }
-
-        if (isset($_POST['save'])){
-            if ($_POST['save'] == "Add"){
-                addBooking($_POST, $restaurantDetails['contact_no']);
+        } else {
+            if (!isset($_POST['save'])){
+                $date = date('Y-m-d', strtotime("today"));
+                $session = 'lunch';
+                $numberOfPax = 0;
             } else {
-                editBooking($bookingDetails, $_POST);
+                $date = $_POST['date'];
+                $session = $_POST['session'];
+                $numberOfPax = $_POST['pax'];
             }
-            $bookingDetails = $_POST;
-            $date = $bookingDetails['date'];
-            $session = $bookingDetails['session'];
-            $contact_no = $restaurantDetails['contact_no'];
-            header("Location: index.php");
-            //how to manage this?
-            $numberOfPax = 0;
-        } else if (!isset($_GET['page_mode']) || $page_mode == "add") {
-            $date = date('Y-m-d', strtotime("today"));
-            $session = 'lunch';
-            $numberOfPax = 0;
         }
     ?>
     <!-- Header -->
@@ -126,7 +161,7 @@
 
                                     </select>
                                     <?php echo $page_mode!="edit" ? "No of Pax." : "Seats Allocated"?> <input name="pax" id="pax" type="text" value="<?php echo $numberOfPax ?>"/>
-                                    <input type="submit" name="book" id="book" class="button" value="<?php echo ($page_mode != "edit") ? "Book" : "Edit Booking"?>"/>
+                                    <input type="submit" name="save" id="save" class="button" value="<?php echo ($page_mode != "edit") ? "Book" : "Edit Booking"?>"/>
                                 </form>
                             </div>
                             <div id="restaurantdetails" class="container">
