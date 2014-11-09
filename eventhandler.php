@@ -17,19 +17,19 @@
         
         public function addRestaurant($arrQuery)
         {
-            Restaurant::addRestaurant($arrQuery);
+            return Restaurant::addRestaurant($arrQuery);
         }
         
         // $arrQuery here contains all information in the table
         // e.g. $arrQuery["restaurant_name"] = "xxxx"; and all the information
         public function deleteRestaurant($arrQuery)
         {
-            Restaurant::deleteRestaurant($arrQuery);
+            return Restaurant::deleteRestaurant($arrQuery);
         }
         
         public function editRestaurant($contact_no,$arrayNew)
         {
-            Restaurant::editRestaurant($contact_no,$arrayNew);
+            return Restaurant::editRestaurant($contact_no,$arrayNew);
         }
 
         public function getListOfRestaurants($keyword_name,$keyword_address,$keyword_cuisine,$sortedKey)
@@ -169,24 +169,24 @@
         
         public function addCustomer($arrQuery)
         {
-            Customer::addCustomer($arrQuery);
+            return Customer::addCustomer($arrQuery);
         }
         
         // $arrQuery here contains all information in the table
         // e.g. $arrQuery["restaurant_name"] = "xxxx"; and all the information
         public function deleteCustomer($arrQuery)
         {
-            Customer::deleteCustomer($arrQuery);
+            return Customer::deleteCustomer($arrQuery);
         }
         
         public function editCustomer($arrayOld,$arrayNew)
         {
-            Customer::editCustomer($arrayOld,$arrayNew);
+            return Customer::editCustomer($arrayOld,$arrayNew);
         }
         
         public function getCustomers()
         {
-            Customer::getAllCustomers();
+            return Customer::getAllCustomers();
         }
         // $id is customer_ic_no, $password is customer_password
         public function login($id,$password)
