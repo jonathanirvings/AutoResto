@@ -216,7 +216,7 @@ Class Booking
                 }
                 
                 self::$dbOperation->deleteData($arrQueryOld);
-                self::$dbOperation->insertData($arrQueryNew);
+                self::book($arrQueryNew,$new_no_of_pax,$seatCapacity);
                 return "Edit booking successful!";
                 
             }
