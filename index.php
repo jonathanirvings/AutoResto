@@ -102,9 +102,10 @@
                                     <?php
                                         global $rows_each_page;
                                         if (sizeof($rows) > 0){
+                                            $numPages = ceil(sizeof($rows) / $rows_each_page);
+                                            $page = min($page,$numPages - 1);
                                             $firstRow = $page * $rows_each_page;
                                             $lastRow = min(($page+1) * $rows_each_page,sizeof($rows)) - 1;
-                                            $numPages = ceil(sizeof($rows) / $rows_each_page);
                                             echo "Showing from ".($firstRow+1)." to ".($lastRow+1)." from ".sizeof($rows)." rows";
                                             for ($i = $firstRow; $i <= $lastRow; ++$i){
                                                 $row = $rows[$i];

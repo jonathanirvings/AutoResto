@@ -74,9 +74,10 @@
                                     <?php
                                         global $rows_each_page;
                                         if (sizeof($bookingRows) > 0){
+                                            $numPages = ceil(sizeof($bookingRows) / $rows_each_page);
+                                            $page = min($page,$numPages - 1);
                                             $firstRow = $page * $rows_each_page;
                                             $lastRow = min(($page+1) * $rows_each_page,sizeof($bookingRows)) - 1;
-                                            $numPages = ceil(sizeof($bookingRows) / $rows_each_page);
                                             echo "Showing from ".($firstRow+1)." to ".($lastRow+1)." from ".sizeof($bookingRows)." rows";
                                             
                                             for ($i = $firstRow; $i <= $lastRow; ++$i){
