@@ -37,12 +37,14 @@
             $no_of_pax = $bookingPost['pax'];
             
             $feedback = $eventHandler->book($bookingDetails, $no_of_pax);
-            
+            if ($feedback == "Booking successful!") {
             ?>
-            <script>
-                alert("<?php echo $feedback?>");
-            </script>
+                <script>
+                    window.location.href = "index.php";
+                    alert("<?php echo $feedback?>");
+                </script>
             <?php
+            }
             return ($feedback == "Booking successful!");
         }
 
@@ -63,11 +65,14 @@
                 'session' => $new['session']
                 );
             $feedback = $eventHandler->editBookings($oldBookingDetails, $newBookingDetails, $new['pax']);
+            if ($feedback == "Edit booking successful!"){
             ?>
-            <script>
-                alert("<?php echo $feedback?>");
-            </script>
+                <script>
+                    window.location.href = "booking_list.php";
+                    alert("<?php echo $feedback?>");
+                </script>
             <?php
+            } 
             return ($feedback == "Edit booking successful!");
         }
 
