@@ -35,8 +35,14 @@
                             </header>
                             
                             <?php
-                                
+                                $page = 0;
+                                if (isset($_GET["page"])) {
+                                    $page = $_GET["page"] - 1;
+                                }
+                            
                                 //get list of the user's bookings
+                                $order_by = "";
+                                
                                 $bookingRows = $eventHandler->getBookingsByIC($ic_number);
                                 if(isset($_GET["order_by"])){
                                    $order_by = $_GET["order_by"];
@@ -44,6 +50,7 @@
                                 }
                             ?>
                             
+                            <div class="page_button"></div>
                             <form name="table">
                                 <table>
                                     <tr>
@@ -57,8 +64,14 @@
                                         <th> Options </th>
                                     </tr>
                                     <?php
+                                        global $rows_each_page;
                                         if (sizeof($bookingRows) > 0){
-                                            for ($i = 0; $i < sizeof($bookingRows); ++$i){
+                                            $firstRow = $page * $rows_each_page;
+                                            $lastRow = min(($page+1) * $rows_each_page,sizeof($bookingRows)) - 1;
+                                            $numPages = ceil(sizeof($bookingRows) / $rows_each_page);
+                                            echo "Showing from ".($firstRow+1)." to ".($lastRow+1)." from ".sizeof($bookingRows)." rows";
+                                            
+                                            for ($i = $firstRow; $i <= $lastRow; ++$i){
                                                 $row = $bookingRows[$i];
                                                 $restaurant = $eventHandler->getRestaurantDetails($row['restaurant_contact_no']);
                                             ?>
@@ -87,6 +100,23 @@
                                     ?>
                                 </table>
                             </form>
+                            <div class="page_button"></div>
+                            <?php
+                                if (sizeof($bookingRows) > 0)
+                                {
+                                    $pageButton = "Jump to Page ";
+                                    for ($i = 1; $i <= $numPages; ++$i) {
+                                                if ($order_by == "") {
+                                                    $pageButton .= "<a href='?page=".$i."'>".$i."</a>  ";
+                                                } else {
+                                                    $pageButton .= "<a href='?order_by=".$order_by."&page=".$i."'>".$i."</a>  ";
+                                                }
+                                            }
+                                }
+                            ?>
+                            <script>
+                                $(".page_button").html("<?php echo $pageButton;?>");
+                            </script>
                         </section>
                     </div>
                 </div>

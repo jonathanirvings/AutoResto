@@ -39,11 +39,19 @@ function printNotAllowedMessage() {
                             </header>
                             
                             <?php
+                                $page = 0;
+                                if (isset($_GET["page"])) {
+                                    $page = $_GET["page"] - 1;
+                                }
+                                
                                 $bookingRows = $eventHandler->getAllBookings();
+                                
                                 if (isset($_POST["filter"])) {
                                     $keyword_booker_ic = $_POST["booker_ic"];
                                     $bookingRows = $eventHandler->getBookingsSearch($keyword_booker_ic);
                                 }
+                                
+                                $order_by = "";
                                 if(isset($_GET["order_by"])){
                                    $order_by = $_GET["order_by"];
                                    $bookingRows = $eventHandler->sortBookings($bookingRows,$order_by);
@@ -54,6 +62,7 @@ function printNotAllowedMessage() {
                                     Booker IC <input name="booker_ic" id="booker_ic" type="text" value=""/>
                                     <input type="submit" name="search" id="search" class="button" value="Search"/>
                                 </form>
+                            <div class="page_button"></div>
                             <form name="table">
                                 <table>
                                     <tr>
@@ -68,8 +77,14 @@ function printNotAllowedMessage() {
                                         <th> Options </th>
                                     </tr>
                                     <?php
+                                        global $rows_each_page;
                                         if (sizeof($bookingRows) > 0){
-                                            for ($i = 0; $i < sizeof($bookingRows); ++$i){
+                                            $firstRow = $page * $rows_each_page;
+                                            $lastRow = min(($page+1) * $rows_each_page,sizeof($bookingRows)) - 1;
+                                            $numPages = ceil(sizeof($bookingRows) / $rows_each_page);
+                                            echo "Showing from ".($firstRow+1)." to ".($lastRow+1)." from ".sizeof($bookingRows)." rows";
+                                            
+                                            for ($i = $firstRow; $i <= $lastRow; ++$i){
                                                 $row = $bookingRows[$i];
                                                 $restaurant = $eventHandler->getRestaurantDetails($row['restaurant_contact_no']);
                                             ?>
@@ -94,11 +109,28 @@ function printNotAllowedMessage() {
                                             <?php
                                             }
                                         } else {
-                                            echo "<tr><td colspan='7'>There are no bookings to display.</td></tr>";
+                                            echo "<tr><td colspan='9'>There are no bookings to display.</td></tr>";
                                         }
                                     ?>
                                 </table>
                             </form>
+                            <div class="page_button"></div>
+                            <?php
+                                if (sizeof($bookingRows) > 0)
+                                {
+                                    $pageButton = "Jump to Page ";
+                                    for ($i = 1; $i <= $numPages; ++$i) {
+                                                if ($order_by == "") {
+                                                    $pageButton .= "<a href='?page=".$i."'>".$i."</a>  ";
+                                                } else {
+                                                    $pageButton .= "<a href='?order_by=".$order_by."&page=".$i."'>".$i."</a>  ";
+                                                }
+                                            }
+                                }
+                            ?>
+                            <script>
+                                $(".page_button").html("<?php echo $pageButton;?>");
+                            </script>
                         </section>
                     </div>
                 </div>
