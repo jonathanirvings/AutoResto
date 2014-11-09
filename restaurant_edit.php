@@ -30,7 +30,13 @@
             $newDetails['total4seaters'] = $newArray['total4seaters'];
             $newDetails['open'] = $newArray['open'];
 
-            $eventHandler->editRestaurant($contact_no, $newDetails);
+            $feedback = $eventHandler->editRestaurant($contact_no, $newDetails);
+            ?>
+            <script>
+                alert("<?php echo $feedback?>");
+            </script>
+            <?php
+            return ($feedback == "Restaurant updated successfully!");
         }
         
         function addRestaurant($newArray) {
@@ -46,7 +52,30 @@
             $newDetails['total4seaters'] = $newArray['total4seaters'];
             $newDetails['open'] = $newArray['open'];
 
-            $eventHandler->addRestaurant($newDetails);
+            $feedback = $eventHandler->addRestaurant($newDetails);
+            ?>
+            <script>
+                alert("<?php echo $feedback?>");
+            </script>
+            <?php
+            return ($feedback == "Restaurant added successfully!");
+        }
+
+        function isValidRestaurant($restaurantPost){
+            $msg = "";
+            if (trim($restaurantPost['restaurant_name']) == ""){
+                $msg .= "Restaurant name should not be empty.";
+            }
+            if (trim($restaurantPost['cuisine']) == ""){
+                $msg .= ($msg != "" ? " " : "") . "Cuisine type should not be empty.";
+            }
+            if (trim($restaurantPost['address']) == ""){
+                $msg .= ($msg != "" ? " " : "") . "Address should not be empty.";
+            }
+            if (trim($restaurantPost['contact_no']) == ""){
+                $msg .= ($msg != "" ? " " : "") . "Contact number should not be empty.";
+            }
+            return $msg;
         }
     ?>
     <!-- Header -->
@@ -71,14 +100,25 @@
                                 $restaurant = $eventHandler->getRestaurantDetails($contact_no);
 
                                 if (isset($_POST['save'])) {
-                                    if ($_POST['save'] == "Edit"){
-                                        editRestaurant($contact_no, $_POST);
+                                    $msg = isValidRestaurant($_POST);
+                                    if ($msg == ""){
+                                        if ($_POST['save'] == "Edit"){
+                                            $success = editRestaurant($contact_no, $_POST);
+                                        } else {
+                                            $success = addRestaurant($_POST);
+                                        }
+                                        if ($success) {
+                                            //redirect somewhere?
+                                        }
                                     } else {
-                                        addRestaurant($_POST);
+                                        unset($_POST['save']);
+                                        ?>
+                                        <script>  
+                                            alert("<?php echo $msg?>");
+                                        </script>
+                                        <?php
                                     }
                                     $restaurant = $_POST;
-                                    $contact_no = $restaurant['contact_no'];
-                                    header("Location: restaurant_edit.php?contact_no=$contact_no&page_mode=edit");
                                 }
                             ?>
 
