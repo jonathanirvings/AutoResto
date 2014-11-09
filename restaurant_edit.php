@@ -165,7 +165,7 @@
                                             <input name="total1seaters" id="total1seaters" type="text" size="25"  value="<?php echo $restaurant['total1seaters'] ?>"/>
                                             <h3>Total 2 Seaters</h3>
                                             <input name="total2seaters" id="total2seaters" type="text" size="25" value="<?php echo $restaurant['total2seaters'] ?>"/>
-                                            <h3>Total 1 Seaters</h3>
+                                            <h3>Total 4 Seaters</h3>
                                             <input name="total4seaters" id="total2seaters" type="text" size="25" value="<?php echo $restaurant['total4seaters'] ?>"/>
                                             <br><br>
                                             <input type="submit" name="save" id="save" class="button" size="50" value="<?php echo ($page_mode != "edit") ? "Add" : "Edit"?>"/>
