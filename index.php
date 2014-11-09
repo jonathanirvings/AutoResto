@@ -140,21 +140,24 @@
                                             <?php
                                             }
                                         } else {
-                                            echo "<tr><td colspan='5'>There are no bookings to display.</td></tr>";
+                                            echo "<tr><td colspan='9'>There are no bookings to display.</td></tr>";
                                         }
                                     ?>
                                 </table>
                             </form>
                             <div class="page_button"></div>
                             <?php
-                                $pageButton = "Jump to Page ";
-                                for ($i = 1; $i <= $numPages; ++$i) {
+                                if (sizeof($rows) > 0)
+                                {
+                                    $pageButton = "Jump to Page ";
+                                    for ($i = 1; $i <= $numPages; ++$i) {
                                                 if ($order_by == "") {
                                                     $pageButton .= "<a href='?page=".$i."'>".$i."</a>  ";
                                                 } else {
                                                     $pageButton .= "<a href='?order_by=".$order_by."&page=".$i."'>".$i."</a>  ";
                                                 }
                                             }
+                                }
                             ?>
                             <script>
                                 $(".page_button").html("<?php echo $pageButton;?>");
