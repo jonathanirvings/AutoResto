@@ -25,7 +25,7 @@
         <div id="page">
 
        <!-- Main -->
-            <div id="main" class="container">
+            <div class="container">
                 <div class="row">
                     <div class="15u">
                         <section>
