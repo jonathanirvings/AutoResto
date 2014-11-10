@@ -127,7 +127,7 @@
             $arrQuery['date'] = $_GET['date'];
             $arrQuery['session'] = $_GET['session'];
             
-            if (!$isAdmin && $_GET["booker_ic_no"] != $ic_number) {
+            if (!$isAdmin && strtoupper($_GET["booker_ic_no"]) != strtoupper($ic_number)) {
                 header("Location: no_permission.php");
             }
             
