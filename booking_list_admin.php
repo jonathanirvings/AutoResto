@@ -37,20 +37,28 @@
                                 $page = 0;
                                 if (isset($_GET["page"])) {
                                     $page = $_GET["page"] - 1;
+                                    if (!isset($_POST["filter"]) && isset($_SESSION["post_data"])) {
+                                        $_POST = $_SESSION["post_data"];
+                                    }
                                 }
                                 
                                 $bookingRows = $eventHandler->getAllBookings();
+                                
+                                $order_by = "";
+                                if(isset($_GET["order_by"])){
+                                   $order_by = $_GET["order_by"];
+                                   $bookingRows = $eventHandler->sortBookings($bookingRows,$order_by);
+                                   if (!isset($_POST["filter"]) && isset($_SESSION["post_data"])) {
+                                        $_POST = $_SESSION["post_data"];
+                                    }
+                                }
                                 
                                 if (isset($_POST["filter"])) {
                                     $keyword_booker_ic = $_POST["booker_ic"];
                                     $bookingRows = $eventHandler->getBookingsSearch($keyword_booker_ic);
                                 }
                                 
-                                $order_by = "";
-                                if(isset($_GET["order_by"])){
-                                   $order_by = $_GET["order_by"];
-                                   $bookingRows = $eventHandler->sortBookings($bookingRows,$order_by);
-                                }
+                                $_SESSION['post_data'] = $_POST;
                             ?>
                             <form id="filtering" method="post">
                                     <input name="filter" type="hidden" value="true"/>
