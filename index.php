@@ -44,16 +44,25 @@
                             
                             <?php
                                 $page = 0;
+                                
                                 if (isset($_GET["page"])) {
                                     $page = $_GET["page"] - 1;
+                                    if (!isset($_POST["filter"]) && isset($_SESSION["post_data"])) {
+                                        $_POST = $_SESSION["post_data"];
+                                    }
                                 }
                             
                                 if(isset($_GET["order_by"])){
-                                   $order_by = $_GET["order_by"];
+                                    if (!isset($_POST["filter"]) && isset($_SESSION["post_data"])) {
+                                        $_POST = $_SESSION["post_data"];
+                                    }
+                                    $order_by = $_GET["order_by"];
                                 }
                                 else{
                                    $order_by = "";
                                 }
+                                
+                                $_SESSION['post_data'] = $_POST;
                                 
                                 $rows = $eventHandler->getListOfRestaurants("","","",$order_by);
                                 
@@ -86,6 +95,8 @@
                                 ?>
                             </div>
                             <div class="page_button"></div>
+                            <?php
+                            ?>
                             <form name="table">
                                 <table>
                                     <tr>
