@@ -2,12 +2,12 @@
 	Class DBOperation
 	{
 		private $tableName;
-		private $dbHandler;
+		private static $dbHandler;
 
 		public function DBOperation($tableName)
 		{
 			$this->tableName = $tableName;
-			$this->dbHandler = new DBHandler();
+			self::$dbHandler = new DBHandler();
 		}
 
                 /**
@@ -33,7 +33,7 @@
                             $values = $values."\"".$value."\"";
                         }
 			$query = "INSERT INTO ".$this->tableName." (".$keys.") VALUES (".$values.")";
-			return $this->dbHandler->doQuery($query);
+			return self::$dbHandler->doQuery($query);
 		}
                 
                 private function commandiseCondition($condition)
@@ -94,7 +94,7 @@
                     {
                         $query = $query." WHERE ".$conditionCommand;
                     }
-                    return $this->dbHandler->doQuery($query);
+                    return self::$dbHandler->doQuery($query);
 		}
 
                 /**
@@ -110,7 +110,7 @@
                     {
                         $query = $query." WHERE ".$conditionCommand;
                     }
-                    return $this->dbHandler->doQuery($query);
+                    return self::$dbHandler->doQuery($query);
 		}
                 
                 /**
@@ -135,7 +135,7 @@
                     {
                         $query = $query." ORDER BY ".$sortBy;
                     }
-                    return $this->dbHandler->getQuery($query);
+                    return self::$dbHandler->getQuery($query);
 		}
                 
                 public function getSearch($searchConditions,$sortBy)
@@ -150,7 +150,7 @@
                     {
                         $query = $query." ORDER BY ".$sortBy;
                     }
-                    return $this->dbHandler->getQuery($query);
+                    return self::$dbHandler->getQuery($query);
 		}
                
                 
@@ -161,7 +161,7 @@
 		public function getAll()
 		{
 			$query = "SELECT * FROM ".$this->tableName;
-			return $this->dbHandler->getQuery($query);
+			return self::$dbHandler->getQuery($query);
 		}
 
 	};
