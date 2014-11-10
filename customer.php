@@ -59,7 +59,7 @@
                 global $customer_ic_no;
                 global $customer_password;
                 global $empty_string;
-                $arrQuery = [];
+                $arrQuery = array();
                 $arrQuery[$customer_ic_no] = $id;
                 $arrQuery[$customer_password] = $password;
                 $result = self::$dbOperation->get($arrQuery,$empty_string);
@@ -91,7 +91,7 @@
             public static function isValidIC($ic_no){
                 global $customer_ic_no;
                 global $empty_string;
-                $arrQuery = [];
+                $arrQuery = array();
                 $arrQuery[$customer_ic_no] = $ic_no;
                 $rows = self::$dbOperation->get($arrQuery,$empty_string);
                 $totalRows = count($rows);

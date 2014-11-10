@@ -22,7 +22,7 @@
 	public function getQuery($query)
 	{
             $result = mysqli_query($this->con,$query);
-            $data = [];
+            $data = array();
             $i = 0;
             while ($data[$i++] = mysqli_fetch_array($result));
             unset($data[count($data)-1]);

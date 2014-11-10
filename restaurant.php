@@ -56,7 +56,7 @@
         
         public static function listOfRestaurantsSorted($sortBy)
         {
-            $arrQuery = [];
+            $arrQuery = array();
             return self::$dbOperation->get($arrQuery,$sortBy);
         }
         
@@ -75,7 +75,7 @@
         {
             global $restaurant_contact_no;
             global $empty_string;
-            $arrQuery = [];
+            $arrQuery = array();
             $arrQuery[$restaurant_contact_no] = $resto_contact_number;
             $rows = self::$dbOperation->get($arrQuery,$empty_string);
             if(count($rows) == 1){
@@ -91,11 +91,11 @@
             global $restaurant_total2seaters;
             global $restaurant_total4seaters;
             global $empty_string;
-            $condition2 = [];
+            $condition2 = array();
             $condition2[$restaurant_contact_no] = $resto_contact_number;
             $rows2 = self::$dbOperation->get($condition2,$empty_string);
             $row2 = $rows2[0];
-            $seatCapacity = [];
+            $seatCapacity = array();
             $seatCapacity[$restaurant_total1seaters] = $row2[$restaurant_total1seaters];
             $seatCapacity[$restaurant_total2seaters] = $row2[$restaurant_total2seaters];
             $seatCapacity[$restaurant_total4seaters] = $row2[$restaurant_total4seaters];
@@ -106,7 +106,7 @@
         {
             global $restaurant_contact_no;
             global $empty_string;
-            $arrQuery = [];
+            $arrQuery = array();
             $arrQuery[$restaurant_contact_no] = $contact_no;
             $rows = self::$dbOperation->get($arrQuery,$empty_string);
             $totalRows = count($rows);

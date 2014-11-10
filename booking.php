@@ -22,14 +22,14 @@ Class Booking
                  //assuming all table 1,2,and 4 seaters are mobile and can be moved around conveniently 
                 
                 //counts the number of seats taken
-                $condition1 = [];
+                $condition1 = array();
                 $condition1[$booking_restaurant_key] = $arrQuery[$booking_restaurant_key];
                 $condition1[$booking_date] = $arrQuery[$booking_date];
                 $condition1[$booking_session] = $arrQuery[$booking_session];
                 
                 $rows = self::$dbOperation->get($condition1,$empty_string);
              
-                $seatTaken = [];
+                $seatTaken = array();
                 $seatTaken[$one] = 0;
                 $seatTaken[$two] = 0;
                 $seatTaken[$four] = 0;
@@ -196,7 +196,7 @@ Class Booking
                 
                 //if it is the same restaurant, corner case, need to calculate the deleted seats
                 if($cond1&&$cond2&&$cond3&&$cond4){
-                    $condition = [];
+                    $condition = array();
                     $condition[$booking_restaurant_key] = $arrQueryOld[$booking_restaurant_key];
                     $condition[$booking_date] = $arrQueryOld[$booking_date];
                     $condition[$booking_session] = $arrQueryOld[$booking_session];
@@ -230,7 +230,7 @@ Class Booking
             {
                 global $booking_booker_key;
                 global $booking_date;
-                $arrQuery = [];
+                $arrQuery = array();
                 $arrQuery[$booking_booker_key] = $ic_no;
                 return self::$dbOperation->get($arrQuery,$booking_date);
             }
@@ -248,7 +248,7 @@ Class Booking
             public static function getBookingsSearch($keyword_booker_ic){
                 global $booking_booker_key;
                 global $booking_date;
-                $arrQuery = [];
+                $arrQuery = array();
                 $arrQuery[$booking_booker_key] = $keyword_booker_ic;
                 return self::$dbOperation->getSearch($arrQuery,$booking_date);
             }

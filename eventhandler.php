@@ -75,7 +75,7 @@
             global $booking_date;
             global $booking_session;
             
-            $arrQuery = [];
+            $arrQuery = array();
             $arrQuery[$booking_restaurant_key] = $condition[$booking_restaurant_key];
             $arrQuery[$booking_booker_key] = $condition[$booking_booker_key];
             $arrQuery[$booking_date] = $condition[$booking_date];
@@ -121,7 +121,7 @@
             
             $arrQueryOld = $conditionOld;
             
-            $arrQueryNew = [];
+            $arrQueryNew = array();
             $arrQueryNew[$booking_restaurant_key] = $conditionNew[$booking_restaurant_key];
             $arrQueryNew[$booking_booker_key] = $conditionNew[$booking_booker_key];
             $arrQueryNew[$booking_date] = $conditionNew[$booking_date];
