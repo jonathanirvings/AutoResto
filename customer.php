@@ -34,18 +34,11 @@
                 global $customer_ic_no;
                 global $empty_string;
 
-                $arrValidation = array();
-                $arrValidation[$customer_ic_no] = $arrayNew[$customer_ic_no];
-                $rows = self::$dbOperation->get($arrValidation,$empty_string);
-                if((count($rows)>0)&&($ic_no!=$arrayNew[$customer_ic_no])){
-                    return "Error! User NRIC already exists!";
-                }
-
+         
                 $arrCondition = array();
                 $arrCondition[$customer_ic_no] = $ic_no;
                 
-                self::$dbOperation->deleteData($arrCondition);
-                self::$dbOperation->insertData($arrayNew);
+                self::$dbOperation->updateData($arrCondition,$arrayNew);
                 
                 return "User updated successfully!";
             }
@@ -107,6 +100,13 @@
                 $cond = array();
                 $cond[$customer_ic_no] = $ic_number;
                 return self::$dbOperation->get($cond)[0][$customer_name];
+            }
+            
+            public static function getCustomerDetails($ic_number) {
+                global $customer_ic_no;
+                $cond = array();
+                $cond[$customer_ic_no] = $ic_number;
+                return self::$dbOperation->get($cond)[0];
             }
                 
 	};
