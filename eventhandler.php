@@ -189,6 +189,12 @@
         {
             return Customer::getAllCustomers();
         }
+        
+        public function getCustomerDetails($ic_number)
+        {
+            return Customer::getCustomerDetails($ic_number);
+        }
+        
         // $id is customer_ic_no, $password is customer_password
         public function login($id,$password)
         {
