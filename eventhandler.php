@@ -169,7 +169,8 @@
         
         public function addCustomer($arrQuery)
         {
-            $arrQuery['password'] = md5($arrQuery['password']);
+            global $customer_password;
+            $arrQuery[$customer_password] = md5($arrQuery[$customer_password]);
             return Customer::addCustomer($arrQuery);
         }
         
@@ -182,6 +183,13 @@
         
         public function editCustomer($ic_no,$arrayNew)
         {
+            return Customer::editCustomer($ic_no,$arrayNew);
+        }
+        
+        public function changePasswordCustomer($ic_no,$arrayNew)
+        {
+            global $customer_password;
+            $arrayNew[$customer_password] = md5($arrayNew[$customer_password]);
             return Customer::editCustomer($ic_no,$arrayNew);
         }
         
