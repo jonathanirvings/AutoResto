@@ -79,7 +79,7 @@
                     <div class="15u">
                         <section>
                             <header>
-                                <span class="byline">Manage Account</span>
+                                <span class="byline">Update Particular</span>
                             </header>
                                 
                             <div id="bookingoptions" class="container">
@@ -97,6 +97,8 @@
                                     <input type="submit" name="save" id="save" class="button" value="Update"/>
                                 </form>
                             </div>
+                            <br>
+                            <a href="change_password.php">Change Password?</a>
                         </section>
                     </div>
                 </div>
