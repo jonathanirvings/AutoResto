@@ -106,7 +106,15 @@
                 global $customer_ic_no;
                 $cond = array();
                 $cond[$customer_ic_no] = $ic_number;
-                return self::$dbOperation->get($cond)[0];
+                
+                $result = self::$dbOperation->get($cond);
+                
+                $successful = count($result);
+                if($successful == 1 ){
+                    return $result[0];
+                }
+                $blank_array = array();
+                return $blank_array;
             }
                 
 	};
