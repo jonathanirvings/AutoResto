@@ -77,9 +77,7 @@
                 return false;
             }           
             
-            $newArray = array();
-            $newArray[$customer_password] = $password_new;
-            $error_message = $eventHandler->changePasswordCustomer($ic_number,$newArray);
+            $error_message = $eventHandler->changePasswordCustomer($ic_number,$password_new);
             ?><script>
             alert("Password changed successfully!");
             window.location.href = "index.php";

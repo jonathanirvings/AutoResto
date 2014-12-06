@@ -186,10 +186,11 @@
             return Customer::editCustomer($ic_no,$arrayNew);
         }
         
-        public function changePasswordCustomer($ic_no,$arrayNew)
+        public function changePasswordCustomer($ic_no,$new_password)
         {
             global $customer_password;
-            $arrayNew[$customer_password] = md5($arrayNew[$customer_password]);
+            $arrayNew = array();
+            $arrayNew[$customer_password] = md5($new_password);
             return Customer::editCustomer($ic_no,$arrayNew);
         }
         
