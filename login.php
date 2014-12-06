@@ -17,6 +17,9 @@
             <input type="submit" name="login" id="login" class="button" value="login"/>
             <p class="error_message" id="login_error"></p>
         </form>
+        <br>
+        <a href="reset_password.php">Reset your password</a>
+
         <?php
     }
 
