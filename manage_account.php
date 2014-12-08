@@ -20,8 +20,12 @@
     <?php
     
         global $eventHandler;
+        if (isset($_GET['ic_no'])){
+            $ic_number = $_GET["ic_no"];
+        } else {
+            $ic_number = $_SESSION["ic_number"];
+        }
         
-        $ic_number = $_SESSION["ic_number"];
         $customer_details = $eventHandler->getCustomerDetails($ic_number);
         
         global $customer_name;
@@ -49,7 +53,11 @@
         function editUser() {
             global $eventHandler;
             
-            $ic_number = $_SESSION["ic_number"];
+            if (isset($_GET['ic_no'])){
+                $ic_number = $_GET["ic_no"];
+            } else {
+                $ic_number = $_SESSION["ic_number"];
+            }
             $name = $_POST["name"];
             $email = $_POST["email"];
             $contact_no = $_POST["contact_no"];
@@ -98,13 +106,24 @@
                                 </form>
                             </div>
                             <br>
-                            <a href="change_password.php">Change Password?</a>
+                            <a href=<?php
+                                if (isset($_GET['ic_no'])){
+                                    $ic_number = $_GET["ic_no"];
+                                    echo "change_password.php?ic_no=$ic_number";
+                                } else {
+                                    echo "change_password.php";
+                                }?>
+                               >Change Password?</a>
                             <br>
                             <?php
                                 global $eventHandler;
                                 global $customer_is_admin;
         
-                                $ic_number = $_SESSION["ic_number"];
+                                if (isset($_GET['ic_no'])){
+                                    $ic_number = $_GET["ic_no"];
+                                } else {
+                                    $ic_number = $_SESSION["ic_number"];
+                                }
                                 $customer_details = $eventHandler->getCustomerDetails($ic_number);
                                 
                                 if($customer_details[$customer_is_admin] == 1){

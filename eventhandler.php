@@ -194,9 +194,33 @@
             return Customer::editCustomer($ic_no,$arrayNew);
         }
         
-        public function getCustomers()
+        public function getAllCustomers()
         {
             return Customer::getAllCustomers();
+        }
+        
+        public function getCustomers($arrQuery)
+        {
+            return Customer::getCustomers($arrQuery);
+        }
+        
+        public function getCustomersSearch($customer_ic)
+        {
+            return Customer::getCustomersSearch($customer_ic);
+        }
+        
+        public function sortCustomers($listOfCustomers,$sortKey)
+        {
+            for ($i = 0; $i < count($listOfCustomers); ++$i) {
+                for ($j = $i; $j < count($listOfCustomers); ++$j) {
+                    if ($listOfCustomers[$j][$sortKey] < $listOfCustomers[$i][$sortKey]) {
+                        $temp = $listOfCustomers[$i];
+                        $listOfCustomers[$i] = $listOfCustomers[$j];
+                        $listOfCustomers[$j] = $temp;
+                    }
+                }
+            }
+            return $listOfCustomers;
         }
         
         public function getCustomerDetails($ic_number)
