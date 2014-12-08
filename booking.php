@@ -202,7 +202,8 @@ Class Booking
                     $condition[$booking_session] = $arrQueryOld[$booking_session];
                     $condition[$booking_booker_key] = $arrQueryOld[$booking_booker_key];
 
-                    $row = self::$dbOperation->get($condition,$empty_string)[0];
+                    $result = self::$dbOperation->get($condition,$empty_string);
+                    $row = $result[0];
                     
                     $totalSeatDeleted = $row[$booking_booked1seaters] + (2*$row[$booking_booked2seaters]) + (4*$row[$booking_booked4seaters]);
                 }

@@ -48,6 +48,19 @@
                 return self::$dbOperation->getAll();
             }
             
+            public static function getCustomers($arrQuery)
+            {
+                return self::$dbOperation->get($arrQuery);
+            }
+            
+            public static function getCustomersSearch($customer_ic){
+                global $customer_ic_no;
+                global $customer_name;
+                $arrQuery = array();
+                $arrQuery[$customer_ic_no] = $customer_ic;
+                return self::$dbOperation->getSearch($arrQuery,$customer_ic_no);
+            }
+            
             public static function isLoginSuccessful($id,$password){
                 global $customer_ic_no;
                 global $customer_password;
@@ -99,7 +112,9 @@
                 global $customer_ic_no;
                 $cond = array();
                 $cond[$customer_ic_no] = $ic_number;
-                return self::$dbOperation->get($cond)[0][$customer_name];
+                $result = self::$dbOperation->get($cond);
+                $row = $result[0];
+                return $row[$customer_name];
             }
             
             public static function getCustomerDetails($ic_number) {
