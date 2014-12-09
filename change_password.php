@@ -20,11 +20,7 @@
     <?php
         global $eventHandler;
         
-        if (isset($_GET['ic_no'])){
-            $ic_number = $_GET["ic_no"];
-        } else {
-            $ic_number = $_SESSION["ic_number"];
-        }
+        $ic_number = $_SESSION["ic_number"];
         $customer_details = $eventHandler->getCustomerDetails($ic_number);
         
         global $customer_name;
@@ -66,11 +62,7 @@
             global $eventHandler;
             global $customer_password;
             
-            if (isset($_GET['ic_no'])){
-                $ic_number = $_GET["ic_no"];
-            } else {
-                $ic_number = $_SESSION["ic_number"];
-            }
+            $ic_number = $_SESSION["ic_number"];
             
             $customer_details = $eventHandler->getCustomerDetails($ic_number);
             $password_old_database = $customer_details[$customer_password];

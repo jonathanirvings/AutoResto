@@ -106,14 +106,11 @@
                                 </form>
                             </div>
                             <br>
-                            <a href=<?php
-                                if (isset($_GET['ic_no'])){
-                                    $ic_number = $_GET["ic_no"];
-                                    echo "change_password.php?ic_no=$ic_number";
-                                } else {
-                                    echo "change_password.php";
-                                }?>
-                               >Change Password?</a>
+                            <?php
+                            if (!isset($_GET['ic_no'])){
+                               echo "<a href=\"change_password.php\">Change Password?</a>";
+                            }
+                            ?>
                             <br>
                             <?php
                                 global $eventHandler;
