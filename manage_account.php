@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>AutoResto - Account</title>
     <?php
     include "htmlHeader.php";
     ?>

@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>AutoResto - Change Password</title>
     <?php
     include "htmlHeaderLogin.php";
     ?>

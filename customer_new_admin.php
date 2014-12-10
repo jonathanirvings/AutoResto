@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>AutoResto - Create New Admin</title>
     <?php
     include "htmlHeaderLogin.php";
     ?>

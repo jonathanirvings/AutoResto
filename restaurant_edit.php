@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>AutoResto - Restaurant</title>
     <?php
     include "htmlHeader.php";
     ?>

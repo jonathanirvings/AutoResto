@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>AutoResto - Reset Password</title>
     <?php
     include "htmlHeaderLogin.php";
     ?>

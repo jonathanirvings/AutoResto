@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>AutoResto - Login</title>
     <?php
     include "htmlHeaderLogin.php";
     ?>
