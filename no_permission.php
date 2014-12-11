@@ -1,5 +1,6 @@
 <html>
 <head>
+    <title>AutoResto - Forbidden</title>
     <?php
     include "htmlHeader.php";
     ?>
