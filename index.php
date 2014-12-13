@@ -156,6 +156,7 @@
                                             echo "<tr><td colspan='9'>There are no bookings to display.</td></tr>";
                                         }
                                     ?>
+                                                
                                 </table>
                             </form>
                             <div class="page_button"></div>
@@ -177,6 +178,10 @@
                             </script>
                         </section>
                     </div>
+                    <?php
+                    if  ($isAdmin){ ?>
+                    <a> *Please note a restaurant cannot be deleted if there are related bookings. Update the restaurant as closed instead. </a>
+                    <?php } ?>
                 </div>
             </div>
             <!-- Main -->
