@@ -131,7 +131,7 @@
                                 $(".page_button").html("<?php echo $pageButton;?>");
                             </script>
                         </section>
-                        <a> *Make sure you have deleted all bookings related to a user before deleting his/her account </a>
+                        <a> *Please note that if a user is deleted, related bookings will also be deleted. </a>
                     </div>
                 </div>
             </div>

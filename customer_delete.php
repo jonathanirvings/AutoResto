@@ -14,7 +14,7 @@ function deleteCustomer($arrQuery){
 <?php
 	deleteCustomer($_GET);
 
-	//header('Location: customer_list_admin.php');
+	header('Location: customer_list_admin.php');
 ?>
 
 </body>
