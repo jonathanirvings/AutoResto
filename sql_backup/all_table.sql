@@ -212,8 +212,8 @@ INSERT INTO `restaurant` (`restaurant_name`, `address`, `contact_no`, `cuisine`,
 --
 
 CREATE TABLE IF NOT EXISTS `booking` (
-  `booker_ic_no` varchar(256) NOT NULL DEFAULT '',
-  `restaurant_contact_no` varchar(256) NOT NULL DEFAULT '',
+  `booker_ic_no` char(20) NOT NULL DEFAULT '',
+  `restaurant_contact_no` char(10) NOT NULL DEFAULT '',
   `date` date NOT NULL DEFAULT '0000-00-00',
   `session` char(10) NOT NULL DEFAULT '',
   `booked1seaters` int(11) NOT NULL DEFAULT '0',
